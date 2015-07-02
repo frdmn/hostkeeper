@@ -1,10 +1,25 @@
+# Prefer Wi-Fi network for network bridge
+preferred_interfaces = [
+  'Wi-Fi',
+  'WLAN'
+]
+
+# Store possible interface names
+host_interfaces = %x( VBoxManage list bridgedifs | grep ^Name )
+                  .gsub(/Name:\s+/, '')
+                  .split("\n")
+
+# Select the most similiar one to our preferred interfaces
+$network_interface_to_use = preferred_interfaces.map{ |pi| host_interfaces.find { |vm| vm =~ /#{Regexp.quote(pi)}/ } }.compact[0]
+
+# Use Vagrant config version 2
 Vagrant.configure("2") do |config|
     # Use Ubuntu 14.04 LTS
     config.vm.box = "ubuntu/trusty64"
     # Shell provisioning script for bootstrapping
     config.vm.provision :shell, :path => "bootstrap.sh"
-    # Static private IP
-    config.vm.network "private_network", ip: "192.168.33.10"
+    # Use DHCP to assign private IP
+    config.vm.network "public_network", bridge: $network_interface_to_use
 
     config.vm.provider :virtualbox do |vb|
         # Sync "public/" folder to guest system
