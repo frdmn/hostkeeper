@@ -1,0 +1,5 @@
+### OS X meta ###
+.DS_Store
+
+### hostinator ###
+.vagrant/
