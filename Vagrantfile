@@ -21,9 +21,10 @@ Vagrant.configure("2") do |config|
     # Use DHCP to assign private IP
     config.vm.network "public_network", bridge: $network_interface_to_use
 
+    # Sync "public/" folder to guest system "/var/www/html"
+    config.vm.synced_folder "./public", "/var/www/html", :owner=>"root",:group=>"www-data"
+
     config.vm.provider :virtualbox do |vb|
-        # Sync "public/" folder to guest system
-        vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
         # 512 MB memory
         vb.customize ["modifyvm", :id, "--memory", "512"]
     end
