@@ -27,5 +27,6 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Restart dnsmasq
     service dnsmasq restart
     echo "Done! Try to run the following command on your host to test the DNS server:"
-    echo "$ dig this.is.a.tld.test @192.168.33.10 +short"
+    guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
+    echo "$ dig this.is.a.tld.test @${guestIP} +short"
 fi
