@@ -3,3 +3,6 @@
 
 ### hostinator ###
 .vagrant/
+
+### hostinator-WebUI ###
+public/node_modules
