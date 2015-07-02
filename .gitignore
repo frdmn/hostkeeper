@@ -9,6 +9,7 @@ public/node_modules
 public/bower_components
 public/assets/js/build.js
 public/assets/js/modernizr.js
+public/assets/css/style.css.map
 public/assets/css/*.css
 public/assets/fonts/*
 !public/assets/fonts/.gitkeep
