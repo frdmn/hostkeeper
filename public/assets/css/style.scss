@@ -1,3 +1,17 @@
-body {
-  background: black;
-}
+//
+//  Variables
+//
+
+$icon-font-path: "../fonts/";
+
+//
+//  Imports
+//
+
+/* Bower */
+@import 'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
+
+/* Bower (grunt-copy) components */
+
+/* Custom */
+@import 'core';
