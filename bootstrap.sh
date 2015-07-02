@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# dnsmasq configuration file
+dnsmasqconfig="$(cat <<-ENDOFCONFIG
+no-dhcp-interface=
+server=8.8.8.8
+
+no-hosts
+addn-hosts=/etc/dnsmasq.hosts
+ENDOFCONFIG
+)"
+
 # Make sure to use root user
 sudo su
 
@@ -7,6 +17,15 @@ sudo su
 if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Update apt repositories
     apt-get -y update
-    # Install requirements for further unattended installation
-    #apt-get install -y python-software-properties vim git subversion curl build-essential
+    # Install ...
+    apt-get install -y curl vim git build-essential                 # ... requirements
+    apt-get install -y apache2 php5 libapache2-mod-php5 php5-mysql  # ... web server + php
+    apt-get install -y dnsmasq                                      # ... dnsmasq
+    # Base config for dnsmasq
+    echo "$dnsmasqconfig" > /etc/dnsmasq.conf
+    echo "1.2.3.4 this.is.a.tld.test" >> /etc/dnsmasq.hosts
+    # Restart dnsmasq
+    service dnsmasq restart
+    echo "Done! Try to run the following command on your host to test the DNS server:"
+    echo "$ dig this.is.a.tld.test @192.168.33.10 +short"
 fi
