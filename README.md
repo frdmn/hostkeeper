@@ -32,7 +32,7 @@ Simple DNS server and web interface to provide LAN-wide host<->IP mappings for d
 
 ## Version
 
-1.0.0
+0.0.1
 
 ## License
 
