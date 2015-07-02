@@ -1,5 +1,5 @@
 {
-  "name": "hostinator",
+  "name": "hostkeeper",
   "version": "0.0.1",
   "description": "Web interface for LAN-wide host<->IP mappings during development",
   "authors": [

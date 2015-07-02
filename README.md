@@ -1,4 +1,4 @@
-# hostinator (WIP)
+# hostkeeper (WIP)
 
 Simple DNS server and web interface to provide LAN-wide host<->IP mappings for development testing. Similar to the `/etc/hosts` file.
 

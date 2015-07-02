@@ -1,10 +1,10 @@
 ### OS X meta ###
 .DS_Store
 
-### hostinator ###
+### hostkeeper ###
 .vagrant/
 
-### hostinator-WebUI ###
+### hostkeeper-WebUI ###
 public/node_modules
 public/bower_components
 public/assets/js/build.js
