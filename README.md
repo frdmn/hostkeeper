@@ -5,10 +5,18 @@ Simple DNS server and web interface to provide LAN-wide host<->IP mappings for d
 ## Installation
 
 1. Make sure you've installed all requirements
-2. Clone this repository:
-  `git clone https://github.com/frdmn/hostinator`
-3. Install the project using `make`:
-  `make install`
+2. Clone this repository:  
+  `git clone https://github.com/frdmn/hostkeeper`
+3. Compile the assets of the web interface:  
+  `cd public`  
+  `npm install`  
+  `npm bower install`  
+  `grunt`  
+3. Boot up the Vagrant box using:  
+  `vagrant up`
+4. Add your desired host/IP mappings in the _hostkeeper_ webinterface:  
+  `http://192.168.1.21` (The guest system tries to setup an bridged network interface from the WiFi interface of your Mac)
+5. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
 
 ## Contributing
 
