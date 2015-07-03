@@ -6,7 +6,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba($colorGrey, .95);
+  background: rgba($colorGrey, .985);
   transform: translateY(100%);
   visibility: hidden;
   opacity: 0;
@@ -28,7 +28,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     margin-left: -99px;
     visibility: hidden;
     opacity: 0;
-    transform: translateY(-50%);
+    transform: translateY(-25%);
     transition: .3s $easeInOut;
   }
   .modal__child--1 { transition-delay: .3s; }
@@ -52,12 +52,12 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     }
   }
 
-  &--loading {
+  &--saving {
     transform: translateY(0);
     visibility: visible;
     opacity: 1;
     transition: opacity .3s, background 1.2s .3s;
-    background: rgba($colorMain, .95);
+    background: rgba($colorMain, .985);
     .modal__child--1 { transition-delay: .1s; }
     .modal__child--2 { transition-delay: .2s; }
     .modal__child--3 { transition-delay: .3s; }

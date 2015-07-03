@@ -13,14 +13,14 @@ $(function() {
     });
   });
 
-  $('.modal-loading').click(function() {
+  $('.modal-save').click(function() {
     $('.modal').removeClass('modal--active');
-    $('.modal').addClass('modal--loading');
+    $('.modal').addClass('modal--saving');
   });
 
   $('.modal-close').click(function() {
     $('.modal').removeClass('modal--active');
-    $('.modal').removeClass('modal--loading');
+    $('.modal').removeClass('modal--saving');
   });
 
 });
