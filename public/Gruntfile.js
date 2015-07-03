@@ -1,236 +1,189 @@
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
-    require('phplint').gruntPlugin(grunt);
 
     grunt.initConfig({
-        // Helper variables
+        pkg: grunt.file.readJSON('package.json'),
         dirs: {
-            bower: 'bower_components'
-            , css: 'assets/css'
-            , js: 'assets/js'
-            , images: 'assets/images'
-            , fonts: 'assets/fonts'
-            , svg: 'assets/svg'
-        }
+            bower: 'bower_components',
+            css: 'assets/css',
+            js: 'assets/js',
+            images: 'assets/images',
+            icons: 'assets/icons'
+        },
 
-        /*
-         * SASS
-         * - Compiles all *.scss files into one style.css
-         * - In dev mode there is no minifying
-         */
-
-        , sass: {
+        // SCSS
+        sass: {
             dev: {
                 options: {
-                    outputStyle: 'nested'
-                    , sourceMap: true
-                }
-                , files: {
+                    style: 'expanded',
+                    loadPath: '.'
+                },
+                files: {
                     '<%= dirs.css %>/style.css': '<%= dirs.css %>/style.scss'
                 }
-            }
-            , build: {
+            },
+            build: {
                 options: {
-                    outputStyle: 'compressed'
-                    , sourceMap: false
-                }
-                , files: {
+                    style: 'compressed',
+                    loadPath: '.'
+                },
+                files: {
                     '<%= dirs.css %>/style.css': '<%= dirs.css %>/style.scss'
                 }
             }
-        }
+        },
 
-        /*
-         * Autoprefixer
-         * - Makes sure you use the proper vendor-prefixed CSS properties
-         */
-
-        , autoprefixer: {
+        // CSS autoprefixer
+        autoprefixer: {
             options: {
-                browsers: [ 'last 2 versions' ]
-                , map: true
-            }
-            , dist: {
+                browsers: ['last 2 versions']
+            },
+            dist: {
                 files: {
                     '<%= dirs.css %>/style.css': '<%= dirs.css %>/style.css'
                 }
             }
-        }
+        },
 
-        /*
-         * Connect
-         * - Inbuilt web server
-         */
-
-        , connect: {
+        // Connect Server
+        connect: {
             server: {
                 options: {
-                    port: 9001
-                    , base: ''
+                    port: 9001,
+                    base: ''
                 }
             }
-        }
+        },
 
-        /*
-         * Concat task
-         * - Merges all the devided JavaScript into one big one for production use
-         * - Ignores "modernizr.js", since it has to be seperate
-         */
-
-        , concat: {
+        // Concat
+        concat: {
             options: {
-                separator: ';'
-            }
-            , dist: {
+                separator: ';',
+            },
+            dist: {
                 src: [
-                    '<%= dirs.bower %>/moment/moment.js'
-                    , '<%= dirs.bower %>/jquery/dist/jquery.js'
-                    , '<%= dirs.bower %>/bootstrap-sass-official/assets/javascripts/bootstrap.js'
-                    , '<%= dirs.js %>/*.js'
-                    , '!<%= dirs.js %>/modernizr.js'
-                    , '!<%= dirs.js %>/build.js'
-                ]
-                , dest: '<%= dirs.js %>/build.js'
-            }
-        }
+                    '<%= dirs.bower %>/jquery/dist/jquery.js',
+                    '<%= dirs.js %>/*.js',
+                    '!<%= dirs.js %>/modernizr.js',
+                    '!<%= dirs.js %>/build.js'
+                ],
+                dest: '<%= dirs.js %>/build.js',
+            },
+        },
 
-        /*
-         * JShint
-         * - Validate JavaScript
-         */
-
-        , jshint: {
-            options: {
-                jshintrc: true
-            }
-            , all: [
-                'Gruntfile.js'
-                , '<%= dirs.js %>/*.js'
-                , '!<%= dirs.js %>/modernizr.js'
-                , '!<%= dirs.js %>/build.js'
+        // JShint
+        jshint: {
+            all: [
+                'Gruntfile.js',
+                '<%= dirs.js %>/*.js',
+                '!<%= dirs.js %>/modernizr.js',
+                '!<%= dirs.js %>/build.js'
             ]
-        }
+        },
 
-        /*
-         * HTMLhint
-         * - Validate HTML
-         */
-
-        , htmlhint: {
+        // HTMLhint
+        htmlhint: {
             html: {
                 options: {
                     'tag-pair': true
+                },
+                src: ['*.html']
+            }
+        },
+
+        // Uglify
+        uglify: {
+            all: {
+                files: {
+                    '<%= dirs.js %>/build.js': ['<%= dirs.js %>/build.js'],
+                    '<%= dirs.js %>/modernizr.js': ['<%= dirs.bower %>/modernizr/modernizr.js']
                 }
-                , src: [ '*.html' ]
             }
-        }
+        },
 
-        /*
-         * Uglify
-         * - Minify JavaScript
-         */
-
-        , uglify: {
-            core: {
-                files: [
-                  {
-                      '<%= dirs.js %>/build.js': [ '<%= dirs.js %>/build.js' ]
-                      , '<%= dirs.js %>/modernizr.js': [ '<%= dirs.bower %>/modernizr/modernizr.js' ]
-                  }
-                ]
-            }
-        }
-
-        /*
-         * Imagemin
-         * - Minify images
-         */
-
-        , imagemin: {
+        // Imagemin
+        imagemin: {
             dynamic: {
-                files: [ {
-                    expand: true
-                    , cwd: '<%= dirs.images %>'
-                    , src: [ '**/*.{png,jpg,gif}' ]
-                    , dest: '<%= dirs.images %>'
-                } ]
+                files: [{
+                    expand: true,
+                    cwd: '<%= dirs.images %>',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%= dirs.images %>'
+                }]
             }
-        }
+        },
 
-        /*
-         * Copy
-         * - Copy files via Grunt from A to B
-         * - Used for Bootstraps fonts which are included in the bower component folder
-         */
+        // Grunticon
+        grunticon: {
+            icons: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= dirs.icons %>',
+                    src: ['*.svg', '*.png'],
+                    dest: "<%= dirs.icons %>/grunticon"
+                }],
+                options: {
+                    cssprefix: ".icon--",
+                    customselectors: {
+                      "*": [".icon--$1:before"]
+                    }
+                }
+            }
+        },
 
-        , copy: {
-          main: {
-            files: [
-              { expand: true, cwd: '<%= dirs.bower %>/bootstrap-sass-official/assets/fonts/bootstrap/', src: [ '**' ], dest: '<%= dirs.fonts %>' }
-            ]
-          }
-        }
+        // Browser Sync
+        browser_sync: {
+            dev: {
+                bsFiles: {
+                    src : 'assets/css/style.css'
+                },
+                options: {
+                    watchTask: true,
+                    server: {
+                        baseDir: ""
+                    },
+                    ghostMode: {
+                        clicks: true,
+                        scroll: true,
+                        links: true,
+                        forms: true
+                    },
+                }
+            }
+        },
 
-        /*
-         * JSCS (JavaScriptCodeStyle)
-         * - Check JS markup based on policies defined in .jscsrc
-         */
-
-        , jscs: {
-          src: 'assets/js/_*.js'
-          , options: {
-            config: '.jscsrc'
-          }
-        }
-
-        /*
-         * phplint
-         * - Check for PHP syntax errors
-         */
-
-        , phplint: {
-          options: {
-            stdout: true
-            , stderr: true
-          }
-          , files: [ '*.php' ]
-        }
-
-        /*
-         * Watch
-         * - Watches files for changes and recompiles if neccesary
-         */
-
-        , watch: {
+        // Watch
+        watch: {
             options: {
                 livereload: true
-            }
-            , sass: {
-                files: [ '<%= dirs.css %>/*.scss' ]
-                , tasks: [ 'sass:dev', 'autoprefixer' ]
-            }
-            , images: {
-                files: [ '<%= dirs.images %>/*.{png,jpg,gif}' ]
-                , tasks: [ 'imagemin' ]
-            }
-            , html: {
-                files: [ '*.html' ]
-                , tasks: [ 'htmlhint' ]
-            }
-            , php: {
-                files: [ '*.php' ]
-                , tasks: [ 'phplint' ]
-            }
-            , scripts: {
-                files: [ 'Gruntfile.js', '<%= dirs.js %>/*.js' ]
-                , tasks: [ 'jshint', 'jscs', 'concat' ]
-                , options: {
+            },
+            sass: {
+                files: ['<%= dirs.css %>/*.scss'],
+                tasks: ['sass:dev', 'autoprefixer']
+            },
+            images: {
+                files: ['<%= dirs.images %>/*.{png,jpg,gif}'],
+                tasks: ['imagemin']
+            },
+            icons: {
+                files: ['<%= dirs.icons %>/*'],
+                tasks: ['grunticon']
+            },
+            html: {
+                files: ['*.html'],
+                tasks: ['htmlhint']
+            },
+            scripts: {
+                files: ['Gruntfile.js', '<%= dirs.js %>/*.js'],
+                tasks: ['jshint', 'concat'],
+                options: {
                     spawn: false
                 }
             }
         }
     });
 
-    grunt.registerTask('default', [ 'copy', 'sass:build', 'autoprefixer', 'concat', 'uglify', 'imagemin', 'jscs', 'phplint' ]);
-    grunt.registerTask('dev', [ 'copy', 'connect', 'watch' ]);
+    grunt.registerTask('default', ['sass:build', 'autoprefixer', 'concat', 'uglify', 'imagemin']);
+    grunt.registerTask('dev', ['connect', 'watch', 'notify']);
+    grunt.registerTask('dev:sync', ['browser_sync', 'watch', 'notify']);
 };
