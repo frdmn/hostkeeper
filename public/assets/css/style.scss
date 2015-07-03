@@ -1,17 +1,29 @@
-//
-//  Variables
-//
+/**
+ * style.scss
+ *
+ * Author: mf
+ *
+ */
 
-$icon-font-path: "../fonts/";
+/**
+ * basicss overrides
+ *
+ * any defaults in basicss/basicss/_settings.scss
+ * may be overridden...
+ *
+ * e.g. $prototyping: true;
+ */
 
-//
-//  Imports
-//
 
-/* Bower */
-@import 'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
+/**
+ * basicss import
+ */
 
-/* Bower (grunt-copy) components */
+@import 'bower_components/basicss/basicss';
 
-/* Custom */
-@import 'core';
+/**
+ * userstyle imports
+ *
+ * e.g. @import 'nav';
+ */
+
