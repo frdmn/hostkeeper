@@ -8,6 +8,9 @@
 $(function() {
   $('.modal-open').click(function() {
     $('.modal').addClass('modal--active');
+    $('.modal--active').click(function() {
+      $('.btn--submit').attr('disabled', false);
+    });
   });
 
   $('.modal-loading').click(function() {
@@ -19,4 +22,5 @@ $(function() {
     $('.modal').removeClass('modal--active');
     $('.modal').removeClass('modal--loading');
   });
+
 });

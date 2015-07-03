@@ -12,4 +12,21 @@
 
 .btn--hidden {
   color: $colorTextLighter;
+  &:hover {
+    color: $colorTextLight;
+  }
+}
+
+.btn--delete {
+  &:hover {
+    color: red;
+  }
+}
+
+.btn:disabled {
+  color: lighten($colorTextLighter, 10%);
+  &:hover {
+    color: lighten($colorTextLighter, 10%);
+    text-decoration: none;
+  }
 }
