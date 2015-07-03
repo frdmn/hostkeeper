@@ -1,0 +1,17 @@
+.host-input {
+  margin-bottom: $baseUnit*2;
+  &__input {
+    width: 100%;
+    border: 0;
+    text-align: center;
+    line-height: 3;
+    color: $colorTextLight;
+    &:focus {
+      outline-color: $colorMain;
+    }
+    &--ip {
+      background: linear-gradient(to left, darken($colorGreyDark, 10%), $colorGreyDark $baseUnit);
+      color: #fff;
+    }
+  }
+}
