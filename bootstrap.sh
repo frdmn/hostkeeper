@@ -50,13 +50,16 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     apt-get install -y apache2 php5 libapache2-mod-php5 php5-mysql  # ... web server + php
     apt-get install -y dnsmasq                                      # ... dnsmasq
     # Base config for dnsmasq
-    echo "$dnsmasqconfig" > /etc/dnsmasq.conf
+    echo "${dnsmasqconfig}" > /etc/dnsmasq.conf
     echo "1.2.3.4 this.is.a.tld.test" >> /etc/dnsmasq.hosts
     # Restart dnsmasq
     service dnsmasq restart
-    echo "Done! Try to run the following command on your host to test the DNS server:"
+    # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${smiley}"
     echo "---"
+    echo "Try to run the following command on your host to test the DNS server:"
     echo "$ dig this.is.a.tld.test @${guestIP} +short"
+    echo "Access the hostkeeper web interface:"
+    echo "$ open http://${guestIP}"
 fi
