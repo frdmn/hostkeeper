@@ -3,32 +3,33 @@
   &:before {
     position: absolute;
     content: '';
-    background: darken($colorGreyLight, 10%);
+    background: darken($colorGreyLight, 5%);
     left: 0;
     right: 0;
     top: 50%;
-    height: 6px;
+    height: 5px;
     margin-top: -3px;
   }
-  &__offset {
-    background: $colorGreyLight;
-    position: relative;
-    display: inline-block;
-    &:before, &:after {
-      position: absolute;
-      content: '';
-      top: 0;
-      bottom: 0;
-    }
-    &:before {
-      background: linear-gradient(to left, $colorGreyLight, rgba($colorGreyLight,0));
-      left: -$baseUnit;
-      width: $baseUnit;
-    }
-    &:after {
-      background: linear-gradient(to right, $colorGreyLight, rgba($colorGreyLight,0));
-      right: -$baseUnit;
-      width: $baseUnit;
-    }
+}
+
+.background-offset {
+  background: $colorGreyLight;
+  position: relative;
+  display: inline-block;
+  &:before, &:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    bottom: 0;
+  }
+  &:before {
+    background: linear-gradient(to left, $colorGreyLight, rgba($colorGreyLight,0));
+    left: -$baseUnit;
+    width: $baseUnit;
+  }
+  &:after {
+    background: linear-gradient(to right, $colorGreyLight, rgba($colorGreyLight,0));
+    right: -$baseUnit;
+    width: $baseUnit;
   }
 }
