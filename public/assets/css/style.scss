@@ -43,6 +43,7 @@ $headingSize6: 16px;
  */
 
 $colorMain: #7200FF;
+$colorGreyDark: #C7C7C7;
 $colorGrey: #E2E2E2;
 $colorGreyLight: #F7F7F7;
 $colorText: #333;
@@ -65,10 +66,14 @@ $colorLink: $colorMain;
 @import 'lined';
 @import 'btn';
 @import 'constrain';
+@import 'nav';
 @import 'typo';
+@import 'icon';
 
 @import 'base';
 @import 'center';
 @import 'logo';
 @import 'dotted-list';
 @import 'modal';
+@import 'host-input';
+@import 'headline';

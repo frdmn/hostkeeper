@@ -1,0 +1,23 @@
+<svg class="uil-default" height="198px" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100" width="198px" xmlns="http://www.w3.org/2000/svg">
+  <rect class="bk" fill="none" height="100" width="100" x="0" y="0"></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(0 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(36 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.1s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(72 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.2s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(108 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.3s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(144 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.4s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(180 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.5s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(216 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.6s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(252 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.7s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(288 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.8s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+  <rect fill="#ffffff" height="15" rx="4" ry="4" transform="rotate(324 50 50) translate(0 -25)" width="7" x="46.5" y="42.5">
+    <animate attributeName="opacity" begin="0.9s" dur="1s" from="1" repeatCount="indefinite" to="0"/></rect>
+</svg>
