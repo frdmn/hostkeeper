@@ -1,0 +1,20 @@
+.headline {
+  color: $colorTextLight;
+  text-align: center;
+}
+
+.headline--seperated {
+  position: relative;
+  margin-bottom: $baseUnit*2;
+  padding-bottom: $baseUnit*2;
+  &:after {
+    position: absolute;
+    content: '';
+    width: 100px;
+    left: 50%;
+    margin-left: -50px;
+    height: 5px;
+    background: $colorGreyDark;
+    bottom: 0;
+  }
+}
