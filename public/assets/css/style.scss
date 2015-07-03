@@ -1,7 +1,7 @@
 /**
  * style.scss
  *
- * Author: mf
+ * Author: Marian Friedmann
  *
  */
 
@@ -14,6 +14,41 @@
  * e.g. $prototyping: true;
  */
 
+$navObject: true;
+$gridObject: true;
+$buttonObject: true;
+$constrainObject: true;
+
+/**
+ * Fonts
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+$fontPrimary: "Montserrat", sans-serif;
+
+/**
+ * Headings
+ */
+
+$headingSize1: 48px;
+$headingSize2: 36px;
+$headingSize3: 32px;
+$headingSize4: 24px;
+$headingSize5: 18px;
+$headingSize6: 16px;
+
+/**
+ * Colors
+ */
+
+$colorMain: #7200FF;
+$colorGrey: #E2E2E2;
+$colorGreyLight: #F7F7F7;
+$colorText: #333;
+$colorTextLight: #868686;
+$colorTextLighter: #AFAFAF;
+$colorLink: $colorMain;
 
 /**
  * basicss import
@@ -26,4 +61,3 @@
  *
  * e.g. @import 'nav';
  */
-
