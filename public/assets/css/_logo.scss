@@ -1,12 +1,12 @@
 .logo {
-  @include font-size($headingSize1);
+  @include font-size($headingSize3);
   color: $colorText;
   font-weight: bold;
   &:hover {
     text-decoration: none;
   }
   &__altered {
-    @include font-size($headingSize2);
+    @include font-size($headingSize4);
     text-transform: uppercase;
     color: $colorTextLight;
     font-weight: normal;

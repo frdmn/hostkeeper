@@ -1,0 +1,8 @@
+html {
+  @include media($breakTablet) {
+    font-size: 1.25em;
+  }
+  @include media($breakLaptop) {
+    font-size: 1.5em;
+  }
+}
