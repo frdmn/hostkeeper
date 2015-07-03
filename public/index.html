@@ -57,7 +57,7 @@
         </div>
         <div class="lined">
           <div class="constrain constrain--medium text--right">
-            <span class="background-offset"><button class="btn btn--fake">+ Add new mapping</button></span>
+            <span class="background-offset"><button class="btn btn--fake modal-open">+ Add new mapping</button></span>
           </div>
         </div>
         <div class="constrain constrain--medium">
@@ -76,7 +76,25 @@
       <div class="center__inner">
         <div class="base">
           <div class="constrain constrain--max">
-            asdf
+            <h3 class="modal__child modal__child--1 headline headline--seperated heading-4">Add new mapping</h3>
+            <div class="modal__child modal__child--2 host-input">
+              <div class="grid grid--flush">
+                <div class="grid__item width--1of2">
+                  <input type="text" class="host-input__input host-input__input--ip" placeholder="IP">
+                </div><!--
+             --><div class="grid__item width--1of2">
+                  <input type="text" class="host-input__input" placeholder="Hostname">
+                </div>
+              </div>
+            </div>
+            <div class="modal__child modal__child--3 text--center">
+              <ul class="nav nav--slash">
+                <li><button class="btn btn--fake btn--hidden modal-close">Cancel</button></li><li><button class="btn btn--fake btn--hidden modal-loading">Submit</button></li>
+              </ul>
+            </div>
+            <div class="modal__spinner">
+              <i class="modal-close icon icon--spinner"></i>
+            </div>
           </div>
         </div>
       </div>
