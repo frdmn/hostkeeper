@@ -10,6 +10,8 @@ addn-hosts=/etc/dnsmasq.hosts
 ENDOFCONFIG
 )"
 
+# Parse debug arg from Ruby
+[[ $1 == "true" ]] && set -x
 
 # ASCII typo
 asciitypo="$(cat <<-ENDOFTYPO
