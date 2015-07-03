@@ -11,31 +11,15 @@ ENDOFCONFIG
 )"
 
 
-# ASCII smiley
-smiley="$(cat <<-ENDOFSMILEY
-
-                      __ooooooooo__
-                 oOOOOOOOOOOOOOOOOOOOOOo
-             oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
-          oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
-        oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
-      oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
-     oOOOOOOOOOOO*  *OOOOOOOOOOOOOO*  *OOOOOOOOOOOOo
-    oOOOOOOOOOOO      OOOOOOOOOOOO      OOOOOOOOOOOOo
-    oOOOOOOOOOOOOo  oOOOOOOOOOOOOOOo  oOOOOOOOOOOOOOo
-   oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
-   oOOOO     OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO     OOOOo
-   oOOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO OOOOOOo
-    *OOOOO  OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  OOOOO*
-    *OOOOOO  *OOOOOOOOOOOOOOOOOOOOOOOOOOOOO*  OOOOOO*
-     *OOOOOO  *OOOOOOOOOOOOOOOOOOOOOOOOOOO*  OOOOOO*
-      *OOOOOOo  *OOOOOOOOOOOOOOOOOOOOOOO*  oOOOOOO*
-        *OOOOOOOo  *OOOOOOOOOOOOOOOOO*  oOOOOOOO*
-          *OOOOOOOOo  *OOOOOOOOOOO*  oOOOOOOOO*      DONE!
-             *OOOOOOOOo           oOOOOOOOO*
-                 *OOOOOOOOOOOOOOOOOOOOO*                      ""ooooooooo""
-
-ENDOFSMILEY
+# ASCII typo
+asciitypo="$(cat <<-ENDOFTYPO
+.__                    __   __
+|  |__   ____  _______/  |_|  | __ ____   ____ ______   ___________
+|  |  \ /  _ \/  ___/\   __\  |/ // __ \_/ __ \\\____ \_/ __ \_  __ \.
+|   Y  (  <_> )___ \  |  | |    <\  ___/\  ___/|  |_> >  ___/|  | \/
+|___|  /\____/____  > |__| |__|_ \\\___  >\___  >   __/ \___  >__|
+     \/           \/            \/    \/     \/|__|        \/
+ENDOFTYPO
 )"
 
 # Make sure to use root user
@@ -56,7 +40,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     service dnsmasq restart
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
-    echo "${smiley}"
+    echo "${asciitypo}"
     echo "---"
     echo "Try to run the following command on your host to test the DNS server:"
     echo "$ dig this.is.a.tld.test @${guestIP} +short"
