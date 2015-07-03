@@ -1,5 +1,7 @@
 # Prefer Wi-Fi network for network bridge
 preferred_interfaces = [
+  # 'Ethernet',
+  # 'Thunderbold 1',
   'Wi-Fi',
   'WLAN'
 ]
