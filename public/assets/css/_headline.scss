@@ -14,7 +14,7 @@
     left: 50%;
     margin-left: -50px;
     height: 5px;
-    background: $colorGreyDark;
+    background: linear-gradient(to right, rgba($colorGreyDark, 0),  $colorGreyDark 50%,  rgba($colorGreyDark, 0));
     bottom: 0;
   }
 }
