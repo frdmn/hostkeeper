@@ -125,7 +125,8 @@ module.exports = function(grunt) {
                 options: {
                     cssprefix: ".icon--",
                     customselectors: {
-                      "*": [".icon--$1:before"]
+                      "*": [".icon--$1:before"],
+                      "dots": [".dotted-list > li"]
                     }
                 }
             }

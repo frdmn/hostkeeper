@@ -1,0 +1,20 @@
+.dotted-list {
+  text-align: right;
+  font-weight: bold;
+  color: $colorTextLight;
+  list-style: none;
+  margin-left: 0;
+  margin: $baseUnit/2 0;
+  > li {
+    background-repeat: repeat-x !important;
+    background-position: center center;
+  }
+  &__offset {
+    background: $colorGreyLight;
+  }
+  &__title {
+    text-align: left;
+    float: left;
+    clear: left;
+  }
+}

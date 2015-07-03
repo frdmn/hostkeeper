@@ -1,0 +1,11 @@
+.center {
+  @include media($breakLaptop min-height 600px) {
+    display: table;
+    width: 100%;
+    height: 100%;
+    &__inner {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
