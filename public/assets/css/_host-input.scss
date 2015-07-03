@@ -4,6 +4,8 @@
     width: 100%;
     border: 0;
     text-align: center;
+    @include font-size($headingSize4, false);
+    font-weight: bold;
     line-height: 3;
     color: $colorTextLight;
     &:focus {
