@@ -1,7 +1,18 @@
 ### OS X meta ###
 .DS_Store
-
 .dashbrew
 
 ### hostkeeper ###
 .vagrant/
+
+### hostkeeper-WebUI ###
+public/.sass-cache
+public/node_modules
+public/bower_components
+
+public/assets/css/*.css
+public/assets/css/*.css.map
+public/assets/js/modernizr.js
+public/assets/js/build.js
+public/assets/icons/grunticon
+public/assets/fonts
