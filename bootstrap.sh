@@ -10,6 +10,34 @@ addn-hosts=/etc/dnsmasq.hosts
 ENDOFCONFIG
 )"
 
+
+# ASCII smiley
+smiley="$(cat <<-ENDOFSMILEY
+
+                      __ooooooooo__
+                 oOOOOOOOOOOOOOOOOOOOOOo
+             oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
+          oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
+        oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
+      oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
+     oOOOOOOOOOOO*  *OOOOOOOOOOOOOO*  *OOOOOOOOOOOOo
+    oOOOOOOOOOOO      OOOOOOOOOOOO      OOOOOOOOOOOOo
+    oOOOOOOOOOOOOo  oOOOOOOOOOOOOOOo  oOOOOOOOOOOOOOo
+   oOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
+   oOOOO     OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO     OOOOo
+   oOOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO OOOOOOo
+    *OOOOO  OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  OOOOO*
+    *OOOOOO  *OOOOOOOOOOOOOOOOOOOOOOOOOOOOO*  OOOOOO*
+     *OOOOOO  *OOOOOOOOOOOOOOOOOOOOOOOOOOO*  OOOOOO*
+      *OOOOOOo  *OOOOOOOOOOOOOOOOOOOOOOO*  oOOOOOO*
+        *OOOOOOOo  *OOOOOOOOOOOOOOOOO*  oOOOOOOO*
+          *OOOOOOOOo  *OOOOOOOOOOO*  oOOOOOOOO*      DONE!
+             *OOOOOOOOo           oOOOOOOOO*
+                 *OOOOOOOOOOOOOOOOOOOOO*                      ""ooooooooo""
+
+ENDOFSMILEY
+)"
+
 # Make sure to use root user
 sudo su
 
@@ -28,5 +56,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     service dnsmasq restart
     echo "Done! Try to run the following command on your host to test the DNS server:"
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
+    echo "${smiley}"
+    echo "---"
     echo "$ dig this.is.a.tld.test @${guestIP} +short"
 fi
