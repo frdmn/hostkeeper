@@ -1,7 +1,6 @@
 /**
  * style.scss
  *
- * Author: mf
  * Author: Marian Friedmann
  *
  */
@@ -40,6 +39,18 @@ $headingSize5: 18px;
 $headingSize6: 16px;
 
 /**
+ * Colors
+ */
+
+$colorMain: #7200FF;
+$colorGrey: #E2E2E2;
+$colorGreyLight: #F7F7F7;
+$colorText: #333;
+$colorTextLight: #868686;
+$colorTextLighter: #AFAFAF;
+$colorLink: $colorMain;
+
+/**
  * basicss import
  */
 
@@ -50,4 +61,3 @@ $headingSize6: 16px;
  *
  * e.g. @import 'nav';
  */
-
