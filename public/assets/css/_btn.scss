@@ -1,0 +1,11 @@
+.btn--fake {
+  padding: 0;
+  background: transparent;
+  color: $colorLink;
+  line-height: inherit;
+  &:hover {
+    color: $colorLink;
+    background: transparent;
+    text-decoration: underline;
+  }
+}
