@@ -3,7 +3,7 @@
   @include media($breakLaptop) {
     @include font-size($headingSize3);
   }
-  color: $colorTextLighter;
+  color: $colorTextLightest;
   > li {
     @include px-to-rem(padding-left, $baseUnit/4);
 
