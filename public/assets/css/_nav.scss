@@ -1,0 +1,20 @@
+.nav--slash {
+  @include font-size($headingSize3);
+  color: $colorTextLighter;
+  > li {
+    @include px-to-rem(padding-left, $baseUnit/4);
+
+    &:before {
+      content: "\002F";
+      @include px-to-rem(margin-right, $baseUnit/4);
+    }
+
+    &:first-child {
+      padding: 0;
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+}
