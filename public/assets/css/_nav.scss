@@ -1,5 +1,8 @@
 .nav--slash {
-  @include font-size($headingSize3);
+  @include font-size($headingSize5);
+  @include media($breakLaptop) {
+    @include font-size($headingSize3);
+  }
   color: $colorTextLighter;
   > li {
     @include px-to-rem(padding-left, $baseUnit/4);
