@@ -2,3 +2,10 @@ body,html {
   height: 100%;
   background: $colorGreyLight;
 }
+
+.base {
+  padding: $baseUnit 0;
+  @include media($breakLaptop min-height 600px) {
+    padding: $baseUnit*2 0;
+  }
+}
