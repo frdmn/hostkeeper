@@ -1,3 +1,9 @@
 .constrain {
   padding: 0 $baseUnit;
 }
+
+.constrain--max {
+  @include media($breakDesktop) {
+    padding: 0 $baseUnit*3;
+  }
+}
