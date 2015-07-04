@@ -9,13 +9,13 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
   transform: translateY(100%);
   visibility: hidden;
   opacity: 0;
-  transition: 0s .6s, opacity .3s .3s;
+  transition: 0s .5s, opacity .3s .2s;
   overflow: auto;
   &__child {
     transform: translateY(100%);
     visibility: hidden;
     opacity: 0;
-    transition: .3s $easeInOut;
+    transition: .2s $easeInOut;
   }
   &__spinner {
     position: absolute;
@@ -28,7 +28,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     visibility: hidden;
     opacity: 0;
     transform: translateY(-25%);
-    transition: .3s $easeInOut;
+    transition: .2s $easeInOut;
   }
 
   &:before,
@@ -44,13 +44,13 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
 
   &:before {
     background: rgba($colorGrey, .98);
-    transition: .3s;
+    transition: .2s;
     opacity: 1;
   }
 
   &:after {
     background: rgba($colorMain, .98);
-    transition: .6s .3s $easeInOut;
+    transition: .4s .2s $easeInOut;
     opacity: 0;
   }
 
@@ -61,7 +61,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     transform: translateY(0);
     visibility: visible;
     opacity: 1;
-    transition: opacity .3s;
+    transition: opacity .2s;
     .modal__child--1 { transition-delay: .1s; }
     .modal__child--2 { transition-delay: .2s; }
     .modal__child--3 { transition-delay: .3s; }
@@ -79,10 +79,10 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     transform: translateY(0);
     visibility: visible;
     opacity: 1;
-    transition: opacity .3s;
+    transition: opacity .2s;
     &:before {
       opacity: 0;
-      transition: .6s .9s;
+      transition: .8s .4s;
     }
     &:after {
       opacity: 1;
@@ -93,7 +93,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     .modal__spinner {
       transform: translateY(0);
       opacity: 1;
-      transition: .3s .5s $easeInOut;
+      transition: .2s .4s $easeInOut;
       visibility: visible;
     }
     .modal__child {
