@@ -50,7 +50,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
 
   &:after {
     background: rgba($colorMain, .98);
-    transition: .6s .6s $easeInOut;
+    transition: .6s .3s $easeInOut;
     opacity: 0;
   }
 
@@ -82,7 +82,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     transition: opacity .3s;
     &:before {
       opacity: 0;
-      transition: .6s 1.2s;
+      transition: .6s .9s;
     }
     &:after {
       opacity: 1;
