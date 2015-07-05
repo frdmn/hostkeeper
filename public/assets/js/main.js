@@ -23,4 +23,18 @@ $(function() {
     $('.modal').removeClass('modal--saving');
   });
 
+  // Populate <ul> with host <li>'s
+  $.ajax({
+    type: 'GET'
+    , url: 'http://' + window.location.hostname + ':4000/show'
+    , cache: false
+    , success: function(data) {
+      // Clear placeholder
+      $('.dotted-list').html('');
+      // Add each host
+      data.forEach(function(host) {
+        $('.dotted-list').append('<li data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset">' + host.ip + '</span></span> <span class="background-offset">' + host.host + '</span></li>');
+      });
+    }
+  });
 });
