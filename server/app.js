@@ -80,7 +80,6 @@ function startAPIserver(){
     // First make sure we haven't already added the host
     restler.get('http://localhost:3000/hosts?host=' + request.post.host).on('complete', function(restData) {
       // Host didnt already exist if object is empty => continue
-      console.log(restData.length);
       if(restData.length === 0){
         // Add new host via REST API
         restler.post('http://localhost:3000/hosts', {
