@@ -30,6 +30,11 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     cp /vagrant/opt/dnsmasq.hosts /etc/dnsmasq.hosts
     # Restart dnsmasq
     service dnsmasq restart
+    # Prepare Apache2
+    a2dissite 000-default.conf
+    rm -rf /var/www/html
+    a2ensite hostkeeper.conf
+    service apache2 restart
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
