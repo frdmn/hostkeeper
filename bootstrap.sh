@@ -33,6 +33,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Prepare Apache2
     a2dissite 000-default.conf
     rm -rf /var/www/html
+    cp /vagrant/opt/apache2_hostkeeper.conf /etc/apache2/sites-available/hostkeeper.conf
     a2ensite hostkeeper.conf
     service apache2 restart
     # Final success message
