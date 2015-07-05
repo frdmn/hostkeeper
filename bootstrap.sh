@@ -26,8 +26,6 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Apply base config for dnsmasq
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
     touch /etc/dnsmasq.hosts
-    # Restart dnsmasq
-    service dnsmasq restart
     # Prepare Apache2
     a2dissite 000-default.conf
     rm -rf /var/www/html
@@ -41,8 +39,11 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     chmod +x /etc/init.d/node-app
     update-rc.d node-app defaults
     service node-app start
+    # Create initial dnsmasqs host file via API server
     sleep 5
     curl -s http://localhost:4000/update &>/dev/null && echo "Successfully created initial hosts file for dnsmasq via API server!" || echo "Error: Couldn't reach API server! :("
+    # Reload dnsmasq configurtion by sending SIGHUP signal
+    kill -SIGHUP $(pgrep dnsmasq)
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
