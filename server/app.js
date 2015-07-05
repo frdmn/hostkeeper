@@ -3,7 +3,8 @@
 var config = require('./config.json')
     , jsonServer = require('json-server')
     , http = require('http')
-    , Router = require('node-simple-router');
+    , Router = require('node-simple-router')
+    , fs = require('fs');
 
 /* Functions */
 
@@ -11,7 +12,14 @@ var config = require('./config.json')
 function updateHostsFile(callback){
   var database = require('./' + config.database);
 
-  callback(database);
+  fs.writeFile(config.dnsmasqhostsfile, '', function(){
+    database.hosts.forEach(function(host){
+      fs.appendFile(config.dnsmasqhostsfile, host.ip + ' ' + host.host + '\n');
+    })
+  })
+
+  // @TODO: make sure the fs functions are synchronous and callback gets called when its done.
+  callback(true);
 }
 
 /* Logic */
@@ -37,11 +45,13 @@ function startAPIserver(){
   // Create router instance
   var router = new Router();
 
-  // Set routes
-  router.get('/hello', function(request, response) {
-    updateHostsFile(function(data){
-      response.end('data');
-      console.log(data);
+  /* Set routes */
+
+  // GET /update - to update the hosts file manually
+  router.get('/update', function(request, response) {
+    updateHostsFile(function(){
+      response.writeHead(200, {'Content-type': 'application/json'});
+      response.end('{"success": true}');
     });
   });
 
