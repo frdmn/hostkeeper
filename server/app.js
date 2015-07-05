@@ -4,7 +4,8 @@ var config = require('./config.json')
     , jsonServer = require('json-server')
     , http = require('http')
     , Router = require('node-simple-router')
-    , fs = require('fs');
+    , fs = require('fs')
+    , restler = require('restler');
 
 /* Functions */
 
@@ -52,6 +53,14 @@ function startAPIserver(){
     updateHostsFile(function(){
       response.writeHead(200, {'Content-type': 'application/json'});
       response.end('{"success": true}');
+    });
+  });
+
+  // GET /show - to list all host entries
+  router.get('/show', function(request, response) {
+    restler.get('http://localhost:3000/hosts').on('complete', function(restData) {
+      response.writeHead(200, {'Content-type': 'application/json'});
+      response.end(JSON.stringify(restData));
     });
   });
 
