@@ -42,7 +42,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     update-rc.d node-app defaults
     service node-app start
     sleep 5
-    curl -s http://localhost:3000/update &>/dev/null && echo "Successfully created initial hosts file for dnsmasq via API server!" || echo "Error: Couldn't reach API server! :("
+    curl -s http://localhost:4000/update &>/dev/null && echo "Successfully created initial hosts file for dnsmasq via API server!" || echo "Error: Couldn't reach API server! :("
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
