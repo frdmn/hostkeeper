@@ -114,6 +114,28 @@ function startAPIserver(){
     });
   });
 
+  // POST /edit/:host - to edit existing hosts
+  router.post('/edit/:host', function(request, response) {
+    restler.put('http://localhost:3000/hosts/' + request.params.host, {
+      data: {
+        host: request.post.host,
+        ip: request.post.ip
+      },
+    }).on('complete', function(restData, restResponse) {
+      if (restResponse.statusCode === 200) {
+        // Return response
+        response.writeHead(200,
+          {
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          }
+        );
+        // response.end(restResponse.rawEncoded);
+        response.end('{"success": true}');
+      }
+    });
+  });
+
   // Create HTTP server
   var server = http.createServer(router);
 
