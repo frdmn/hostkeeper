@@ -75,6 +75,46 @@ function startAPIserver(){
     });
   });
 
+  // POST /add - to add new hosts
+  router.post('/add', function(request, response) {
+    // First make sure we haven't already added the host
+    restler.get('http://localhost:3000/hosts?host=' + request.post.host).on('complete', function(restData) {
+      // Host didnt already exist if object is empty => continue
+      console.log(restData.length);
+      if(restData.length == 0){
+        // Add new host via REST API
+        restler.post('http://localhost:3000/hosts', {
+          data: {
+            host: request.post.host,
+            ip: request.post.ip
+          }
+        }).on('complete', function(restData, restResponse) {
+          if (restResponse.statusCode == 201) {
+            // Return response
+            response.writeHead(200,
+              {
+                'Content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+              }
+            );
+            // response.end(restResponse.rawEncoded);
+            response.end('{"success": true}');
+          }
+        });
+      } else {
+        // Return response
+        response.writeHead(200,
+          {
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          }
+        );
+        // Return error message
+        response.end('{"success": false, "payload":{ "error": "Host already exist"}}');
+      }
+    });
+  });
+
   // Create HTTP server
   var server = http.createServer(router);
 
