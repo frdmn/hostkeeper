@@ -81,7 +81,7 @@ function startAPIserver(){
     restler.get('http://localhost:3000/hosts?host=' + request.post.host).on('complete', function(restData) {
       // Host didnt already exist if object is empty => continue
       console.log(restData.length);
-      if(restData.length == 0){
+      if(restData.length === 0){
         // Add new host via REST API
         restler.post('http://localhost:3000/hosts', {
           data: {
@@ -89,7 +89,7 @@ function startAPIserver(){
             ip: request.post.ip
           }
         }).on('complete', function(restData, restResponse) {
-          if (restResponse.statusCode == 201) {
+          if (restResponse.statusCode === 201) {
             // Return response
             response.writeHead(200,
               {
