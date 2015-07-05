@@ -116,6 +116,7 @@ function startAPIserver(){
 
   // POST /edit/:host - to edit existing hosts
   router.post('/edit/:host', function(request, response) {
+    // Send PUT request to REST API
     restler.put('http://localhost:3000/hosts/' + request.params.host, {
       data: {
         host: request.post.host,
@@ -140,6 +141,7 @@ function startAPIserver(){
   // POST /delete/:host - to delete existing hosts
   router.post('/delete/:host', function(request, response) {
     // @TODO - [SyntaxError: Unexpected end of input] ???
+    // Send DELETE request to REST API
     restler.del('http://localhost:3000/hosts/' + request.params.host).on('complete', function(restData, restResponse) {
       if (restResponse.statusCode === 200) {
         // Return response
