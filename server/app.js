@@ -136,6 +136,25 @@ function startAPIserver(){
     });
   });
 
+
+  // POST /delete/:host - to delete existing hosts
+  router.post('/delete/:host', function(request, response) {
+    // @TODO - [SyntaxError: Unexpected end of input] ???
+    restler.del('http://localhost:3000/hosts/' + request.params.host).on('complete', function(restData, restResponse) {
+      if (restResponse.statusCode === 200) {
+        // Return response
+        response.writeHead(200,
+          {
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          }
+        );
+        // response.end(restResponse.rawEncoded);
+        response.end('{"success": true}');
+      }
+    });
+  });
+
   // Create HTTP server
   var server = http.createServer(router);
 
