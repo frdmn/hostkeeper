@@ -40,7 +40,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     cp /vagrant/opt/initd_node-app /etc/init.d/node-app
     chmod +x /etc/init.d/node-app
     update-rc.d node-app defaults
-    service apache2 start
+    service node-app start
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
