@@ -21,11 +21,8 @@ sudo su
 if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Update apt repositories
     apt-get -y update
-    # Install ...
-    apt-get install -y curl vim git build-essential                 # ... requirements
-    apt-get install -y apache2 php5 libapache2-mod-php5 php5-mysql  # ... web server + php
-    apt-get install -y dnsmasq                                      # ... dnsmasq
-    apt-get install -y nodejs npm                                   # ... NodeJS
+    # Install requirements
+    apt-get install -y curl vim git build-essential dnsmasq apache2 php5 libapache2-mod-php5 php5-mysql nodejs npm
     # Apply base config for dnsmasq
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
     cp /vagrant/opt/dnsmasq.hosts /etc/dnsmasq.hosts
