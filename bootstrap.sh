@@ -25,7 +25,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     apt-get install -y curl vim git build-essential dnsmasq apache2 nodejs npm
     # Apply base config for dnsmasq
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
-    cp /vagrant/opt/dnsmasq.hosts /etc/dnsmasq.hosts
+    touch /etc/dnsmasq.hosts
     # Restart dnsmasq
     service dnsmasq restart
     # Prepare Apache2
@@ -41,6 +41,8 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     chmod +x /etc/init.d/node-app
     update-rc.d node-app defaults
     service node-app start
+    sleep 5
+    curl -s http://localhost:3000/update &>/dev/null && echo "Successfully created initial hosts file for dnsmasq via API server!" || echo "Error: Couldn't reach API server! :("
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
