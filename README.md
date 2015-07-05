@@ -12,11 +12,13 @@ Simple DNS server and web interface to provide LAN-wide host<->IP mappings for d
   `npm install`  
   `npm bower install`  
   `grunt`  
-3. Boot up the Vagrant box using:  
+4. Create default hosts storage:  
+  `cp server/db.example.json server/db.json `
+5. Boot up the Vagrant box using:  
   `vagrant up`
-4. Add your desired host/IP mappings in the _hostkeeper_ webinterface:  
+6. Add your desired host/IP mappings in the _hostkeeper_ webinterface:  
   `http://192.168.1.21` (The guest system tries to setup an bridged network interface from the WiFi interface of your Mac)
-5. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
+7. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
 
 ## Contributing
 
