@@ -16,3 +16,6 @@ public/assets/js/modernizr.js
 public/assets/js/build.js
 public/assets/icons/grunticon
 public/assets/fonts
+
+### hostkeeper-server ###
+server/node_modules

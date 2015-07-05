@@ -1,0 +1,14 @@
+{
+  "hosts": [
+    {
+      "id": 1,
+      "host": "this.is.a.tld.test",
+      "ip": "1.2.3.4"
+    },
+    {
+      "id": 2,
+      "host": "another.tld.test",
+      "ip": "2.3.4.5"
+    }
+  ]
+}
