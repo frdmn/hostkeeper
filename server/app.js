@@ -5,16 +5,20 @@ var config = require('./config.json')
 
 /* Logic */
 
-// Create json-server
-var server = jsonServer.create();
+// Function to start the RESTful json-server
+function startJSONserver(){
+  // Create json-server
+  var server = jsonServer.create();
 
-// Set default middlewares (logger, static, cors and no-cache)
-server.use(jsonServer.defaults);
+  // Set default middlewares (logger, static, cors and no-cache)
+  server.use(jsonServer.defaults);
 
-// Set router
-var router = jsonServer.router(config.database);
-server.use(router);
+  // Set router
+  var router = jsonServer.router(config.database);
+  server.use(router);
 
-// Start server
-server.listen(config.port);
-console.log('API successfully started on port ' + config.port);
+  // Start json-server
+  server.listen(3000);
+}
+
+startJSONserver();
