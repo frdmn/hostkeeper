@@ -25,6 +25,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     apt-get install -y curl vim git build-essential                 # ... requirements
     apt-get install -y apache2 php5 libapache2-mod-php5 php5-mysql  # ... web server + php
     apt-get install -y dnsmasq                                      # ... dnsmasq
+    apt-get install -y nodejs npm                                   # ... NodeJS
     # Apply base config for dnsmasq
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
     cp /vagrant/opt/dnsmasq.hosts /etc/dnsmasq.hosts
@@ -36,6 +37,13 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     cp /vagrant/opt/apache2_hostkeeper.conf /etc/apache2/sites-available/hostkeeper.conf
     a2ensite hostkeeper.conf
     service apache2 restart
+    # Install hostkeeper-server
+    cd /vagrant/server/
+    npm install
+    cp /vagrant/opt/initd_node-app /etc/init.d/node-app
+    chmod +x /etc/init.d/node-app
+    update-rc.d node-app defaults
+    service apache2 start
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
