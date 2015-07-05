@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/frdmn/hostkeeper#readme",
   "dependencies": {
+    "is-root": "^1.0.0",
     "json-server": "^0.7.20",
     "node-simple-router": "^0.4.7",
     "restler": "^3.3.0"

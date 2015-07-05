@@ -5,7 +5,8 @@ var config = require('./config.json')
     , http = require('http')
     , Router = require('node-simple-router')
     , fs = require('fs')
-    , restler = require('restler');
+    , restler = require('restler')
+    , isRoot = require('is-root');
 
 /* Functions */
 
@@ -69,7 +70,14 @@ function startAPIserver(){
 
   // Start server on port 4000
   server.listen(4000);
+  console.log('API server successfuly started: http://localhost:4000');
 }
 
-startJSONserver();
-startAPIserver();
+// Check if run as root
+if (!isRoot()){
+  console.log('Error: This application needs root permissions! Make sure to run as root user.');
+  process.exit(1);
+} else {
+  startJSONserver();
+  startAPIserver();
+}
