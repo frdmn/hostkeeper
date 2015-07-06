@@ -181,7 +181,7 @@ function startAPIserver(){
 
     // Remove :host from database
     for(var i = 0; i < database.hosts.length; i++) {
-      if(database.hosts[i].id == request.params.host) {
+      if(database.hosts[i].id.toString() === request.params.host) {
         database.hosts.splice(i, 1);
         i--;
       }
