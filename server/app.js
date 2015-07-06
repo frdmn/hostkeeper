@@ -143,27 +143,41 @@ function startAPIserver(){
       }
     }
 
-    // Update element
-    database.hosts[index].host = request.post.host
-    database.hosts[index].ip = request.post.ip
+    // Make sure the desired host exists
+    if (database.hosts[index]) {
+      // Update element
+      database.hosts[index].host = request.post.host
+      database.hosts[index].ip = request.post.ip
 
-    // Write database
-    fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+      // Write database
+      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+        // Return response
+        response.writeHead(200,
+          {
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          }
+        );
+        response.end('{"success": true}');
+      });
+    } else {
       // Return response
-      response.writeHead(200,
+      response.writeHead(400,
         {
           'Content-type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         }
       );
-      response.end('{"success": true}');
-    });
+      // Return error message
+      response.end('{"success": false, "payload":{ "error": "Host does not exist"}}');
+    }
   });
 
   // DELETE /delete/:host - to delete existing hosts
   router.delete('/delete/:host', function(request, response) {
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
+        currentHostAmount = Object.keys(database.hosts).length;
 
     // Remove :host from database
     for(var i = 0; i < database.hosts.length; i++) {
@@ -173,17 +187,32 @@ function startAPIserver(){
       }
     }
 
-    // Write database
-    fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+    // Store new host amount
+    var newHostAmount = Object.keys(database.hosts).length;
+    // Compare if amount changed
+    if (newHostAmount !== currentHostAmount) {
+      // Write database
+      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+        // Return response
+        response.writeHead(200,
+          {
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          }
+        );
+        response.end('{"success": true}');
+      });
+    } else {
       // Return response
-      response.writeHead(200,
+      response.writeHead(400,
         {
           'Content-type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         }
       );
-      response.end('{"success": true}');
-    });
+      // Return error message
+      response.end('{"success": false, "payload":{ "error": "Host does not exist"}}');
+    }
   });
 
   // Create HTTP server
