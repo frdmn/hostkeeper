@@ -24,9 +24,10 @@ function updateHostsFile(callback){
     })
   })
 
-  if (exec('service dnsmasq restart').code === 0) {
+  // Restart dnsmasq
+  exec('service dnsmasq restart', function() {
     callback(true);
-  }
+  });
 }
 
 /**
