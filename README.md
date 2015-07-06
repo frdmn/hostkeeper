@@ -2,6 +2,8 @@
 
 __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web interface to provide an easy way to manage LAN-wide DNS emulations (or modifications) during local web development phases. Usually you adjust your local `/etc/hosts` file on your OS X or Windows machine, but this approach won't work on a (non jailbreaked) iPhone which has no direct file system access. Once the DNS in your network settings is set to the IP of the __hostkeeper__ Vagrant box, all DNS requests from said device will obey the "faked" ones from __hostkeeper__, hence you can surf via Safari to "http://actual-domain.com" but don't end up on the productive web server of `actual-domain.com`. Instead you end up on your local development box, since you added a mapping in the __hostkeeper__ web interface.
 
+(The introduction sentence sucks, can someone improve this please?)
+
 ## Installation
 
 1. Make sure you've installed all requirements
