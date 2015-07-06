@@ -8,7 +8,11 @@ var config = require('./config.json')
 
 /* Functions */
 
-// Function to construct dnsmasq hosts file based on json-server's database
+/**
+ * Function to construct dnsmasq hosts file based on json-server's database
+ * @param  {callback}
+ * @return {bool} true
+ */
 function updateHostsFile(callback){
   var database = require('./' + config.database);
 
@@ -21,6 +25,35 @@ function updateHostsFile(callback){
   // @TODO: make sure the fs functions are synchronous and callback gets called when its done.
   callback(true);
 }
+
+/**
+ * Function to find the next array element id
+ * @param  {array} hosts object
+ * @return {integer} host id
+ */
+function findNextHostId(array){
+  var lastitem = array[array.length-1];
+  if (typeof lastitem !== 'undefined' && lastitem) {
+    return Number(lastitem.id) + 1;
+  } else {
+    return 1;
+  }
+}
+
+/**
+ * Find array element which has a key value of val
+ * @param  {array} input array
+ * @param  {string} key to search
+ * @param  {string} val to search
+ * @return {bool} success
+ */
+function find(arr, key, val) {
+  for (var ai, i = arr.length; i--;)
+    if ((ai = arr[i]) && ai[key] === val)
+      return ai;
+  return null;
+}
+
 
 /* Logic */
 
@@ -61,64 +94,64 @@ function startAPIserver(){
 
   // POST /add - to add new hosts
   router.post('/add', function(request, response) {
-    // First make sure we haven't already added the host
-    restler.get('http://localhost:3000/hosts?host=' + request.post.host).on('complete', function(restData) {
-      // Host didnt already exist if object is empty => continue
-      if(restData.length === 0){
-        // Add new host via REST API
-        restler.post('http://localhost:3000/hosts', {
-          data: {
-            host: request.post.host,
-            ip: request.post.ip
-          }
-        }).on('complete', function(restData, restResponse) {
-          if (restResponse.statusCode === 201) {
-            // Return response
-            response.writeHead(200,
-              {
-                'Content-type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-              }
-            );
-            // response.end(restResponse.rawEncoded);
-            response.end('{"success": true}');
-          }
-        });
-      } else {
-        // Return response
-        response.writeHead(200,
-          {
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }
-        );
-        // Return error message
-        response.end('{"success": false, "payload":{ "error": "Host already exist"}}');
-      }
-    });
-  });
-
-  // POST /edit/:host - to edit existing hosts
-  router.post('/edit/:host', function(request, response) {
-    // Send PUT request to REST API
-    restler.put('http://localhost:3000/hosts/' + request.params.host, {
-      data: {
+    // Load hosts database
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    // Make sure we haven't already added the host
+    if (!find(database.hosts, 'host', request.post.host)) {
+      // Create object for our new host
+      var newHost = {
+        id: findNextHostId(database.hosts),
         host: request.post.host,
         ip: request.post.ip
-      },
-    }).on('complete', function(restData, restResponse) {
-      if (restResponse.statusCode === 200) {
-        // Return response
-        response.writeHead(200,
+      };
+      // Push newHost into database object
+      database.hosts.push(newHost);
+      // Write database
+      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+        // Return 201 CREATED status code
+        response.writeHead(201,
           {
             'Content-type': 'application/json',
             'Access-Control-Allow-Origin': '*',
           }
         );
-        // response.end(restResponse.rawEncoded);
         response.end('{"success": true}');
-      }
-    });
+      })
+    } else {
+      // Return response
+      response.writeHead(400,
+        {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      );
+      // Return error message
+      response.end('{"success": false, "payload":{ "error": "Host already exist"}}');
+    }
+  });
+
+  // PUT /edit/:host - to edit existing hosts
+  router.put('/edit/:host', function(request, response) {
+
+    // // Send PUT request to REST API
+    // restler.put('http://localhost:3000/hosts/' + request.params.host, {
+    //   data: {
+    //     host: request.post.host,
+    //     ip: request.post.ip
+    //   },
+    // }).on('complete', function(restData, restResponse) {
+    //   if (restResponse.statusCode === 200) {
+    //     // Return response
+    //     response.writeHead(200,
+    //       {
+    //         'Content-type': 'application/json',
+    //         'Access-Control-Allow-Origin': '*',
+    //       }
+    //     );
+    //     // response.end(restResponse.rawEncoded);
+    //     response.end('{"success": true}');
+    //   }
+    // });
   });
 
 
