@@ -1,7 +1,6 @@
 /* Require modules */
 
 var config = require('./config.json')
-    , jsonServer = require('json-server')
     , http = require('http')
     , Router = require('node-simple-router')
     , fs = require('fs')
@@ -25,22 +24,6 @@ function updateHostsFile(callback){
 }
 
 /* Logic */
-
-// Function to start the RESTful json-server
-function startJSONserver(){
-  // Create json-server
-  var server = jsonServer.create();
-
-  // Set default middlewares (logger, static, cors and no-cache)
-  server.use(jsonServer.defaults);
-
-  // Set router
-  var router = jsonServer.router(config.database);
-  server.use(router);
-
-  // Start json-server on port 3000
-  server.listen(3000);
-}
 
 // Function to start the actual API server
 function startAPIserver(){
@@ -170,6 +153,5 @@ if (!isRoot()){
   console.log('Error: This application needs root permissions! Make sure to run as root user.');
   process.exit(1);
 } else {
-  startJSONserver();
   startAPIserver();
 }
