@@ -132,28 +132,33 @@ function startAPIserver(){
 
   // PUT /edit/:host - to edit existing hosts
   router.put('/edit/:host', function(request, response) {
+    // Load hosts database
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
+        index;
 
-    // // Send PUT request to REST API
-    // restler.put('http://localhost:3000/hosts/' + request.params.host, {
-    //   data: {
-    //     host: request.post.host,
-    //     ip: request.post.ip
-    //   },
-    // }).on('complete', function(restData, restResponse) {
-    //   if (restResponse.statusCode === 200) {
-    //     // Return response
-    //     response.writeHead(200,
-    //       {
-    //         'Content-type': 'application/json',
-    //         'Access-Control-Allow-Origin': '*',
-    //       }
-    //     );
-    //     // response.end(restResponse.rawEncoded);
-    //     response.end('{"success": true}');
-    //   }
-    // });
+    // Find list index of host with id ":host"
+    for (var i = 0; i < database.hosts.length; i++) {
+      if (database.hosts[i].id.toString() === request.params.host) {
+        index = i;
+      }
+    }
+
+    // Update element
+    database.hosts[index].host = request.post.host
+    database.hosts[index].ip = request.post.ip
+
+    // Write database
+    fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+      // Return response
+      response.writeHead(200,
+        {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      );
+      response.end('{"success": true}');
+    });
   });
-
 
   // POST /delete/:host - to delete existing hosts
   router.post('/delete/:host', function(request, response) {
