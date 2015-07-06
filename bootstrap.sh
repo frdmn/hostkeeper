@@ -43,8 +43,6 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Create initial dnsmasqs host file via API server
     sleep 5
     curl -s http://localhost:4000/update &>/dev/null && echo "Successfully created initial hosts file for dnsmasq via API server!" || echo "Error: Couldn't reach API server! :("
-    # Reload dnsmasq configurtion by sending SIGHUP signal
-    kill -SIGHUP $(pgrep dnsmasq)
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"

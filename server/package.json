@@ -18,6 +18,7 @@
   "homepage": "https://github.com/frdmn/hostkeeper#readme",
   "dependencies": {
     "is-root": "^1.0.0",
-    "node-simple-router": "^0.4.7"
+    "node-simple-router": "^0.4.7",
+    "shelljs": "^0.5.1"
   }
 }
