@@ -15,6 +15,94 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
   `http://192.168.1.21` (The guest system tries to setup an bridged network interface from the WiFi interface of your Mac)
 6. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
 
+## Under the hood
+
+__hostkeeper__ consists out of three main parts:
+
+* DNS (dnsmasq)
+* RESTful API (to communicate between web interface and DNS server; Node)
+* Web interface (for comfortable host management; Apache)
+
+### RESTful API
+
+The REST API is written from scratch without any libraries, thus it might not be the most fault-tolerant API out there. But since the web interface is probably it's only client, I don't really see a need for it either.
+
+At the moment the API provides the following routes:
+
+##### Show all hosts
+
+> GET /show
+
+```shell
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]:4000/show
+
+HTTP/1.1 200 OK
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Date: Mon, 06 Jul 2015 22:57:54 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+[{"id":1,"host":"this.is.a.tld.test","ip":"1.2.3.4"},{"id":2,"host":"another.tld.test","ip":"2.3.4.5"}]
+```
+
+##### Create new host
+
+> POST /add
+
+```shell
+$ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]:4000/add \
+-d '{"host":"test.de","ip":"3.4.5.6"}'
+
+HTTP/1.1 201 Created
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Date: Mon, 06 Jul 2015 22:58:33 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+{"success": true}
+```
+
+##### Delete specific host
+
+> DELETE /delete/:host
+
+In the example below, we delete host#3
+
+```shell
+$ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]:4000/delete/3
+
+HTTP/1.1 200 OK
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Date: Mon, 06 Jul 2015 22:59:57 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+{"success": true}
+```
+
+##### Edit existing host
+
+> PUT /delete/:host
+
+In the example below, we adjust the hostname of host#2 to `this.is.a.adjusted.tld` .
+
+```shell
+$ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]:4000/edit/2 \
+-d '{"host":"this.is.a.adjusted.tld","ip":"3.4.5.6"}'
+
+HTTP/1.1 200 OK
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Date: Mon, 06 Jul 2015 23:01:42 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+{"success": true}
+```
+
 ## Contributing
 
 1. Fork it
