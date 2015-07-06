@@ -45,7 +45,18 @@ Date: Mon, 06 Jul 2015 22:57:54 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-[{"id":1,"host":"this.is.a.tld.test","ip":"1.2.3.4"},{"id":2,"host":"another.tld.test","ip":"2.3.4.5"}]
+[  
+   {  
+      "id":1,
+      "host":"this.is.a.tld.test",
+      "ip":"1.2.3.4"
+   },
+   {  
+      "id":2,
+      "host":"another.tld.test",
+      "ip":"2.3.4.5"
+   }
+]
 ```
 
 ##### Create new host
@@ -63,7 +74,9 @@ Date: Mon, 06 Jul 2015 22:58:33 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{"success": true}
+{  
+   "success":true
+}
 ```
 
 ##### Delete specific host
@@ -82,7 +95,9 @@ Date: Mon, 06 Jul 2015 22:59:57 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{"success": true}
+{  
+   "success":true
+}
 ```
 
 ##### Edit existing host
@@ -102,10 +117,12 @@ Date: Mon, 06 Jul 2015 23:01:42 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{"success": true}
+{  
+   "success":true
+}
 ```
 
-##### Reload dnsmasq hosts file manually
+##### Reload dnsmasq's hosts file manually
 
 > GET /update
 
@@ -119,7 +136,9 @@ Date: Mon, 06 Jul 2015 23:02:23 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{"success": true}
+{  
+   "success":true
+}
 ```
 
 ## Contributing
