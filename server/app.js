@@ -4,7 +4,6 @@ var config = require('./config.json')
     , http = require('http')
     , Router = require('node-simple-router')
     , fs = require('fs')
-    , restler = require('restler')
     , isRoot = require('is-root');
 
 /* Functions */
@@ -47,15 +46,17 @@ function startAPIserver(){
 
   // GET /show - to list all host entries
   router.get('/show', function(request, response) {
-    restler.get('http://localhost:3000/hosts').on('complete', function(restData) {
-      response.writeHead(200,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
-      response.end(JSON.stringify(restData));
-    });
+    // Load hosts database
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    // Write response
+    response.writeHead(200,
+      {
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    );
+    // Return hosts as JSON
+    response.end(JSON.stringify(database.hosts));
   });
 
   // POST /add - to add new hosts
