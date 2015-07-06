@@ -103,6 +103,23 @@ Transfer-Encoding: chunked
 {"success": true}
 ```
 
+##### Reload dnsmasq hosts file manually
+
+> GET /update
+
+```shell
+$ curl -i -X GET http://[hostkeeper]:4000/update
+
+HTTP/1.1 200 OK
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Date: Mon, 06 Jul 2015 23:02:23 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+{"success": true}
+```
+
 ## Contributing
 
 1. Fork it
