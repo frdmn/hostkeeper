@@ -160,22 +160,29 @@ function startAPIserver(){
     });
   });
 
-  // POST /delete/:host - to delete existing hosts
-  router.post('/delete/:host', function(request, response) {
-    // @TODO - [SyntaxError: Unexpected end of input] ???
-    // Send DELETE request to REST API
-    restler.del('http://localhost:3000/hosts/' + request.params.host).on('complete', function(restData, restResponse) {
-      if (restResponse.statusCode === 200) {
-        // Return response
-        response.writeHead(200,
-          {
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }
-        );
-        // response.end(restResponse.rawEncoded);
-        response.end('{"success": true}');
+  // DELETE /delete/:host - to delete existing hosts
+  router.delete('/delete/:host', function(request, response) {
+    // Load hosts database
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+
+    // Remove :host from database
+    for(var i = 0; i < database.hosts.length; i++) {
+      if(database.hosts[i].id == request.params.host) {
+        database.hosts.splice(i, 1);
+        i--;
       }
+    }
+
+    // Write database
+    fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+      // Return response
+      response.writeHead(200,
+        {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      );
+      response.end('{"success": true}');
     });
   });
 
