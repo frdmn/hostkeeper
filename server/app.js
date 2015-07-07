@@ -65,8 +65,8 @@ function find(arr, key, val) {
 
 /* Logic */
 
-// Function to start the actual API server
-function startAPIserver(){
+// Function to start hostkeeper server
+function startServer(){
   // Create router instance
   var router = new Router();
 
@@ -228,31 +228,23 @@ function startAPIserver(){
       cors = require('cors'),
       app = express();
 
-  // Inject cors and router middleware
+  // Add cors middleware
   app.use(cors());
-  app.use(router);
-
-  // Start server on port 4000
-  app.listen(4000);
-  console.log('API server successfuly started: http://localhost:4000');
-}
-
-// Function for static web server
-function startWebServer(){
-  var express = require('express'),
-      app = express();
 
   // Add static/assets folder
   app.use(express.static(__dirname+'/../public'));
 
-  // GET / route - show index.html
+  // inject GET / route - show web interface
   app.get('/', function(req, res){
       res.sendfile(__dirname + '/../public/index.html');
   });
 
+  // Add REST router middleware
+  app.use(router);
+
   // Start server on port 80
   app.listen(80);
-  console.log('Static web server successfuly started: http://localhost:80');
+  console.log('hostkeeper server successfuly started: http://localhost');
 }
 
 // Check if run as root
@@ -260,6 +252,5 @@ if (!isRoot()){
   console.log('Error: This application needs root permissions! Make sure to run as root user.');
   process.exit(1);
 } else {
-  startAPIserver();
-  startWebServer();
+  startServer();
 }

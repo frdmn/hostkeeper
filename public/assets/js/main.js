@@ -2,7 +2,7 @@ $(function() {
   /* "list all" functions */
   $.ajax({
     type: 'GET'
-    , url: 'http://' + window.location.hostname + ':4000/show'
+    , url: 'http://' + window.location.hostname + '/show'
     , cache: false
     , success: function(data) {
       // Clear placeholder
@@ -45,7 +45,7 @@ $(function() {
       // Send POST request to API
       $.ajax({
         type: 'POST'
-        , url: 'http://' + window.location.hostname + ':4000/add'
+        , url: 'http://' + window.location.hostname + '/add'
         , data: postObject
         , dataType: 'json'
         , success: function(data) {
@@ -104,7 +104,7 @@ $(function() {
       // Send PUT request to API
       $.ajax({
         type: 'PUT'
-        , url: 'http://' + window.location.hostname + ':4000/edit/' + hostId
+        , url: 'http://' + window.location.hostname + '/edit/' + hostId
         , data: postObject
         , success: function(data) {
           if (!data.success && data.errors.name) {
@@ -134,7 +134,7 @@ $(function() {
     // Send DELETE request to API
     $.ajax({
       type: 'DELETE'
-      , url: 'http://' + window.location.hostname + ':4000/delete/' + hostId
+      , url: 'http://' + window.location.hostname + '/delete/' + hostId
       , success: function(data) {
         if (!data.success && data.errors.name) {
           // Log errors
