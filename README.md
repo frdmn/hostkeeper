@@ -22,7 +22,7 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 __hostkeeper__ consists out of three main parts:
 
 * DNS (dnsmasq)
-* RESTful API (to communicate between web interface and DNS server; Node)
+* RESTful API (to communicate between web interface and DNS server)
 * Web interface (for comfortable host management)
 
 ### DNS
@@ -40,7 +40,7 @@ At the moment the API provides the following routes:
 > GET /show
 
 ```shell
-$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]:4000/show
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/show
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -68,7 +68,7 @@ Transfer-Encoding: chunked
 > POST /add
 
 ```shell
-$ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]:4000/add \
+$ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]/add \
 -d '{"host":"test.de","ip":"3.4.5.6"}'
 
 HTTP/1.1 201 Created
@@ -90,7 +90,7 @@ Transfer-Encoding: chunked
 In the example below, we delete host#3
 
 ```shell
-$ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]:4000/delete/3
+$ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]/delete/3
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -111,7 +111,7 @@ Transfer-Encoding: chunked
 In the example below, we adjust the hostname of host#2 to `this.is.a.adjusted.tld` .
 
 ```shell
-$ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]:4000/edit/2 \
+$ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]/edit/2 \
 -d '{"host":"this.is.a.adjusted.tld","ip":"3.4.5.6"}'
 
 HTTP/1.1 200 OK
@@ -131,7 +131,7 @@ Transfer-Encoding: chunked
 > GET /update
 
 ```shell
-$ curl -i -X GET http://[hostkeeper]:4000/update
+$ curl -i -X GET http://[hostkeeper]/update
 
 HTTP/1.1 200 OK
 Content-type: application/json
