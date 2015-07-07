@@ -22,17 +22,11 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Update apt repositories
     apt-get -y update
     # Install requirements
-    apt-get install -y curl vim git build-essential dnsmasq apache2 nodejs npm fontconfig
+    apt-get install -y curl vim git build-essential dnsmasq nodejs npm fontconfig
     ln -sf /usr/bin/nodejs /usr/bin/node
     # Apply base config for dnsmasq
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
     touch /etc/dnsmasq.hosts
-    # Prepare Apache2
-    a2dissite 000-default.conf
-    rm -rf /var/www/html
-    cp /vagrant/opt/apache2_hostkeeper.conf /etc/apache2/sites-available/hostkeeper.conf
-    a2ensite hostkeeper.conf
-    service apache2 restart
     # Compile assets of web interface
     cd /var/www/hostkeeper
     npm install -g grunt-cli bower &>/dev/null && echo "success: bower and grunt installation" || echo "failed: bower and grunt installation"

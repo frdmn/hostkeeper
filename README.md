@@ -23,7 +23,7 @@ __hostkeeper__ consists out of three main parts:
 
 * DNS (dnsmasq)
 * RESTful API (to communicate between web interface and DNS server; Node)
-* Web interface (for comfortable host management; Apache)
+* Web interface (for comfortable host management)
 
 ### RESTful API
 
