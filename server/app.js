@@ -124,7 +124,7 @@ function startAPIserver(){
           }
         );
         response.end('{"success": true}');
-      })
+      });
     } else {
       // Return response
       response.writeHead(400,
@@ -154,8 +154,8 @@ function startAPIserver(){
     // Make sure the desired host exists
     if (database.hosts[index]) {
       // Update element
-      database.hosts[index].host = request.post.host
-      database.hosts[index].ip = request.post.ip
+      database.hosts[index].host = request.post.host;
+      database.hosts[index].ip = request.post.ip;
 
       // Write database
       fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
