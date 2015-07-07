@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
     # Use Ubuntu 14.04 LTS
     config.vm.box = "ubuntu/trusty64"
     # Shell provisioning script for bootstrapping
-    config.vm.provision :shell, :path => "bootstrap.sh", :args => debug
+    config.vm.provision :shell, :path => "Vagrantfile.bootstrap.sh", :args => debug
     # Use DHCP to assign private IP
     config.vm.network "public_network", bridge: $network_interface_to_use
     config.vm.provider :virtualbox do |vb|
