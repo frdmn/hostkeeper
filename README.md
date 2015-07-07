@@ -9,13 +9,11 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 1. Make sure you've installed all requirements
 2. Clone this repository:  
   `git clone https://github.com/frdmn/hostkeeper`
-3. Create host file storage (which is not tracked by `git`):  
-  `cp server/db.example.json server/db.json `
-4. Boot up the Vagrant box using:  
+3. Boot up the Vagrant box using:  
   `vagrant up`
-5. Add your desired host/IP mappings in the _hostkeeper_ web interface:  
+4. Add your desired host/IP mappings in the _hostkeeper_ web interface:  
   `http://192.168.1.21` (The guest system tries to setup an bridged network interface from the WiFi interface of your Mac)
-6. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
+5. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
 
 ## Under the hood
 
