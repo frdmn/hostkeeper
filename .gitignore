@@ -18,9 +18,9 @@ public/assets/icons/grunticon
 public/assets/fonts
 
 ### hostkeeper-server ###
-server/node_modules
-server/log/*
-!server/log/.gitkeep
-server/pid/*
-!server/pid/.gitkeep
-server/db.json
+node_modules
+log/*
+!log/.gitkeep
+pid/*
+!pid/.gitkeep
+db.json
