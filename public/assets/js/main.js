@@ -79,6 +79,7 @@ $(function() {
   });
 
   /* "edit host" functions */
+  // @TODO - is this below performant?
   $(document).on('click', 'li#host', function() {
     // Show modal
     $('.modal#edit').addClass('modal--active');
