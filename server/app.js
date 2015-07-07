@@ -224,10 +224,14 @@ function startAPIserver(){
   });
 
   // Create HTTP server
-  var server = http.createServer(router);
+  var express = require('express'),
+      app = express();
+
+  // Use router and cors middleware
+  app.use(router);
 
   // Start server on port 4000
-  server.listen(4000);
+  app.listen(4000);
   console.log('API server successfuly started: http://localhost:4000');
 }
 
