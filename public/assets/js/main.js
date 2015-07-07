@@ -40,7 +40,7 @@ $(function() {
         , data: postObject
         , dataType: 'json'
         , success: function(data) {
-          if (!data.success && data.errors.name) { //If fails
+          if (!data.success && data.errors.name) {
             // Log errors
             console.log(data.errors.name);
           } else {
