@@ -235,8 +235,6 @@ function startAPIserver(){
 function startWebServer(){
   var express = require('express');
   var app = express();
-  var http = require('http');
-  var httpServer = http.Server(app);
 
   app.use(express.static(__dirname+'/../public'));
 
