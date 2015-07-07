@@ -35,20 +35,20 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     service apache2 restart
     # Compile assets of web interface
     cd /var/www/hostkeeper
-    npm install
     npm install -g grunt-cli bower &>/dev/null && echo "success: bower and grunt installation" || echo "failed: bower and grunt installation"
+    npm install &>/dev/null && echo "success: npm package installation for web interface" || echo "failed: npm package installation for web interface"
     bower install --allow-root
     grunt
     # Install hostkeeper-server
     cd /vagrant/server/
-    npm install
+    npm install &>/dev/null && echo "success: npm package installation for API server" || echo "failed: npm package installation for API server"
     cp /vagrant/opt/initd_node-app /etc/init.d/node-app
     chmod +x /etc/init.d/node-app
     update-rc.d node-app defaults
     service node-app start
     # Create initial dnsmasqs host file via API server
     sleep 5
-    curl -s http://localhost:4000/update &>/dev/null && echo "Successfully created initial hosts file for dnsmasq via API server!" || echo "Error: Couldn't reach API server! :("
+    curl -s http://localhost:4000/update &>/dev/null && echo "success: Created initial hosts file for dnsmasq via API server! :)" || echo "failed: Couldn't reach API server! :("
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
