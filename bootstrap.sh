@@ -42,7 +42,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     service hostkeeper start
     # Create initial dnsmasqs host file via API server
     sleep 5
-    curl -s http://localhost:4000/update &>/dev/null && echo "success: Created initial hosts file for dnsmasq via API server! :)" || echo "failed: Couldn't reach API server! :("
+    curl -s http://localhost/update &>/dev/null && echo "success: Created initial hosts file for dnsmasq via API server! :)" || echo "failed: Couldn't reach API server! :("
     # Final success message
     guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*$//')
     echo "${asciitypo}"
