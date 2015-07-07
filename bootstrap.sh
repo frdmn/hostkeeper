@@ -28,7 +28,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
     touch /etc/dnsmasq.hosts
     # Compile assets of web interface
-    cd /var/www/hostkeeper
+    cd /vagrant/public
     npm install -g grunt-cli bower &>/dev/null && echo "success: bower and grunt installation" || echo "failed: bower and grunt installation"
     npm install &>/dev/null && echo "success: npm package installation for web interface" || echo "failed: npm package installation for web interface"
     bower install --allow-root

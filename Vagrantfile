@@ -25,10 +25,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision :shell, :path => "bootstrap.sh", :args => debug
     # Use DHCP to assign private IP
     config.vm.network "public_network", bridge: $network_interface_to_use
-
-    # Sync "public/" folder to guest system "/var/www/hostkeeper"
-    config.vm.synced_folder "./public", "/var/www/hostkeeper", :owner=>"root",:group=>"www-data"
-
     config.vm.provider :virtualbox do |vb|
         # 512 MB memory
         vb.customize ["modifyvm", :id, "--memory", "512"]
