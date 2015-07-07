@@ -25,6 +25,10 @@ __hostkeeper__ consists out of three main parts:
 * RESTful API (to communicate between web interface and DNS server; Node)
 * Web interface (for comfortable host management)
 
+### DNS
+
+_@TODO_
+
 ### RESTful API
 
 The REST API is written from scratch without any libraries, thus it might not be the most fault-tolerant API out there. But since the web interface is probably it's only client, I don't really see a need for it either.
@@ -140,6 +144,10 @@ Transfer-Encoding: chunked
    "success":true
 }
 ```
+
+### Web interface
+
+_@TODO_
 
 ## Contributing
 
