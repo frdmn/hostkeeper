@@ -36,7 +36,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Compile assets of web interface
     cd /var/www/hostkeeper
     npm install
-    bower install
+    bower install --allow-root
     grunt
     # Install hostkeeper-server
     cd /vagrant/server/
