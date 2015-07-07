@@ -36,10 +36,10 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Install hostkeeper-server
     cd /vagrant/server/
     npm install &>/dev/null && echo "success: npm package installation for API server" || echo "failed: npm package installation for API server"
-    cp /vagrant/opt/initd_node-app /etc/init.d/node-app
-    chmod +x /etc/init.d/node-app
-    update-rc.d node-app defaults
-    service node-app start
+    cp /vagrant/opt/initd_hostkeeper /etc/init.d/hostkeeper
+    chmod +x /etc/init.d/hostkeeper
+    update-rc.d hostkeeper defaults
+    service hostkeeper start
     # Create initial dnsmasqs host file via API server
     sleep 5
     curl -s http://localhost:4000/update &>/dev/null && echo "success: Created initial hosts file for dnsmasq via API server! :)" || echo "failed: Couldn't reach API server! :("
