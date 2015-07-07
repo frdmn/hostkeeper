@@ -22,7 +22,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Update apt repositories
     apt-get -y update
     # Install requirements
-    apt-get install -y curl vim git build-essential dnsmasq apache2 nodejs npm
+    apt-get install -y curl vim git build-essential dnsmasq apache2 nodejs npm fontconfig
     ln -sf /usr/bin/nodejs /usr/bin/node
     # Apply base config for dnsmasq
     cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
