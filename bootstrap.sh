@@ -33,6 +33,11 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     cp /vagrant/opt/apache2_hostkeeper.conf /etc/apache2/sites-available/hostkeeper.conf
     a2ensite hostkeeper.conf
     service apache2 restart
+    # Compile assets of web interface
+    cd /var/www/hostkeeper
+    npm install
+    bower install
+    grunt
     # Install hostkeeper-server
     cd /vagrant/server/
     npm install
