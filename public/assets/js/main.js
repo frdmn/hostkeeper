@@ -23,12 +23,13 @@ $(function() {
 
   /* "add host" functions */
   $('.modal-open#add-button').on('click', function() {
+    // Show modal
     $('.modal#add').addClass('modal--active');
 
     // Check if text areas are not empty
     $('.btn--submit').attr('disabled', true);
-    $('input').on('keyup',function() {
-      if ($('#ip-input').val() && $('#host-input').val()) {
+    $('.modal#add input').on('keyup',function() {
+      if ($('.modal#add #ip-input').val() && $('.modal#add #host-input').val()) {
         $('.btn--submit').attr('disabled', false);
       } else {
         $('.btn--submit').attr('disabled', true);
@@ -60,7 +61,7 @@ $(function() {
             console.log(data.errors.name);
           } else {
             // Remove saving class
-            $('.modal').removeClass('modal--saving');
+            $('.modal#add').removeClass('modal--saving');
             // Reload page
             location.reload();
           }
@@ -69,7 +70,7 @@ $(function() {
     });
 
     // On click on close button
-    $('#add button.modal-close').on('click', function() {
+    $('.modal#add button.modal-close').on('click', function() {
       // Close modal
       $('.modal#add').removeClass('modal--active');
       // Remove saving class
