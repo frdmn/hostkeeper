@@ -128,6 +128,34 @@ $(function() {
     });
   });
 
+  /* "delete host" functions */
+  $('.modal-delete').on('click', function(){
+    // Get current host details
+    var hostId = $('.modal#edit #id-input').val();
+    console.log(hostId);
+    // Close modal
+    $('.modal#edit').removeClass('modal--active');
+    // Show saving overlay
+    $('.modal#edit').addClass('modal--saving');
+
+    // Send DELETE request to API
+    $.ajax({
+      type: 'DELETE'
+      , url: 'http://' + window.location.hostname + ':4000/delete/' + hostId
+      , success: function(data) {
+        if (!data.success && data.errors.name) {
+          // Log errors
+          console.log(data.errors.name);
+        } else {
+          // Remove saving class
+          $('.modal#edit').removeClass('modal--saving');
+          // Reload page
+          location.reload();
+        }
+      }
+    });
+  });
+
   // Close modals on click on close button
   $('.modal button.modal-close').on('click', function() {
     // Close modal
