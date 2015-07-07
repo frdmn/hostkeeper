@@ -22,7 +22,7 @@ $(function() {
   });
 
   /* "add host" functions */
-  $('.modal-open#add-button').click(function() {
+  $('.modal-open#add-button').on('click', function() {
     $('.modal#add').addClass('modal--active');
 
     // Check if text areas are not empty
@@ -36,7 +36,7 @@ $(function() {
     });
 
     // Save host
-    $('.modal#add .modal-save').click(function() {
+    $('.modal#add .modal-save').on('click', function() {
       // Close modal
       $('.modal#add').removeClass('modal--active');
       // Show saving overlay
@@ -69,7 +69,7 @@ $(function() {
     });
 
     // On click on close button
-    $('#add button.modal-close').click(function() {
+    $('#add button.modal-close').on('click', function() {
       // Close modal
       $('.modal#add').removeClass('modal--active');
       // Remove saving class
