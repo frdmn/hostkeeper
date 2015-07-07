@@ -239,14 +239,18 @@ function startAPIserver(){
 
 // Function for static web server
 function startWebServer(){
-  var express = require('express');
-  var app = express();
+  var express = require('express'),
+      app = express();
 
+  // Add static/assets folder
   app.use(express.static(__dirname+'/../public'));
 
+  // GET / route - show index.html
   app.get('/', function(req, res){
       res.sendfile(__dirname + '/../public/index.html');
   });
+
+  // Start server on port 80
   app.listen(80);
   console.log('Static web server successfuly started: http://localhost:80');
 }
