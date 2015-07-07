@@ -231,10 +231,27 @@ function startAPIserver(){
   console.log('API server successfuly started: http://localhost:4000');
 }
 
+// Function for static web server
+function startWebServer(){
+  var express = require('express');
+  var app = express();
+  var http = require('http');
+  var httpServer = http.Server(app);
+
+  app.use(express.static(__dirname+'/../public'));
+
+  app.get('/', function(req, res){
+      res.sendfile(__dirname + '/../public/index.html');
+  });
+  app.listen(80);
+  console.log('Static web server successfuly started: http://localhost:80');
+}
+
 // Check if run as root
 if (!isRoot()){
   console.log('Error: This application needs root permissions! Make sure to run as root user.');
   process.exit(1);
 } else {
   startAPIserver();
+  startWebServer();
 }
