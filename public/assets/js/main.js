@@ -82,6 +82,7 @@ $(function() {
         , hostIp = $('span#ip', this).html();
 
     // Fill host and ip inputs
+    $('.modal#edit #id-input').val(hostId);
     $('.modal#edit #host-input').val(hostName);
     $('.modal#edit #ip-input').val(hostIp);
 
