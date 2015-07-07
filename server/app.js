@@ -225,9 +225,11 @@ function startAPIserver(){
 
   // Create HTTP server
   var express = require('express'),
+      cors = require('cors'),
       app = express();
 
   // Use router and cors middleware
+  app.use(cors());
   app.use(router);
 
   // Start server on port 4000
