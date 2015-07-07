@@ -228,7 +228,7 @@ function startAPIserver(){
       cors = require('cors'),
       app = express();
 
-  // Use router and cors middleware
+  // Inject cors and router middleware
   app.use(cors());
   app.use(router);
 

@@ -68,14 +68,6 @@ $(function() {
         }
       });
     });
-
-    // On click on close button
-    $('.modal#add button.modal-close').on('click', function() {
-      // Close modal
-      $('.modal#add').removeClass('modal--active');
-      // Remove saving class
-      $('.modal#add').removeClass('modal--saving');
-    });
   });
 
   /* "edit host" functions */
@@ -92,6 +84,15 @@ $(function() {
     // Fill host and ip inputs
     $('.modal#edit #host-input').val(hostName);
     $('.modal#edit #ip-input').val(hostIp);
+
+    // Check if text areas are not empty
+    $('.modal#edit input').on('keyup',function() {
+      if ($('.modal#edit #ip-input').val() && $('.modal#edit #host-input').val()) {
+        $('.modal#edit .btn--submit').attr('disabled', false);
+      } else {
+        $('.modal#edit .btn--submit').attr('disabled', true);
+      }
+    });
 
     // Save edited host
     $('.modal#edit .modal-save').on('click', function() {
@@ -124,22 +125,13 @@ $(function() {
         }
       });
     });
+  });
 
-    // Check if text areas are not empty
-    $('.modal#edit input').on('keyup',function() {
-      if ($('.modal#edit #ip-input').val() && $('.modal#edit #host-input').val()) {
-        $('.modal#edit .btn--submit').attr('disabled', false);
-      } else {
-        $('.modal#edit .btn--submit').attr('disabled', true);
-      }
-    });
-
-    // On click on close button
-    $('.modal#edit button.modal-close').on('click', function() {
-      // Close modal
-      $('.modal#edit').removeClass('modal--active');
-      // Remove saving class
-      $('.modal#edit').removeClass('modal--saving');
-    });
+  // Close modals on click on close button
+  $('.modal button.modal-close').on('click', function() {
+    // Close modal
+    $('.modal').removeClass('modal--active');
+    // Remove saving class
+    $('.modal').removeClass('modal--saving');
   });
 });
