@@ -5,7 +5,8 @@ var config = require('./config.json')
     , Router = require('node-simple-router')
     , fs = require('fs')
     , isRoot = require('is-root')
-    , shell = require('shelljs/global');
+    , shell = require('shelljs/global')
+    , async = require('async');
 
 /* Functions */
 
@@ -15,18 +16,21 @@ var config = require('./config.json')
  * @return {bool} true
  */
 function updateHostsFile(callback){
+  // Require current database
   var database = require('./' + config.database);
-
+  // Clear hosts file
   fs.writeFile(config.dnsmasqhostsfile, '', function(){
-    // @TODO: make sure the fs functions are synchronous and callback gets called when its done.
-    database.hosts.forEach(function(host){
+    // For each host in database
+    async.each(database.hosts, function(host, cb){
+      // Append each host mapping
       fs.appendFile(config.dnsmasqhostsfile, host.ip + ' ' + host.host + '\n');
-    })
-  })
-
-  // Restart dnsmasq
-  exec('service dnsmasq restart', function() {
-    callback(true);
+      cb();
+    }, function (err){
+      // Restart dnsmasq
+      exec('service dnsmasq restart', function() {
+        callback(true);
+      });
+    });
   });
 }
 
