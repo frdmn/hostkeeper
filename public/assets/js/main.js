@@ -23,7 +23,7 @@ $(function() {
 
   /* "add host" functions */
   $('.modal-open#add-button').click(function() {
-    $('.modal').addClass('modal--active');
+    $('.modal#add').addClass('modal--active');
 
     // Check if text areas are not empty
     $('.btn--submit').attr('disabled', true);
@@ -36,11 +36,11 @@ $(function() {
     });
 
     // Save host
-    $('.modal-save').click(function() {
+    $('.modal#add .modal-save').click(function() {
       // Close modal
-      $('.modal').removeClass('modal--active');
+      $('.modal#add').removeClass('modal--active');
       // Show saving overlay
-      $('.modal').addClass('modal--saving');
+      $('.modal#add').addClass('modal--saving');
 
       // Create POST object
       var postObject = {
@@ -71,9 +71,9 @@ $(function() {
     // On click on close button
     $('#add button.modal-close').click(function() {
       // Close modal
-      $('.modal').removeClass('modal--active');
+      $('.modal#add').removeClass('modal--active');
       // Remove saving class
-      $('.modal').removeClass('modal--saving');
+      $('.modal#add').removeClass('modal--saving');
     });
   });
 });
