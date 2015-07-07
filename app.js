@@ -232,11 +232,11 @@ function startServer(){
   app.use(cors());
 
   // Add static/assets folder
-  app.use(express.static(__dirname+'/../public'));
+  app.use(express.static(__dirname+'/public'));
 
   // inject GET / route - show web interface
   app.get('/', function(req, res){
-      res.sendfile(__dirname + '/../public/index.html');
+      res.sendfile(__dirname + '/public/index.html');
   });
 
   // Add REST router middleware

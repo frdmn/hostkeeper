@@ -34,7 +34,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     bower install --allow-root
     grunt
     # Install hostkeeper-server
-    cd /vagrant/server/
+    cd /vagrant
     npm install &>/dev/null && echo "success: npm package installation for API server" || echo "failed: npm package installation for API server"
     cp /vagrant/opt/initd_hostkeeper /etc/init.d/hostkeeper
     chmod +x /etc/init.d/hostkeeper
