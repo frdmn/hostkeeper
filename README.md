@@ -106,7 +106,7 @@ Transfer-Encoding: chunked
 
 ##### Edit existing host
 
-> PUT /delete/:host
+> PUT /edit/:host
 
 In the example below, we adjust the hostname of host#2 to `this.is.a.adjusted.tld` .
 

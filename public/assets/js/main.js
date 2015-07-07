@@ -1,10 +1,3 @@
-/**
- * main.js
- *
- * Author: Marian Friedmann
- *
- */
-
 $(function() {
   /* "list all" functions */
   $.ajax({
@@ -129,7 +122,7 @@ $(function() {
   });
 
   /* "delete host" functions */
-  $('.modal-delete').on('click', function(){
+  $('.modal-delete').on('click', function() {
     // Get current host details
     var hostId = $('.modal#edit #id-input').val();
     console.log(hostId);
