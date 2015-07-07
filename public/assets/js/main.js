@@ -30,9 +30,9 @@ $(function() {
     $('.btn--submit').attr('disabled', true);
     $('.modal#add input').on('keyup',function() {
       if ($('.modal#add #ip-input').val() && $('.modal#add #host-input').val()) {
-        $('.btn--submit').attr('disabled', false);
+        $('.modal#add .btn--submit').attr('disabled', false);
       } else {
-        $('.btn--submit').attr('disabled', true);
+        $('.modal#add .btn--submit').attr('disabled', true);
       }
     });
 
@@ -45,8 +45,8 @@ $(function() {
 
       // Create POST object
       var postObject = {
-        'host': $('#host-input').val()
-        , 'ip': $('#ip-input').val()
+        'host': $('.modal#add #host-input').val()
+        , 'ip': $('.modal#add #ip-input').val()
       };
 
       // Send POST request to API
@@ -75,6 +75,70 @@ $(function() {
       $('.modal#add').removeClass('modal--active');
       // Remove saving class
       $('.modal#add').removeClass('modal--saving');
+    });
+  });
+
+  /* "edit host" functions */
+  $(document).on('click', 'li#host', function() {
+    // Show modal
+    $('.modal#edit').addClass('modal--active');
+
+    // Get current host details
+    var hostId = $(this).data('host')
+        , hostName = $('span#host', this).html()
+        , hostIp = $('span#ip', this).html();
+
+    // Fill host and ip inputs
+    $('.modal#edit #host-input').val(hostName);
+    $('.modal#edit #ip-input').val(hostIp);
+
+    // Save edited host
+    $('.modal#edit .modal-save').on('click', function() {
+      // Close modal
+      $('.modal#edit').removeClass('modal--active');
+      // Show saving overlay
+      $('.modal#edit').addClass('modal--saving');
+
+      // Create POST object
+      var postObject = {
+        'host': $('.modal#edit #host-input').val()
+        , 'ip': $('.modal#edit #ip-input').val()
+      };
+
+      // Send PUT request to API
+      $.ajax({
+        type: 'PUT'
+        , url: 'http://' + window.location.hostname + ':4000/edit/' + hostId
+        , data: postObject
+        , success: function(data) {
+          if (!data.success && data.errors.name) {
+            // Log errors
+            console.log(data.errors.name);
+          } else {
+            // Remove saving class
+            $('.modal#edit').removeClass('modal--saving');
+            // Reload page
+            location.reload();
+          }
+        }
+      });
+    });
+
+    // Check if text areas are not empty
+    $('.modal#edit input').on('keyup',function() {
+      if ($('.modal#edit #ip-input').val() && $('.modal#edit #host-input').val()) {
+        $('.modal#edit .btn--submit').attr('disabled', false);
+      } else {
+        $('.modal#edit .btn--submit').attr('disabled', true);
+      }
+    });
+
+    // On click on close button
+    $('.modal#edit button.modal-close').on('click', function() {
+      // Close modal
+      $('.modal#edit').removeClass('modal--active');
+      // Remove saving class
+      $('.modal#edit').removeClass('modal--saving');
     });
   });
 });
