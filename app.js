@@ -16,8 +16,8 @@ var config = require('./config.json')
  * @return {bool} true
  */
 function updateHostsFile(callback){
-  // Require current database
-  var database = require('./' + config.database);
+  // Load current database
+  var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
   // Clear hosts file
   fs.writeFile(config.dnsmasqhostsfile, '', function(){
     // For each host in database
