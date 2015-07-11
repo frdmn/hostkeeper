@@ -19,8 +19,6 @@ public/assets/fonts
 
 ### hostkeeper-server ###
 node_modules
-log/*
-!log/.gitkeep
-pid/*
-!pid/.gitkeep
+log/
+pid/
 db.json

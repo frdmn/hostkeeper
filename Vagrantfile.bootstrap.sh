@@ -38,6 +38,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     npm install &>/dev/null && echo "success: npm package installation for API server" || echo "failed: npm package installation for API server"
     cp /vagrant/opt/initd_hostkeeper /etc/init.d/hostkeeper
     cp /vagrant/opt/db.example.json /vagrant/db.json
+    mkdir -p /vagrant/pid /vagrant/log
     chmod +x /etc/init.d/hostkeeper
     update-rc.d hostkeeper defaults
     service hostkeeper start
