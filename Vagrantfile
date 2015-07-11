@@ -1,21 +1,13 @@
 # Debug mode?
 debug = "false"
 
-# Prefer Wi-Fi network for network bridge
-preferred_interfaces = [
-  # 'Ethernet',
-  # 'Thunderbold 1',
-  'Wi-Fi',
-  'WLAN'
-]
-
 # Store possible interface names
 host_interfaces = %x( VBoxManage list bridgedifs | grep ^Name )
                   .gsub(/Name:\s+/, '')
                   .split("\n")
 
-# Select the most similiar one to our preferred interfaces
-$network_interface_to_use = preferred_interfaces.map{ |pi| host_interfaces.find { |vm| vm =~ /#{Regexp.quote(pi)}/ } }.compact[0]
+# Select the primary one
+$network_interface_to_use = host_interfaces[0]
 
 # Use Vagrant config version 2
 Vagrant.configure("2") do |config|
