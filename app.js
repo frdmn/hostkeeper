@@ -27,7 +27,7 @@ function updateHostsFile(callback){
       cb();
     }, function (err){
       // Restart dnsmasq
-      exec('service dnsmasq restart', function() {
+      exec('service dnsmasq restart', {silent:true}, function() {
         callback(true);
       });
     });
