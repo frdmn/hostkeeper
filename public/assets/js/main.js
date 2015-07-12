@@ -9,7 +9,7 @@ $(function() {
         // Clear placeholder
         $('.dotted-list').html('');
         // Populate <ul> with host <li>'s
-        data.forEach(function(host) {
+        data.payload.forEach(function(host) {
           $('.dotted-list').append('<li id="host" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset" id="ip">' + host.ip + '</span></span> <span class="background-offset" id="host">' + host.host + '</span></li>');
         });
       }
@@ -53,9 +53,9 @@ $(function() {
         , data: postObject
         , dataType: 'json'
         , success: function(data) {
-          if (!data.success && data.errors.name) {
+          if (!data.success) {
             // Log errors
-            console.log(data.errors.name);
+            console.log(data);
           } else {
             // Remove saving class
             setTimeout(function() {
@@ -113,9 +113,9 @@ $(function() {
         , url: 'http://' + window.location.hostname + '/api/edit/' + hostId
         , data: postObject
         , success: function(data) {
-          if (!data.success && data.errors.name) {
+          if (!data.success) {
             // Log errors
-            console.log(data.errors.name);
+            console.log(data);
           } else {
             // Remove saving class
             setTimeout(function() {
@@ -144,9 +144,9 @@ $(function() {
       type: 'DELETE'
       , url: 'http://' + window.location.hostname + '/api/delete/' + hostId
       , success: function(data) {
-        if (!data.success && data.errors.name) {
+        if (!data.success) {
           // Log errors
-          console.log(data.errors.name);
+          console.log(data);
         } else {
           // Remove saving class
           setTimeout(function() {
