@@ -100,6 +100,42 @@ function startServer(){
     response.end(JSON.stringify(database.hosts));
   });
 
+  // GET /show/:host - show specific host
+  router.get('/show/:host', function(request, response) {
+    // Load hosts database
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
+        index;
+
+    // Find list index of host with id ":host"
+    for (var i = 0; i < database.hosts.length; i++) {
+      if (database.hosts[i].id.toString() === request.params.host) {
+        index = i;
+      }
+    }
+
+    // Make sure the desired host exists
+    if (database.hosts[index]) {
+      // Return response
+      response.writeHead(200,
+        {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      );
+      response.end(JSON.stringify(database.hosts[index]));
+    } else {
+      // Return response
+      response.writeHead(400,
+        {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      );
+      // Return error message
+      response.end('{"success": false, "payload":{ "error": "Host does not exist"}}');
+    }
+  });
+
   // POST /add - to add new hosts
   router.post('/add', function(request, response) {
     // Load hosts database

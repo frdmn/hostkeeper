@@ -61,6 +61,27 @@ Transfer-Encoding: chunked
 ]
 ```
 
+##### Show specific host
+
+> GET /show/:host
+
+```shell
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/show/1
+
+HTTP/1.1 200 OK
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Date: Mon, 12 Jul 2015 15:44:54 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+{  
+   "id":1,
+   "host":"this.is.a.tld.test",
+   "ip":"1.2.3.4"
+}
+```
+
 ##### Create new host
 
 > POST /add
