@@ -31,6 +31,13 @@ $(function() {
     });
   };
 
+  function closeModals(){
+    // Close modal
+    $('.modal').removeClass('modal--active');
+    // Remove saving class
+    $('.modal').removeClass('modal--saving');
+  }
+
   reloadHostList();
 
   /* "add host" functions */
@@ -186,9 +193,13 @@ $(function() {
 
   // Close modals on click on close button
   $('.modal button.modal-close').on('click', function() {
-    // Close modal
-    $('.modal').removeClass('modal--active');
-    // Remove saving class
-    $('.modal').removeClass('modal--saving');
+    closeModals();
+  });
+
+  // as well as on ESC keypress
+  $(document).keyup(function(e) {
+    if (e.keyCode == 27) {
+      closeModals();
+    }
   });
 });
