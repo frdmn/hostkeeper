@@ -196,6 +196,11 @@ $(function() {
     closeModals();
   });
 
+  // Prevent default submit action
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+  });
+
   // as well as on ESC keypress
   $(document).keyup(function(e) {
     if (e.keyCode == 27) {
