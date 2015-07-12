@@ -1,4 +1,4 @@
 {
     "database": "db.json",
-    "dnsmasqhostsfile": "/etc/dnsmasq.hosts"
+    "dnsmasqhostsfile": "/vagrant/db.dnsmasq"
 }
