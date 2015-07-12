@@ -49,16 +49,6 @@ $(function() {
     $('.modal#add #ip-input').val('');
     // Show modal
     $('.modal#add').addClass('modal--active');
-
-    // Check if text areas are not empty
-    $('.btn--submit').attr('disabled', true);
-    $('.modal#add input').on('keyup',function() {
-      if ($('.modal#add #ip-input').val() && $('.modal#add #host-input').val()) {
-        $('.modal#add .btn--submit').attr('disabled', false);
-      } else {
-        $('.modal#add .btn--submit').attr('disabled', true);
-      }
-    });
   });
 
   // Save host
@@ -113,15 +103,6 @@ $(function() {
     $('.modal#edit #id-input').val(hostId);
     $('.modal#edit #host-input').val(hostName);
     $('.modal#edit #ip-input').val(hostIp);
-
-    // Check if text areas are not empty
-    $('.modal#edit input').on('keyup',function() {
-      if ($('.modal#edit #ip-input').val() && $('.modal#edit #host-input').val()) {
-        $('.modal#edit .btn--submit').attr('disabled', false);
-      } else {
-        $('.modal#edit .btn--submit').attr('disabled', true);
-      }
-    });
   });
 
   // Save edited host
@@ -194,6 +175,61 @@ $(function() {
   // Close modals on click on close button
   $('.modal button.modal-close').on('click', function() {
     closeModals();
+  });
+
+  // Prevent default submit action
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+  });
+
+  // Form validator - IP plugin
+  jQuery.validator.addMethod('validIP', function(value) {
+    var split = value.split('.');
+    if (split.length != 4)
+      return false;
+
+    for (var i=0; i<split.length; i++) {
+      var s = split[i];
+      if (s.length==0 || isNaN(s) || s<0 || s>255)
+        return false;
+    }
+    return true;
+  }, ' Invalid IP Address');
+
+  // Prepare form validation
+  $( "form" ).each(function(){
+    $(this).validate( {
+      errorClass: "ui-state-error",
+      rules: {
+        ip: {
+          required: true,
+          validIP: true
+        },
+        host: {
+          required: true
+        }
+      },
+      messages: {
+        ip: {
+          required: "Enter an IP",
+          validIP: "IP not valid"
+        },
+        host: {
+          required: "Enter an hostname"
+        }
+      }
+    });
+  });
+
+  // Validate form on keyup
+  $('form').on('keyup', function () {
+    if ($(this).valid()) {
+      $('.btn--submit', this).attr('disabled', false);
+      console.log($('#ip-input', this).val());
+      console.log($('#host-input', this).val());
+    } else {
+      $('.btn--submit', this).attr('disabled', true);
+    }
   });
 
   // as well as on ESC keypress

@@ -63,6 +63,7 @@ module.exports = function(grunt) {
             dist: {
                 src: [
                     '<%= dirs.bower %>/jquery/dist/jquery.js',
+                    '<%= dirs.bower %>/jquery-validation/dist/jquery.validate.js',
                     '<%= dirs.js %>/*.js',
                     '!<%= dirs.js %>/modernizr.js',
                     '!<%= dirs.js %>/build.js'
