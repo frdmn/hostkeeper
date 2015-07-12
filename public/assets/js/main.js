@@ -1,5 +1,7 @@
 $(function() {
-  /* "list all" function */
+  /* function */
+
+  // Reload hosts list in DO
   var reloadHostList = function() {
     $.ajax({
       type: 'GET'
@@ -12,6 +14,19 @@ $(function() {
         data.payload.forEach(function(host) {
           $('.dotted-list').append('<li id="host" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset" id="ip">' + host.ip + '</span></span> <span class="background-offset" id="host">' + host.host + '</span></li>');
         });
+      }
+    });
+  };
+
+  // Reload DNS server
+  function reloadDNSserver(callback){
+    $.ajax({
+      type: 'GET'
+      , url: 'http://' + window.location.hostname + '/api/update'
+      , cache: false
+      , success: function(data) {
+        // Clear placeholder
+        callback(true);
       }
     });
   };
@@ -60,12 +75,13 @@ $(function() {
           // Log errors
           console.log(data);
         } else {
-          // Remove saving class
-          setTimeout(function() {
+          // Reload DNS server
+          reloadDNSserver(function(){
+            // Remove saving class
             $('.modal#add').removeClass('modal--saving');
-          }, 800);
-          // Reload host list
-          reloadHostList();
+            // Reload host list
+            reloadHostList();
+          });
         }
       }
     });
@@ -119,12 +135,13 @@ $(function() {
           // Log errors
           console.log(data);
         } else {
-          // Remove saving class
-          setTimeout(function() {
+          // Reload DNS server
+          reloadDNSserver(function(){
+            // Remove saving class
             $('.modal#edit').removeClass('modal--saving');
-          }, 800);
-          // Reload host list
-          reloadHostList();
+            // Reload host list
+            reloadHostList();
+          });
         }
       }
     });
@@ -150,12 +167,13 @@ $(function() {
           // Log errors
           console.log(data);
         } else {
-          // Remove saving class
-          setTimeout(function() {
+          // Reload DNS server
+          reloadDNSserver(function(){
+            // Remove saving class
             $('.modal#edit').removeClass('modal--saving');
-          }, 800);
-          // Reload host list
-          reloadHostList();
+            // Reload host list
+            reloadHostList();
+          });
         }
       }
     });
