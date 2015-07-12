@@ -74,6 +74,11 @@ function startServer(){
 
   // GET /api/update - to update the hosts file manually
   router.get('/api/update', function(request, response) {
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'update';
+    // Update hosts file
     updateHostsFile(function(){
       response.writeHead(200,
         {
@@ -81,7 +86,10 @@ function startServer(){
           'Access-Control-Allow-Origin': '*',
         }
       );
-      response.end('{"success": true}');
+      // Construct JSON response
+      json.success = true;
+      // Return JSON
+      response.end(JSON.stringify(json));
     });
   });
 
@@ -89,6 +97,11 @@ function startServer(){
   router.get('/api/show', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'show';
+    json.payload = {};
     // Write response
     response.writeHead(200,
       {
@@ -96,8 +109,11 @@ function startServer(){
         'Access-Control-Allow-Origin': '*',
       }
     );
-    // Return hosts as JSON
-    response.end(JSON.stringify(database.hosts));
+    // Construct JSON response
+    json.success = true;
+    json.payload = database.hosts;
+    // Return JSON
+    response.end(JSON.stringify(json));
   });
 
   // GET /api/show/:host - show specific host
@@ -105,14 +121,17 @@ function startServer(){
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
-
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'show/' + request.params.host;
+    json.payload = {};
     // Find list index of host with id ":host"
     for (var i = 0; i < database.hosts.length; i++) {
       if (database.hosts[i].id.toString() === request.params.host) {
         index = i;
       }
     }
-
     // Make sure the desired host exists
     if (database.hosts[index]) {
       // Return response
@@ -122,17 +141,23 @@ function startServer(){
           'Access-Control-Allow-Origin': '*',
         }
       );
-      response.end(JSON.stringify(database.hosts[index]));
+      // Construct JSON response
+      json.success = true;
+      json.payload = database.hosts[index];
+      // Return JSON
+      response.end(JSON.stringify(json));
     } else {
       // Return response
-      response.writeHead(400,
+      response.writeHead(404,
         {
           'Content-type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         }
       );
-      // Return error message
-      response.end('{"success": false, "payload":{ "error": "Host does not exist"}}');
+      // Construct JSON response
+      json.payload.error = 'Host does not exist';
+      // Return JSON
+      response.end(JSON.stringify(json));
     }
   });
 
@@ -140,6 +165,11 @@ function startServer(){
   router.post('/api/add', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'add';
+    json.payload = {};
     // Make sure we haven't already added the host
     if (!find(database.hosts, 'host', request.post.host)) {
       // Create object for our new host
@@ -159,7 +189,11 @@ function startServer(){
             'Access-Control-Allow-Origin': '*',
           }
         );
-        response.end('{"success": true}');
+        // Construct JSON response
+        json.success = true;
+        json.payload = newHost;
+        // Return JSON
+        response.end(JSON.stringify(json));
       });
     } else {
       // Return response
@@ -169,8 +203,10 @@ function startServer(){
           'Access-Control-Allow-Origin': '*',
         }
       );
-      // Return error message
-      response.end('{"success": false, "payload":{ "error": "Host already exist"}}');
+      // Construct JSON response
+      json.payload.error = 'Host already exists';
+      // Return JSON
+      response.end(JSON.stringify(json));
     }
   });
 
@@ -179,7 +215,11 @@ function startServer(){
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
-
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'edit/' + request.params.host;
+    json.payload = {};
     // Find list index of host with id ":host"
     for (var i = 0; i < database.hosts.length; i++) {
       if (database.hosts[i].id.toString() === request.params.host) {
@@ -202,18 +242,27 @@ function startServer(){
             'Access-Control-Allow-Origin': '*',
           }
         );
-        response.end('{"success": true}');
+        // Construct JSON response
+        json.success = true;
+        json.payload = database.hosts[index];
+        // Return JSON
+        response.end(JSON.stringify(json));
       });
     } else {
       // Return response
-      response.writeHead(400,
+      response.writeHead(404,
         {
           'Content-type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         }
       );
-      // Return error message
-      response.end('{"success": false, "payload":{ "error": "Host does not exist"}}');
+      // Construct JSON response
+      json.payload.error = 'Host does not exist';
+      json.payload.input = {};
+      json.payload.input.host = request.post.host;
+      json.payload.input.ip = request.post.ip;
+      // Return JSON
+      response.end(JSON.stringify(json));
     }
   });
 
@@ -222,10 +271,15 @@ function startServer(){
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         currentHostAmount = Object.keys(database.hosts).length;
-
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'delete/' + request.params.host;
+    json.payload = {};
     // Remove :host from database
     for(var i = 0; i < database.hosts.length; i++) {
       if(database.hosts[i].id.toString() === request.params.host) {
+        var deletedHost = database.hosts[i];
         database.hosts.splice(i, 1);
         i--;
       }
@@ -244,18 +298,24 @@ function startServer(){
             'Access-Control-Allow-Origin': '*',
           }
         );
-        response.end('{"success": true}');
+        // Construct JSON response
+        json.success = true;
+        json.payload = deletedHost;
+        // Return JSON
+        response.end(JSON.stringify(json));
       });
     } else {
       // Return response
-      response.writeHead(400,
+      response.writeHead(404,
         {
           'Content-type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         }
       );
-      // Return error message
-      response.end('{"success": false, "payload":{ "error": "Host does not exist"}}');
+      // Construct JSON response
+      json.payload.error = 'Host does not exist';
+      // Return JSON
+      response.end(JSON.stringify(json));
     }
   });
 
