@@ -47,18 +47,22 @@ Date: Mon, 06 Jul 2015 22:57:54 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-[  
-   {  
-      "id":1,
-      "host":"this.is.a.tld.test",
-      "ip":"1.2.3.4"
-   },
-   {  
-      "id":2,
-      "host":"another.tld.test",
-      "ip":"2.3.4.5"
-   }
-]
+{
+    "success": true,
+    "method": "show",
+    "payload": [
+        {
+            "id": 1,
+            "host": "this.is.a.tld.test",
+            "ip": "1.2.3.4"
+        },
+        {
+            "id": 2,
+            "host": "another.tld.test",
+            "ip": "2.3.4.5"
+        }
+    ]
+}
 ```
 
 ##### Show specific host
@@ -66,7 +70,7 @@ Transfer-Encoding: chunked
 > GET /api/show/:host
 
 ```shell
-$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show/1
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show/2
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -75,10 +79,14 @@ Date: Mon, 12 Jul 2015 15:44:54 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{  
-   "id":1,
-   "host":"this.is.a.tld.test",
-   "ip":"1.2.3.4"
+{
+    "success": true,
+    "method": "show/2",
+    "payload": {
+        "id": 2,
+        "host": "another.tld.test",
+        "ip": "2.3.4.5"
+    }
 }
 ```
 
@@ -88,7 +96,7 @@ Transfer-Encoding: chunked
 
 ```shell
 $ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]/api/add \
--d '{"host":"test.de","ip":"3.4.5.6"}'
+-d '{"host":"test.de","ip":"8.9.10.11"}'
 
 HTTP/1.1 201 Created
 Content-type: application/json
@@ -97,8 +105,14 @@ Date: Mon, 06 Jul 2015 22:58:33 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{  
-   "success":true
+{
+    "success": true,
+    "method": "add",
+    "payload": {
+        "id": 3,
+        "host": "test.de",
+        "ip": "8.9.10.11"
+    }
 }
 ```
 
@@ -118,8 +132,14 @@ Date: Mon, 06 Jul 2015 22:59:57 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{  
-   "success":true
+{
+    "success": true,
+    "method": "delete/3",
+    "payload": {
+        "id": 3,
+        "host": "test.de",
+        "ip": "8.9.10.11"
+    }
 }
 ```
 
@@ -140,8 +160,14 @@ Date: Mon, 06 Jul 2015 23:01:42 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{  
-   "success":true
+{
+    "success": true,
+    "method": "edit/2",
+    "payload": {
+        "id": 2,
+        "host": "this.is.a.adjusted.tld",
+        "ip": "34.45.56.67"
+    }
 }
 ```
 
@@ -159,8 +185,9 @@ Date: Mon, 06 Jul 2015 23:02:23 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
 
-{  
-   "success":true
+{
+    "success": true,
+    "method": "update"
 }
 ```
 
