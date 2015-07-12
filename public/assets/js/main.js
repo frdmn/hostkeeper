@@ -37,6 +37,9 @@ $(function() {
 
   // Open "add" modal
   $('.modal-open#add-button').on('click', function() {
+    // Reset modal inputs
+    $('.modal#add #host-input').val('');
+    $('.modal#add #ip-input').val('');
     // Show modal
     $('.modal#add').addClass('modal--active');
 
