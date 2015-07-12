@@ -8,6 +8,7 @@
   > li {
     background-repeat: repeat-x !important;
     background-position: center center;
+    cursor: pointer;
   }
   &__offset {
     background: $colorGreyLight;
