@@ -1,6 +1,6 @@
 $(function() {
   /* "list all" functions */
-  var appendHostList = function() {
+  var reloadHostList = function() {
     $.ajax({
       type: 'GET'
       , url: 'http://' + window.location.hostname + '/api/show'
@@ -16,7 +16,7 @@ $(function() {
     });
   };
 
-  appendHostList();
+  reloadHostList();
 
   /* "add host" functions */
   $('.modal-open#add-button').on('click', function() {
@@ -61,8 +61,8 @@ $(function() {
             setTimeout(function() {
               $('.modal#add').removeClass('modal--saving');
             }, 800);
-            // Reload page
-            appendHostList();
+            // Reload host list
+            reloadHostList();
           }
         }
       });
@@ -121,8 +121,8 @@ $(function() {
             setTimeout(function() {
               $('.modal#edit').removeClass('modal--saving');
             }, 800);
-            // Reload page
-            appendHostList();
+            // Reload host list
+            reloadHostList();
           }
         }
       });
@@ -152,8 +152,8 @@ $(function() {
           setTimeout(function() {
             $('.modal#edit').removeClass('modal--saving');
           }, 800);
-          // Reload page
-          appendHostList();
+          // Reload host list
+          reloadHostList();
         }
       }
     });
