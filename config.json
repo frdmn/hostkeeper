@@ -1,4 +1,7 @@
 {
     "database": "db.json",
-    "dnsmasqhostsfile": "/vagrant/db.dnsmasq"
+    "dnsmasq": {
+        "hostsfile": "/vagrant/db.dnsmasq",
+        "restartcommand": "service dnsmasq restart"
+    }
 }

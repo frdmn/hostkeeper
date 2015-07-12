@@ -19,15 +19,15 @@ function updateHostsFile(callback){
   // Load current database
   var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
   // Clear hosts file
-  fs.writeFile(config.dnsmasqhostsfile, '', function(){
+  fs.writeFile(config.dnsmasq.hostsfile, '', function(){
     // For each host in database
     async.each(database.hosts, function(host, cb){
       // Append each host mapping
-      fs.appendFile(config.dnsmasqhostsfile, host.ip + ' ' + host.host + '\n');
+      fs.appendFile(config.dnsmasq.hostsfile, host.ip + ' ' + host.host + '\n');
       cb();
     }, function (err){
       // Restart dnsmasq
-      exec('service dnsmasq restart', {silent:true}, function() {
+      exec(config.dnsmasq.restartcommand, {silent:true}, function() {
         callback(true);
       });
     });
