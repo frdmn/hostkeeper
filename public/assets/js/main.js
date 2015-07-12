@@ -1,18 +1,22 @@
 $(function() {
   /* "list all" functions */
-  $.ajax({
-    type: 'GET'
-    , url: 'http://' + window.location.hostname + '/api/show'
-    , cache: false
-    , success: function(data) {
-      // Clear placeholder
-      $('.dotted-list').html('');
-      // Populate <ul> with host <li>'s
-      data.forEach(function(host) {
-        $('.dotted-list').append('<li id="host" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset" id="ip">' + host.ip + '</span></span> <span class="background-offset" id="host">' + host.host + '</span></li>');
-      });
-    }
-  });
+  var appendHostList = function() {
+    $.ajax({
+      type: 'GET'
+      , url: 'http://' + window.location.hostname + '/api/show'
+      , cache: false
+      , success: function(data) {
+        // Clear placeholder
+        $('.dotted-list').html('');
+        // Populate <ul> with host <li>'s
+        data.forEach(function(host) {
+          $('.dotted-list').append('<li id="host" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset" id="ip">' + host.ip + '</span></span> <span class="background-offset" id="host">' + host.host + '</span></li>');
+        });
+      }
+    });
+  };
+
+  appendHostList();
 
   /* "add host" functions */
   $('.modal-open#add-button').on('click', function() {
@@ -54,9 +58,11 @@ $(function() {
             console.log(data.errors.name);
           } else {
             // Remove saving class
-            $('.modal#add').removeClass('modal--saving');
+            setTimeout(function() {
+              $('.modal#add').removeClass('modal--saving');
+            }, 800);
             // Reload page
-            location.reload();
+            appendHostList();
           }
         }
       });
@@ -112,9 +118,11 @@ $(function() {
             console.log(data.errors.name);
           } else {
             // Remove saving class
-            $('.modal#edit').removeClass('modal--saving');
+            setTimeout(function() {
+              $('.modal#edit').removeClass('modal--saving');
+            }, 800);
             // Reload page
-            location.reload();
+            appendHostList();
           }
         }
       });
@@ -141,9 +149,11 @@ $(function() {
           console.log(data.errors.name);
         } else {
           // Remove saving class
-          $('.modal#edit').removeClass('modal--saving');
+          setTimeout(function() {
+            $('.modal#edit').removeClass('modal--saving');
+          }, 800);
           // Reload page
-          location.reload();
+          appendHostList();
         }
       }
     });
