@@ -1,5 +1,5 @@
 $(function() {
-  /* "list all" functions */
+  /* "list all" function */
   var reloadHostList = function() {
     $.ajax({
       type: 'GET'
@@ -19,6 +19,8 @@ $(function() {
   reloadHostList();
 
   /* "add host" functions */
+
+  // Open "add" modal
   $('.modal-open#add-button').on('click', function() {
     // Show modal
     $('.modal#add').addClass('modal--active');
@@ -32,44 +34,45 @@ $(function() {
         $('.modal#add .btn--submit').attr('disabled', true);
       }
     });
+  });
 
-    // Save host
-    $('.modal#add .modal-save').on('click', function() {
-      // Close modal
-      $('.modal#add').removeClass('modal--active');
-      // Show saving overlay
-      $('.modal#add').addClass('modal--saving');
+  // Save host
+  $('.modal#add .modal-save').on('click', function() {
+    // Close modal
+    $('.modal#add').removeClass('modal--active');
+    // Show saving overlay
+    $('.modal#add').addClass('modal--saving');
 
-      // Create POST object
-      var postObject = {
-        'host': $('.modal#add #host-input').val()
-        , 'ip': $('.modal#add #ip-input').val()
-      };
+    // Create POST object
+    var postObject = {
+      'host': $('.modal#add #host-input').val()
+      , 'ip': $('.modal#add #ip-input').val()
+    };
 
-      // Send POST request to API
-      $.ajax({
-        type: 'POST'
-        , url: 'http://' + window.location.hostname + '/api/add'
-        , data: postObject
-        , dataType: 'json'
-        , success: function(data) {
-          if (!data.success) {
-            // Log errors
-            console.log(data);
-          } else {
-            // Remove saving class
-            setTimeout(function() {
-              $('.modal#add').removeClass('modal--saving');
-            }, 800);
-            // Reload host list
-            reloadHostList();
-          }
+    // Send POST request to API
+    $.ajax({
+      type: 'POST'
+      , url: 'http://' + window.location.hostname + '/api/add'
+      , data: postObject
+      , dataType: 'json'
+      , success: function(data) {
+        if (!data.success) {
+          // Log errors
+          console.log(data);
+        } else {
+          // Remove saving class
+          setTimeout(function() {
+            $('.modal#add').removeClass('modal--saving');
+          }, 800);
+          // Reload host list
+          reloadHostList();
         }
-      });
+      }
     });
   });
 
   /* "edit host" functions */
+
   // @TODO - is this below performant?
   $(document).on('click', 'li#host', function() {
     // Show modal
@@ -93,43 +96,42 @@ $(function() {
         $('.modal#edit .btn--submit').attr('disabled', true);
       }
     });
+  });
 
-    // Save edited host
-    $('.modal#edit .modal-save').on('click', function() {
-      // Close modal
-      $('.modal#edit').removeClass('modal--active');
-      // Show saving overlay
-      $('.modal#edit').addClass('modal--saving');
-
-      // Create POST object
-      var postObject = {
-        'host': $('.modal#edit #host-input').val()
-        , 'ip': $('.modal#edit #ip-input').val()
-      };
-
-      // Send PUT request to API
-      $.ajax({
-        type: 'PUT'
-        , url: 'http://' + window.location.hostname + '/api/edit/' + hostId
-        , data: postObject
-        , success: function(data) {
-          if (!data.success) {
-            // Log errors
-            console.log(data);
-          } else {
-            // Remove saving class
-            setTimeout(function() {
-              $('.modal#edit').removeClass('modal--saving');
-            }, 800);
-            // Reload host list
-            reloadHostList();
-          }
+  // Save edited host
+  $('.modal#edit .modal-save').on('click', function() {
+    // Close modal
+    $('.modal#edit').removeClass('modal--active');
+    // Show saving overlay
+    $('.modal#edit').addClass('modal--saving');
+    // Create POST object
+    var postObject = {
+      'host': $('.modal#edit #host-input').val()
+      , 'ip': $('.modal#edit #ip-input').val()
+    };
+    // Send PUT request to API
+    $.ajax({
+      type: 'PUT'
+      , url: 'http://' + window.location.hostname + '/api/edit/' + $('.modal#edit #id-input').val()
+      , data: postObject
+      , success: function(data) {
+        if (!data.success) {
+          // Log errors
+          console.log(data);
+        } else {
+          // Remove saving class
+          setTimeout(function() {
+            $('.modal#edit').removeClass('modal--saving');
+          }, 800);
+          // Reload host list
+          reloadHostList();
         }
-      });
+      }
     });
   });
 
   /* "delete host" functions */
+
   $('.modal-delete').on('click', function() {
     // Get current host details
     var hostId = $('.modal#edit #id-input').val();
@@ -158,6 +160,8 @@ $(function() {
       }
     });
   });
+
+  /* General */
 
   // Close modals on click on close button
   $('.modal button.modal-close').on('click', function() {
