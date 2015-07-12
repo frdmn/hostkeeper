@@ -26,7 +26,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     ln -sf /usr/bin/nodejs /usr/bin/node
     # Apply base config for dnsmasq
     cp /vagrant/vagrant-opt/dnsmasq.conf /etc/dnsmasq.conf
-    touch /etc/dnsmasq.hosts
+    touch /vagrant/db.dnsmasq
     # Compile assets of web interface
     cd /vagrant/public
     npm install -g grunt-cli bower &>/dev/null && echo "success: bower and grunt installation" || echo "failed: bower and grunt installation"
