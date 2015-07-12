@@ -1,5 +1,7 @@
 $(function() {
-  /* function */
+  /*
+   * Functions
+   **/
 
   // Reload hosts list in DO
   var reloadHostList = function() {
@@ -31,6 +33,7 @@ $(function() {
     });
   };
 
+  // Close modals
   function closeModals(){
     // Close modal
     $('.modal').removeClass('modal--active');
@@ -38,9 +41,12 @@ $(function() {
     $('.modal').removeClass('modal--saving');
   }
 
-  reloadHostList();
+  /*
+   * General stuff
+   **/
 
-  /* General */
+  // Reload host list initially
+  reloadHostList();
 
   // Close modals on click on close button
   $('.modal button.modal-close').on('click', function() {
@@ -109,7 +115,9 @@ $(function() {
     }
   });
 
-  /* "add host" functions */
+  /*
+   * "add host" related
+   **/
 
   // Open "add" modal
   $('.modal-open#add-button').on('click', function() {
@@ -156,7 +164,9 @@ $(function() {
     });
   });
 
-  /* "edit host" functions */
+  /*
+   * "edit host" related
+   **/
 
   // @TODO - is this below performant?
   $(document).on('click', 'li#host', function() {
@@ -207,7 +217,9 @@ $(function() {
     });
   });
 
-  /* "delete host" functions */
+  /*
+   * "delete host" related
+   **/
 
   $('.modal-delete').on('click', function() {
     // Get current host details
