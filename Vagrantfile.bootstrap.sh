@@ -25,7 +25,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     apt-get install -y curl vim git build-essential dnsmasq nodejs npm fontconfig
     ln -sf /usr/bin/nodejs /usr/bin/node
     # Apply base config for dnsmasq
-    cp /vagrant/opt/dnsmasq.conf /etc/dnsmasq.conf
+    cp /vagrant/vagrant-opt/dnsmasq.conf /etc/dnsmasq.conf
     touch /etc/dnsmasq.hosts
     # Compile assets of web interface
     cd /vagrant/public
@@ -36,8 +36,8 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     # Install hostkeeper-server
     cd /vagrant
     npm install &>/dev/null && echo "success: npm package installation for API server" || echo "failed: npm package installation for API server"
-    cp /vagrant/opt/initd_hostkeeper /etc/init.d/hostkeeper
-    cp /vagrant/opt/db.example.json /vagrant/db.json
+    cp /vagrant/vagrant-opt/initd_hostkeeper /etc/init.d/hostkeeper
+    cp /vagrant/vagrant-opt/db.example.json /vagrant/db.json
     mkdir -p /vagrant/pid /vagrant/log
     chmod +x /etc/init.d/hostkeeper
     update-rc.d hostkeeper defaults
