@@ -72,8 +72,8 @@ function startServer(){
 
   /* Set routes */
 
-  // GET /update - to update the hosts file manually
-  router.get('/update', function(request, response) {
+  // GET /api/update - to update the hosts file manually
+  router.get('/api/update', function(request, response) {
     updateHostsFile(function(){
       response.writeHead(200,
         {
@@ -85,8 +85,8 @@ function startServer(){
     });
   });
 
-  // GET /show - to list all host entries
-  router.get('/show', function(request, response) {
+  // GET /api/show - to list all host entries
+  router.get('/api/show', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
     // Write response
@@ -100,8 +100,8 @@ function startServer(){
     response.end(JSON.stringify(database.hosts));
   });
 
-  // GET /show/:host - show specific host
-  router.get('/show/:host', function(request, response) {
+  // GET /api/show/:host - show specific host
+  router.get('/api/show/:host', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
@@ -136,8 +136,8 @@ function startServer(){
     }
   });
 
-  // POST /add - to add new hosts
-  router.post('/add', function(request, response) {
+  // POST /api/add - to add new hosts
+  router.post('/api/add', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
     // Make sure we haven't already added the host
@@ -174,8 +174,8 @@ function startServer(){
     }
   });
 
-  // PUT /edit/:host - to edit existing hosts
-  router.put('/edit/:host', function(request, response) {
+  // PUT /api/edit/:host - to edit existing hosts
+  router.put('/api/edit/:host', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
@@ -217,8 +217,8 @@ function startServer(){
     }
   });
 
-  // DELETE /delete/:host - to delete existing hosts
-  router.delete('/delete/:host', function(request, response) {
+  // DELETE /api/delete/:host - to delete existing hosts
+  router.delete('/api/delete/:host', function(request, response) {
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         currentHostAmount = Object.keys(database.hosts).length;
@@ -275,7 +275,7 @@ function startServer(){
       res.sendfile(__dirname + '/public/index.html');
   });
 
-  // Add REST router middleware
+  // Add API router middleware
   app.use(router);
 
   // Start server on port 80

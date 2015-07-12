@@ -35,10 +35,10 @@ At the moment the API provides the following routes:
 
 ##### Show all hosts
 
-> GET /show
+> GET /api/show
 
 ```shell
-$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/show
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -63,10 +63,10 @@ Transfer-Encoding: chunked
 
 ##### Show specific host
 
-> GET /show/:host
+> GET /api/show/:host
 
 ```shell
-$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/show/1
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show/1
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -84,10 +84,10 @@ Transfer-Encoding: chunked
 
 ##### Create new host
 
-> POST /add
+> POST /api/add
 
 ```shell
-$ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]/add \
+$ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]/api/add \
 -d '{"host":"test.de","ip":"3.4.5.6"}'
 
 HTTP/1.1 201 Created
@@ -104,12 +104,12 @@ Transfer-Encoding: chunked
 
 ##### Delete specific host
 
-> DELETE /delete/:host
+> DELETE /api/delete/:host
 
 In the example below, we delete host#3
 
 ```shell
-$ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]/delete/3
+$ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]/api/delete/3
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -125,12 +125,12 @@ Transfer-Encoding: chunked
 
 ##### Edit existing host
 
-> PUT /edit/:host
+> PUT /api/edit/:host
 
 In the example below, we adjust the hostname of host#2 to `this.is.a.adjusted.tld` .
 
 ```shell
-$ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]/edit/2 \
+$ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]/api/edit/2 \
 -d '{"host":"this.is.a.adjusted.tld","ip":"3.4.5.6"}'
 
 HTTP/1.1 200 OK
@@ -147,10 +147,10 @@ Transfer-Encoding: chunked
 
 ##### Reload dnsmasq's hosts file manually
 
-> GET /update
+> GET /api/update
 
 ```shell
-$ curl -i -X GET http://[hostkeeper]/update
+$ curl -i -X GET http://[hostkeeper]/api/update
 
 HTTP/1.1 200 OK
 Content-type: application/json
