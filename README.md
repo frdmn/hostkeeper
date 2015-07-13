@@ -8,24 +8,83 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 
 ## Installation
 
-1. Make sure you've installed all requirements
+#### Using Vagrant (recommended)
+
+1. Make sure you've installed Vagrant
 2. Clone this repository:  
   `git clone https://github.com/frdmn/hostkeeper`
 3. Boot up the Vagrant box using:  
+  `cd hostkeeper`  
   `vagrant up`
-4. Add your desired host/IP mappings in the _hostkeeper_ web interface:  
-  `http://192.168.1.21` (The guest system tries to setup an bridged network interface from the WiFi interface of your Mac)
-5. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
+4. Grab a coffee and wait about 6-7 minutes until __hostkeeper__ is done set up. Keep an eye on the Vagrant provisioning script, it'll let you know as soon as it's done.
+5. Once it's done, add your desired host/IP mappings in the __hostkeeper__ web interface:  
+  `http://192.168.1.21` (The guest system tries to setup an bridged network interface of your primary interface)
+6. Setup `192.168.1.21` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
+
+#### Without Vagrant
+
+##### 1. Prepare DNS (dnsmasq)
+
+1. Make sure you've installed dnsmasq
+2. Clone this repository:  
+  `git clone https://github.com/frdmn/hostkeeper /opt/hostkeeper`
+3. Adjust your dnsmasq configuration (`/etc/dnsmasq.conf`) so it'll load our hosts file:  
+```shell
+[...]
+server=8.8.8.8
+addn-hosts=/vagrant/db.dnsmasq
+```
+4. Restart dnsmasq to activate the new configuration:  
+  `service dnsmasq restart`
+
+##### 2. Web interface
+
+1. Make sure you've installed `grunt-cli` and `bower` globally:  
+  `npm install -g grunt-cli bower`  
+2. Install all Node dependencies in the `public/` directory:  
+  `cd /opt/hostkeeper/public`  
+  `npm install`
+3. Install all libraries using Bower:  
+  `bower install`  
+4. Run Grunt tasks to compile assets:  
+  `grunt`  
+
+##### 3. RESTful API
+
+1. Install all Node dependencies in the project root (`/opt/hostkeeper`):  
+  `cd /opt/hostkeeper`  
+  `npm install`
+2. Copy default host database into project root:  
+  `cp /opt/hostkeeper/vagrant-opt/db.example.json /opt/hostkeeper/db.json`
+3. Create folders for pid and log files:  
+  `mkdir -p /opt/hostkeeper/pid /opt/hostkeeper/log`
+4. Run `app.js` to start web and API server (as root - if your dnsmasq runs as root):  
+  `sudo node app.js`
+5. Open the hostkeeper web interface and add some mappings:  
+  [http://localhost]()
+  
+---
+
+To test the functionality, you can directly query your local DNS server by running: 
+
+```shell
+$ dig this.is.a.tld.test @127.0.0.1 +short
+1.2.3.4
+```
 
 ## Under the hood
 
 __hostkeeper__ consists out of three main parts:
 
 * DNS (dnsmasq)
-* RESTful API (to communicate between web interface and DNS server)
 * Web interface (for comfortable host management)
+* RESTful API (to communicate between web interface and DNS server)
 
 ### DNS
+
+_@TODO_
+
+### Web interface
 
 _@TODO_
 
@@ -192,10 +251,6 @@ Transfer-Encoding: chunked
     "method": "update"
 }
 ```
-
-### Web interface
-
-_@TODO_
 
 ## Contributing
 
