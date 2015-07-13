@@ -72,25 +72,28 @@ $ dig this.is.a.tld.test @127.0.0.1 +short
 1.2.3.4
 ```
 
-## Under the hood
+## Architecture
 
-__hostkeeper__ consists out of three main parts:
+![](http://i.imgur.com/NIoXALe.png)
 
-* DNS (dnsmasq)
-* Web interface (for comfortable host management)
-* RESTful API (to communicate between web interface and DNS server)
+__hostkeeper__ consists out of three parts:
 
 ### DNS
 
-_@TODO_
+* Heart of the hostkeeper project
+* Returns "modified" DNS requests for all clients
 
 ### Web interface
 
-_@TODO_
+* Easy panel for users to add host/ip mappings
+* Communicates via REST API to rebuild dnsmasq hosts files and restart services
+* ExpressJS as static web server
 
 ### RESTful API
 
-The REST API is written from scratch without any libraries, thus it might not be the most fault-tolerant API out there. But since the web interface is probably it's only client, I don't really see a need for it either.
+* REST using `simple-node-router`
+* Maintains the hosts database/storage
+* Restarts dnsmasq to reload hosts 
 
 At the moment the API provides the following routes:
 
