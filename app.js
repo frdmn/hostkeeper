@@ -339,8 +339,8 @@ function startServer(){
   app.use(router);
 
   // Start server on port 80
-  app.listen(80);
-  console.log('hostkeeper server successfuly started: http://localhost');
+  app.listen(config.port);
+  console.log('hostkeeper server successfuly started: http://localhost:' + config.port);
 }
 
 // Check if run as root
