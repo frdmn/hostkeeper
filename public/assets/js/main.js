@@ -7,7 +7,7 @@ $(function() {
   var reloadHostList = function() {
     $.ajax({
       type: 'GET'
-      , url: 'http://' + window.location.hostname + '/api/show'
+      , url: 'http://' + window.location.host + '/api/show'
       , cache: false
       , success: function(data) {
         // Clear placeholder
@@ -24,7 +24,7 @@ $(function() {
   function reloadDNSserver(callback){
     $.ajax({
       type: 'GET'
-      , url: 'http://' + window.location.hostname + '/api/update'
+      , url: 'http://' + window.location.host + '/api/update'
       , cache: false
       , success: function(data) {
         // Clear placeholder
@@ -144,7 +144,7 @@ $(function() {
     // Send POST request to API
     $.ajax({
       type: 'POST'
-      , url: 'http://' + window.location.hostname + '/api/add'
+      , url: 'http://' + window.location.host + '/api/add'
       , data: postObject
       , dataType: 'json'
       , success: function(data) {
@@ -198,7 +198,7 @@ $(function() {
     // Send PUT request to API
     $.ajax({
       type: 'PUT'
-      , url: 'http://' + window.location.hostname + '/api/edit/' + $('.modal#edit #id-input').val()
+      , url: 'http://' + window.location.host + '/api/edit/' + $('.modal#edit #id-input').val()
       , data: postObject
       , success: function(data) {
         if (!data.success) {
@@ -233,7 +233,7 @@ $(function() {
     // Send DELETE request to API
     $.ajax({
       type: 'DELETE'
-      , url: 'http://' + window.location.hostname + '/api/delete/' + hostId
+      , url: 'http://' + window.location.host + '/api/delete/' + hostId
       , success: function(data) {
         if (!data.success) {
           // Log errors
