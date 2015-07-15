@@ -2,7 +2,7 @@
     "port": 80,
     "database": "db.json",
     "dnsmasq": {
-        "hostsfile": "/vagrant/db.dnsmasq",
+        "hostsfile": "db.dnsmasq",
         "restartcommand": "service dnsmasq restart"
     }
 }
