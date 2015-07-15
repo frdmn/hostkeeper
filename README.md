@@ -31,11 +31,13 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 2. Clone this repository:  
   `git clone https://github.com/frdmn/hostkeeper /opt/hostkeeper`
 3. Adjust your dnsmasq configuration (`/etc/dnsmasq.conf`) so it'll load our hosts file:  
-```shell
-[...]
-server=8.8.8.8
-addn-hosts=/vagrant/db.dnsmasq
-```
+
+    ```shell
+    [...]
+    server=8.8.8.8
+    addn-hosts=/vagrant/db.dnsmasq
+    ```
+
 4. Restart dnsmasq to activate the new configuration:  
   `service dnsmasq restart`
 
@@ -74,6 +76,8 @@ $ dig this.is.a.tld.test @127.0.0.1 +short
 1.2.3.4
 ```
 
+As you can see, __hostkeeper__ returns our adjusted (example) web server IP: 1.2.3.4
+
 ## Architecture
 
 ![](http://i.imgur.com/NIoXALe.png)
@@ -87,7 +91,7 @@ __hostkeeper__ consists out of three parts:
 
 ### Web interface
 
-* Easy panel for users to add host/ip mappings
+* Easy panel for users to add host/IP mappings
 * Communicates via REST API to rebuild dnsmasq hosts files and restart services
 * ExpressJS as static web server
 
@@ -95,9 +99,27 @@ __hostkeeper__ consists out of three parts:
 
 * REST using `simple-node-router`
 * Maintains the hosts database/storage
-* Restarts dnsmasq to reload hosts 
+* Turns database/storage into dnsmasq-compatible format
+* Restarts dnsmasq to reload new hosts 
 
 You can find a detailed API documentation here: [`API.md`](API.md)
+
+## Requirements / Dependencies
+
+#### Using Vagrant 
+
+* Vagrant
+
+#### Without Vagrant
+
+* NodeJS
+* Grunt
+* Bower
+* `dnsmasq`
+
+## Version
+
+0.1.0
 
 ## Contributing
 
@@ -106,14 +128,6 @@ You can find a detailed API documentation here: [`API.md`](API.md)
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin feature/my-new-feature`
 5. Submit a pull request
-
-## Requirements / Dependencies
-
-* Vagrant
-
-## Version
-
-0.1.0
 
 ## License
 
