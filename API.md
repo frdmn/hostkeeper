@@ -1,8 +1,16 @@
+# hostkeeper REST interface
+
 At the moment the API provides the following routes:
 
-### Show all hosts
+## Routes
 
-> GET /api/show
+### Get all hosts
+
+#### Route
+
+> `GET /api/show`
+
+#### `curl` example
 
 ```shell
 $ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show
@@ -13,7 +21,11 @@ Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 22:57:54 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
+```
 
+#### Response
+
+```json
 {
     "success": true,
     "method": "show",
@@ -34,7 +46,13 @@ Transfer-Encoding: chunked
 
 ### Show specific host
 
-> GET /api/show/:host
+#### Route
+
+> `GET /api/show/:host`
+
+`:host` is the host id
+
+#### `curl` example
 
 ```shell
 $ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show/2
@@ -45,7 +63,11 @@ Access-Control-Allow-Origin: *
 Date: Mon, 12 Jul 2015 15:44:54 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
+```
 
+#### Response
+
+```json
 {
     "success": true,
     "method": "show/2",
@@ -59,7 +81,20 @@ Transfer-Encoding: chunked
 
 ### Create new host
 
-> POST /api/add
+#### Route
+
+> `POST /api/add`
+
+#### Request
+
+```json
+{
+    "host": "test.de",
+    "ip": "8.9.10.11"
+}
+```
+
+#### `curl` example
 
 ```shell
 $ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]/api/add \
@@ -71,7 +106,11 @@ Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 22:58:33 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
+```
 
+#### Response
+
+```json
 {
     "success": true,
     "method": "add",
@@ -85,9 +124,13 @@ Transfer-Encoding: chunked
 
 ### Delete specific host
 
-> DELETE /api/delete/:host
+#### Route
 
-In the example below, we delete host#3
+> `DELETE /api/delete/:host`
+
+`:host` is the host id
+
+#### `curl` example
 
 ```shell
 $ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]/api/delete/3
@@ -98,7 +141,11 @@ Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 22:59:57 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
+```
 
+#### Response
+
+```json
 {
     "success": true,
     "method": "delete/3",
@@ -112,9 +159,22 @@ Transfer-Encoding: chunked
 
 ### Edit existing host
 
-> PUT /api/edit/:host
+#### Route
 
-In the example below, we adjust the hostname of host#2 to `this.is.a.adjusted.tld` .
+> `PUT /api/edit/:host`
+
+`:host` is the host id
+
+#### Request
+
+```json
+{
+    "host": "this.is.a.adjusted.tld",
+    "ip": "3.4.5.6"
+}
+```
+
+#### `curl` example
 
 ```shell
 $ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]/api/edit/2 \
@@ -126,7 +186,11 @@ Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 23:01:42 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
+```
 
+#### Response
+
+```json
 {
     "success": true,
     "method": "edit/2",
@@ -140,7 +204,11 @@ Transfer-Encoding: chunked
 
 ### Reload dnsmasq's hosts file manually
 
-> GET /api/update
+#### Route
+
+> `GET /api/update`
+
+#### `curl` example
 
 ```shell
 $ curl -i -X GET http://[hostkeeper]/api/update
@@ -151,7 +219,11 @@ Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 23:02:23 GMT
 Connection: keep-alive
 Transfer-Encoding: chunked
+```
 
+#### Response
+
+```json
 {
     "success": true,
     "method": "update"
