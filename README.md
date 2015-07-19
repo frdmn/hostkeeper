@@ -4,9 +4,7 @@
 
 ![](http://up.frd.mn/CDMun.png)
 
-__hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web interface to provide an easy way to manage LAN-wide DNS emulations (or modifications) during local web development phases. Usually you adjust your local `/etc/hosts` file on your OS X or Windows machine, but this approach won't work on a (non jailbreaked) iPhone which has no direct file system access. Once the DNS in your network settings is set to the IP of the __hostkeeper__ Vagrant box, all DNS requests from said device will obey the "faked" ones from __hostkeeper__, hence you can surf via Safari to "http://dev-project.de" but don't end up on the productive web server of `dev-project.de`. Instead you end up on your local development box, since you added a mapping in the __hostkeeper__ web interface.
-
-(The introduction sentence sucks, can someone improve this please?)
+__hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web interface to provide an easy way to manage network-wide DNS emulations (or modifications) during local web development phases. Usually you need to adjust the `/etc/hosts` file on your OS X or Windows machine to test your local project with productive domains. However, this approach won't work on a (non jailbreaked) iPhone which has no direct file system access. Once the DNS in your network settings is set to the IP of the __hostkeeper__ Vagrant box, all DNS requests from said device will obey the "faked" ones from __hostkeeper__, hence you can surf via Safari to "http://google.com" but don't end up on the productive web server of `google.com`. Instead you end up on your local development box, since you added a mapping for that in the __hostkeeper__ web interface.
 
 ## Installation
 
@@ -18,8 +16,8 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 3. Boot up the Vagrant box using:  
   `cd hostkeeper`  
   `vagrant up`
-4. Grab a coffee and wait about 6-7 minutes until __hostkeeper__ is done set up. Keep an eye on the Vagrant provisioning script, it'll let you know as soon as it's done.
-5. Once it's done, add your desired host/IP mappings in the __hostkeeper__ web interface:  
+4. Grab a coffee and wait about 6-7 minutes until __hostkeeper__ has finished setting everything up. Keep an eye on the Vagrant provisioning script, it'll let you know as soon as it's done.
+5. Once completed, add your desired host/IP mappings in the __hostkeeper__ web interface:  
   `http://192.168.1.79` (The guest system tries to setup an bridged network interface of your primary interface)
 6. Setup `192.168.1.79` as DNS server on any device where you want to use the adjusted/dummy/fake hostnames.
 
