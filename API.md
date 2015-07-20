@@ -16,6 +16,7 @@ At the moment the API provides the following routes:
 $ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show
 
 HTTP/1.1 200 OK
+X-Powered-By: Express
 Content-type: application/json
 Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 22:57:54 GMT
@@ -58,6 +59,7 @@ Transfer-Encoding: chunked
 $ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/show/2
 
 HTTP/1.1 200 OK
+X-Powered-By: Express
 Content-type: application/json
 Access-Control-Allow-Origin: *
 Date: Mon, 12 Jul 2015 15:44:54 GMT
@@ -101,6 +103,7 @@ $ curl -i -X POST -H "Content-Type:application/json" http://[hostkeeper]/api/add
 -d '{"host":"test.de","ip":"8.9.10.11"}'
 
 HTTP/1.1 201 Created
+X-Powered-By: Express
 Content-type: application/json
 Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 22:58:33 GMT
@@ -136,6 +139,7 @@ Transfer-Encoding: chunked
 $ curl -i -X DELETE -H "Content-Type:application/json" http://[hostkeeper]/api/delete/3
 
 HTTP/1.1 200 OK
+X-Powered-By: Express
 Content-type: application/json
 Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 22:59:57 GMT
@@ -181,6 +185,7 @@ $ curl -i -X PUT -H "Content-Type:application/json" http://[hostkeeper]/api/edit
 -d '{"host":"this.is.a.adjusted.tld","ip":"3.4.5.6"}'
 
 HTTP/1.1 200 OK
+X-Powered-By: Express
 Content-type: application/json
 Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 23:01:42 GMT
@@ -214,6 +219,7 @@ Transfer-Encoding: chunked
 $ curl -i -X GET http://[hostkeeper]/api/update
 
 HTTP/1.1 200 OK
+X-Powered-By: Express
 Content-type: application/json
 Access-Control-Allow-Origin: *
 Date: Mon, 06 Jul 2015 23:02:23 GMT
@@ -227,5 +233,41 @@ Transfer-Encoding: chunked
 {
     "success": true,
     "method": "update"
+}
+```
+
+### General information
+
+#### Route
+
+> `GET /api/info`
+
+#### `curl` example
+
+```shell
+$ curl -i -X GET -H "Content-Type:application/json" http://[hostkeeper]/api/info
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-type: application/json
+Date: Mon, 20 Jul 2015 18:55:42 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+```
+
+#### Response
+
+```json
+{
+    "success": true,
+    "method": "info",
+    "payload": {
+        "hosts": 2,
+        "server-ip": "192.168.1.202",
+        "node-version": "v0.10.25",
+        "dnsmasq-version": "v2.68",
+        "uptime": "0:00:35:06"
+    }
 }
 ```

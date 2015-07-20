@@ -2,7 +2,13 @@
     "port": 80,
     "database": "db.json",
     "dnsmasq": {
-        "hostsfile": "db.dnsmasq",
-        "restartcommand": "service dnsmasq restart"
+        "hostsfile": "db.dnsmasq"
+    },
+    "commands": {
+        "dnsmasq": "service dnsmasq restart",
+        "dnsmasq-version": "echo v$(dnsmasq -v | head -1 | cut -d' ' -f3)",
+        "node-version": "node -v",
+        "ipextract": "ip -f inet -o addr show eth1 | cut -d' ' -f 7 | cut -d/ -f 1",
+        "uptime": "awk '{printf(\"%d:%02d:%02d:%02d\",($1/60/60/24),($1/60/60%24),($1/60%60),($1%60))}' /proc/uptime"
     }
 }

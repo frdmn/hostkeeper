@@ -27,7 +27,7 @@ function updateHostsFile(callback){
       cb();
     }, function (err){
       // Restart dnsmasq
-      exec(config.dnsmasq.restartcommand, {silent:true}, function() {
+      exec(config.commands.dnsmasq, {silent:true}, function() {
         callback(true);
       });
     });
@@ -91,6 +91,34 @@ function startServer(){
       // Return JSON
       response.end(JSON.stringify(json));
     });
+  });
+
+  // GET /api/info - show api information
+  router.get('/api/info', function(request, response) {
+    // Load hosts database
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+
+    // Set response defaults
+    var json = {};
+    json.success = false;
+    json.method = 'info';
+    json.payload = {};
+    // Write response
+    response.writeHead(200,
+      {
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    );
+    // Construct JSON response
+    json.success = true;
+    json.payload['hosts'] = database.hosts.length;
+    json.payload['server-ip'] = exec(config.commands.ipextract, {silent:true}).output.replace('\n', '');
+    json.payload['node-version'] = exec(config.commands['node-version'], {silent:true}).output.replace('\n', '');
+    json.payload['dnsmasq-version'] = exec(config.commands['dnsmasq-version'], {silent:true}).output.replace('\n', '');
+    json.payload.uptime = exec(config.commands.uptime, {silent:true}).output;
+    // Return JSON
+    response.end(JSON.stringify(json));
   });
 
   // GET /api/show - to list all host entries
