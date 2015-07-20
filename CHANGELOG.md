@@ -1,3 +1,9 @@
+# 0.1.1
+
+* Update API documentation
+* Improve Vagrant bootstrap script
+* New route (GET `/api/info`)
+
 # 0.1.0
 * First working release
 * RESTful API to manage the hosts database
