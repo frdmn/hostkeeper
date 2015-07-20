@@ -2,13 +2,13 @@
   "hosts": [
     {
       "id": 1,
-      "host": "this.is.a.tld.test",
-      "ip": "1.2.3.4"
+      "host": "google.com",
+      "ip": "192.168.1.100"
     },
     {
       "id": 2,
-      "host": "another.tld.test",
-      "ip": "2.3.4.5"
+      "host": "reddit.com",
+      "ip": "192.168.1.100"
     }
   ]
 }
