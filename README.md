@@ -70,11 +70,11 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 To test the functionality, you can directly query your local DNS server by running: 
 
 ```shell
-$ dig this.is.a.tld.test @127.0.0.1 +short
-1.2.3.4
+$ dig google.com @[hostkeeper] +short
+192.168.1.100
 ```
 
-As you can see, __hostkeeper__ returns our adjusted (example) web server IP: 1.2.3.4
+As you can see, __hostkeeper__ returns our adjusted (example) web server IP: 192.168.1.100
 
 ## Architecture
 
