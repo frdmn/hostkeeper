@@ -1,7 +1,6 @@
 #!/bin/sh
 
 NODE_ENV="production"
-PORT="3000"
 APP_DIR="/vagrant"
 NODE_APP="app.js"
 CONFIG_DIR="$APP_DIR"
@@ -51,7 +50,7 @@ start_it() {
 
     echo "Starting node app ..."
     cd $APP_DIR
-    PORT="$PORT" NODE_ENV="$NODE_ENV" NODE_CONFIG_DIR="$CONFIG_DIR" $NODE_EXEC "$APP_DIR/$NODE_APP"  1>"$LOG_FILE" 2>&1 &
+    NODE_ENV="$NODE_ENV" NODE_CONFIG_DIR="$CONFIG_DIR" $NODE_EXEC "$APP_DIR/$NODE_APP"  1>"$LOG_FILE" 2>&1 &
     echo $! > "$PID_FILE"
     echo "Node app started with pid $!"
 }
