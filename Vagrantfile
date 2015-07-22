@@ -1,5 +1,12 @@
 # Debug mode?
-debug = "false"
+debugMode = ENV['DEBUG']
+
+# Check if debug mode and set variable with string
+if debugMode
+    debug = "true"
+else
+    debug = "false"
+end
 
 # Store possible interface names
 host_interfaces = %x( VBoxManage list bridgedifs | grep ^Name )
