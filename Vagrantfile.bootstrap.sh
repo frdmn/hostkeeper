@@ -32,33 +32,36 @@ sudo su
 # Check for lock file
 if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     # Proceed with initial installation
-    echo "Update apt repositories"
+    echo "Update apt repositories ..."
     run apt-get -y update
-    # Install requirements
+    echo "Install requirements ..."
     run apt-get install -y curl vim git build-essential dnsmasq nodejs npm fontconfig
+    echo "Symlink /usr/bin/nodejs to /usr/bin/node ..."
     run ln -sf /usr/bin/nodejs /usr/bin/node
-    # Apply base config for dnsmasq
+    echo "Apply base config for dnsmasq ..."
     run cp /vagrant/vagrant-opt/dnsmasq.conf /etc/dnsmasq.conf
     run touch /vagrant/db.dnsmasq
-    # Compile assets of web interface
+    echo "Compile assets of hostkeeper web interface ..."
     cd /vagrant/public
     run npm install -g grunt-cli bower json
     run npm install
     run bower install --allow-root
     run grunt
-    # Install hostkeeper-server
+    echo "Install hostkeeper server ..."
     cd /vagrant
     run npm install
     run cp /vagrant/vagrant-opt/initd_hostkeeper /etc/init.d/hostkeeper
     run cp /vagrant/vagrant-opt/db.example.json /vagrant/db.json
+    echo "Create folders for temporary log and pid-files ..."
     run mkdir -p /vagrant/pid /vagrant/log
     run chmod +x /etc/init.d/hostkeeper
     run update-rc.d hostkeeper defaults
+    echo "Start hostkeeper ..."
     run service hostkeeper start
-    # Create initial dnsmasqs host file via API server
+    echo "Create initial dnsmasqs host file via API server ..."
     run sleep 5
     echo "Updating hosts file for dnsmasq using REST API ... $(curl -s http://localhost/api/update &>/dev/null && printf "success :)" || echo "failed :(")"
-    # Create installation lock file
+    echo "Create lock file to prevent further initial installations/provisions ..."
     run touch /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED
 else
     # hostkeeper is already installed
