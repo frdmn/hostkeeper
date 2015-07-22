@@ -50,7 +50,7 @@ if [[ ! -n $(dpkg -l | grep dnsmasq) ]]; then
     echo "${asciitypo}"
     echo "---"
     echo "Try to run the following command on your host to test the DNS server:"
-    echo "$ dig this.is.a.tld.test @${guestIP} +short"
+    echo "$ dig reddit.com @${guestIP} +short"
     echo "Access the hostkeeper web interface:"
     echo "$ open http://${guestIP}"
 fi
