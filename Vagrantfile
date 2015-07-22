@@ -1,5 +1,5 @@
 # Debug mode?
-debugMode = ENV['DEBUG']
+debugMode = ENV['HOSTKEEPER_DEBUG']
 
 # Check if debug mode and set variable with string
 if debugMode

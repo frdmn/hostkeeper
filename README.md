@@ -87,7 +87,7 @@ $ vagrant up
 In case you want to see  `stdout` output of the commands running in the background: 
 
 ```shell
-$ DEBUG=true vagrant up
+$ HOSTKEEPER_DEBUG=true vagrant up
 ```
 
 #### Recompile assets/node modules/bower components
@@ -101,7 +101,7 @@ $ vagrant provision
 Again, in case you want to see `stdout` output of the commands running in the background: 
 
 ```shell
-$ DEBUG=true vagrant up
+$ HOSTKEEPER_DEBUG=true vagrant up
 ```
 
 #### Remove virtual machine
