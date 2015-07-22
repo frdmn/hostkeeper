@@ -151,7 +151,7 @@ You can find a detailed API documentation here: [`API.md`](API.md)
 
 ## Version
 
-0.1.0
+0.2.0
 
 ## Contributing
 

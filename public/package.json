@@ -1,6 +1,6 @@
 {
   "name": "hostkeeper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Web interface for LAN-wide host<->IP mappings during development",
   "private": true,
   "scripts": {
