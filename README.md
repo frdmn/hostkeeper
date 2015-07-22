@@ -2,9 +2,9 @@
 
 [![Current tag](http://img.shields.io/github/tag/frdmn/hostkeeper.svg)](https://github.com/frdmn/hostkeeper/tags) [![Repository issues](http://issuestats.com/github/frdmn/hostkeeper/badge/issue)](http://issuestats.com/github/frdmn/hostkeeper) [![Flattr this repository](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=frdmn&url=https://github.com/frdmn/hostkeeper)
 
-![](http://up.frd.mn/CDMun.png)
+![](http://up.frd.mn/N0uS9.png)
 
-__hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web interface to provide an easy way to manage network-wide DNS emulations (or modifications) during local web development phases. Usually you need to adjust the `/etc/hosts` file on your OS X or Windows machine to test your local project with productive domains. However, this approach won't work on a (non jailbreaked) iPhone which has no direct file system access. Once the DNS in your network settings is set to the IP of the __hostkeeper__ Vagrant box, all DNS requests from said device will obey the "faked" ones from __hostkeeper__, hence you can surf via Safari to "http://google.com" but don't end up on the productive web server of `google.com`. Instead you end up on your local development box, since you added a mapping for that in the __hostkeeper__ web interface.
+__hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web interface to provide an easy way to manage network-wide DNS emulations (or modifications) during local web development phases. Usually you need to adjust the `/etc/hosts` file on your OS X or Windows machine to test your local project with productive domains. However, this approach won't work on a (non jailbreaked) iPhone which has no direct file system access. Once the DNS in your network settings is set to the IP of the __hostkeeper__ Vagrant box, all DNS requests from said device will obey the "faked" ones from __hostkeeper__, hence you can surf via Safari to "http://reddit.com" but don't end up on the productive web server of `reddit.com`. Instead you end up on your local development box, since you added a mapping for that in the __hostkeeper__ web interface.
 
 ## Installation
 
@@ -70,7 +70,7 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 To test the functionality, you can directly query your local DNS server by running: 
 
 ```shell
-$ dig google.com @[hostkeeper] +short
+$ dig reddit.com @[hostkeeper] +short
 192.168.1.100
 ```
 
