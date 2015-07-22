@@ -61,7 +61,19 @@ function find(arr, key, val) {
       return ai;
   return null;
 }
+/**
+ * Return JSON response defaults
+ * @return object
+ */
+function initiateJSONdefaults(){
+  // Set response defaults
+  delete json;
+  var json = {};
+  json.success = false;
+  json.payload = {};
 
+  return json;
+}
 
 /* Logic */
 
@@ -70,24 +82,30 @@ function startServer(){
   // Create router instance
   var router = new Router();
 
+  var responseHeaders = {
+    'Content-type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  };
+
   /* Set routes */
 
   // GET /api/update - to update the hosts file manually
   router.get('/api/update', function(request, response) {
-    // Set response defaults
-    var json = {};
-    json.success = false;
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
+    // Adjust response defaults
     json.method = 'update';
+    delete json.payload;
+
     // Update hosts file
     updateHostsFile(function(){
-      response.writeHead(200,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
+      // Return 200 response
+      response.writeHead(200, responseHeaders);
+
       // Construct JSON response
       json.success = true;
+
       // Return JSON
       response.end(JSON.stringify(json));
     });
@@ -95,21 +113,18 @@ function startServer(){
 
   // GET /api/info - show api information
   router.get('/api/info', function(request, response) {
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
 
-    // Set response defaults
-    var json = {};
-    json.success = false;
+    // Adjust response defaults
     json.method = 'info';
-    json.payload = {};
-    // Write response
-    response.writeHead(200,
-      {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }
-    );
+
+    // Return 200 response
+    response.writeHead(200, responseHeaders);
+
     // Construct JSON response
     json.success = true;
     json.payload['hosts'] = database.hosts.length;
@@ -117,73 +132,70 @@ function startServer(){
     json.payload['node-version'] = exec(config.commands['node-version'], {silent:true}).output.replace('\n', '');
     json.payload['dnsmasq-version'] = exec(config.commands['dnsmasq-version'], {silent:true}).output.replace('\n', '');
     json.payload.uptime = exec(config.commands.uptime, {silent:true}).output;
+
     // Return JSON
     response.end(JSON.stringify(json));
   });
 
   // GET /api/show - to list all host entries
   router.get('/api/show', function(request, response) {
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
-    // Set response defaults
-    var json = {};
-    json.success = false;
+
+    // Adjust response defaults
     json.method = 'show';
-    json.payload = {};
-    // Write response
-    response.writeHead(200,
-      {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }
-    );
+
+    // Return 200 response
+    response.writeHead(200, responseHeaders);
+
     // Construct JSON response
     json.success = true;
     json.payload = database.hosts;
+
     // Return JSON
     response.end(JSON.stringify(json));
   });
 
   // GET /api/show/:host - show specific host
   router.get('/api/show/:host', function(request, response) {
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
-    // Set response defaults
-    var json = {};
-    json.success = false;
+
+    // Adjust response defaults
     json.method = 'show/' + request.params.host;
-    json.payload = {};
+
     // Find list index of host with id ":host"
     for (var i = 0; i < database.hosts.length; i++) {
       if (database.hosts[i].id.toString() === request.params.host) {
         index = i;
       }
     }
+
     // Make sure the desired host exists
     if (database.hosts[index]) {
-      // Return response
-      response.writeHead(200,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
+      // Return 200 response
+      response.writeHead(200, responseHeaders);
+
       // Construct JSON response
       json.success = true;
       json.payload = database.hosts[index];
+
       // Return JSON
       response.end(JSON.stringify(json));
     } else {
-      // Return response
-      response.writeHead(404,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
+      // Return 404 response
+      response.writeHead(404, responseHeaders);
+
       // Construct JSON response
       json.payload.error = 'Host does not exist';
+
       // Return JSON
       response.end(JSON.stringify(json));
     }
@@ -191,13 +203,15 @@ function startServer(){
 
   // POST /api/add - to add new hosts
   router.post('/api/add', function(request, response) {
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
-    // Set response defaults
-    var json = {};
-    json.success = false;
+
+    // Adjust response defaults
     json.method = 'add';
-    json.payload = {};
+
     // Make sure we haven't already added the host
     if (!find(database.hosts, 'host', request.post.host)) {
       // Create object for our new host
@@ -206,33 +220,32 @@ function startServer(){
         host: request.post.host,
         ip: request.post.ip
       };
+
       // Push newHost into database object
       database.hosts.push(newHost);
+
       // Write database
       fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
         // Return 201 CREATED status code
-        response.writeHead(201,
-          {
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }
-        );
+        response.writeHead(201, responseHeaders);
+
         // Construct JSON response
         json.success = true;
         json.payload = newHost;
+
         // Return JSON
         response.end(JSON.stringify(json));
       });
     } else {
       // Return response
-      response.writeHead(400,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
+      response.writeHead(400, responseHeaders);
+
       // Construct JSON response
       json.payload.error = 'Host already exists';
+      json.success = false;
+
+      console.log(json);
+
       // Return JSON
       response.end(JSON.stringify(json));
     }
@@ -240,14 +253,16 @@ function startServer(){
 
   // PUT /api/edit/:host - to edit existing hosts
   router.put('/api/edit/:host', function(request, response) {
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
-    // Set response defaults
-    var json = {};
-    json.success = false;
+
+    // Adjust response defaults
     json.method = 'edit/' + request.params.host;
-    json.payload = {};
+
     // Find list index of host with id ":host"
     for (var i = 0; i < database.hosts.length; i++) {
       if (database.hosts[i].id.toString() === request.params.host) {
@@ -260,6 +275,7 @@ function startServer(){
 
       // Make sure we haven't already added the host
       if (!find(database.hosts, 'host', request.post.host)) {
+
         // Update element
         database.hosts[index].host = request.post.host;
         database.hosts[index].ip = request.post.ip;
@@ -267,47 +283,40 @@ function startServer(){
         // Write database
         fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
           // Return response
-          response.writeHead(200,
-            {
-              'Content-type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            }
-          );
+          response.writeHead(200,responseHeaders);
+
           // Construct JSON response
           json.success = true;
           json.payload = database.hosts[index];
+
           // Return JSON
           response.end(JSON.stringify(json));
         });
       } else {
         // Return response
-        response.writeHead(400,
-          {
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }
-        );
+        response.writeHead(400, responseHeaders);
+
         // Construct JSON response
+        json.success = false;
         json.payload.error = 'Host already exist';
         json.payload.input = {};
         json.payload.input.host = request.post.host;
         json.payload.input.ip = request.post.ip;
+
         // Return JSON
         response.end(JSON.stringify(json));
       }
     } else {
-      // Return response
-      response.writeHead(404,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
+      // Return 404 response
+      response.writeHead(404, responseHeaders);
+
       // Construct JSON response
+      json.success = false;
       json.payload.error = 'Host does not exist';
       json.payload.input = {};
       json.payload.input.host = request.post.host;
       json.payload.input.ip = request.post.ip;
+
       // Return JSON
       response.end(JSON.stringify(json));
     }
@@ -315,14 +324,16 @@ function startServer(){
 
   // DELETE /api/delete/:host - to delete existing hosts
   router.delete('/api/delete/:host', function(request, response) {
+    // Load JSON defaults
+    var json = initiateJSONdefaults();
+
     // Load hosts database
     var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         currentHostAmount = Object.keys(database.hosts).length;
-    // Set response defaults
-    var json = {};
-    json.success = false;
+
+    // Adjust response defaults
     json.method = 'delete/' + request.params.host;
-    json.payload = {};
+
     // Remove :host from database
     for(var i = 0; i < database.hosts.length; i++) {
       if(database.hosts[i].id.toString() === request.params.host) {
@@ -334,33 +345,29 @@ function startServer(){
 
     // Store new host amount
     var newHostAmount = Object.keys(database.hosts).length;
+
     // Compare if amount changed
     if (newHostAmount !== currentHostAmount) {
       // Write database
       fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
-        // Return response
-        response.writeHead(200,
-          {
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          }
-        );
+
+        // Return 200 response
+        response.writeHead(200, responseHeaders);
+
         // Construct JSON response
         json.success = true;
         json.payload = deletedHost;
+
         // Return JSON
         response.end(JSON.stringify(json));
       });
     } else {
-      // Return response
-      response.writeHead(404,
-        {
-          'Content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      );
+      // Return 404 response
+      response.writeHead(404, responseHeaders);
+
       // Construct JSON response
       json.payload.error = 'Host does not exist';
+
       // Return JSON
       response.end(JSON.stringify(json));
     }
@@ -377,15 +384,15 @@ function startServer(){
   // Add static/assets folder
   app.use(express.static(__dirname+'/public'));
 
-  // inject GET / route - show web interface
+  // Inject GET / route to show actual web interface
   app.get('/', function(req, res){
       res.sendfile(__dirname + '/public/index.html');
   });
 
-  // Add API router middleware
+  // Add API router middleware on top of that
   app.use(router);
 
-  // Start server on port 80
+  // Start server on configured port
   app.listen(config.port);
   console.log('hostkeeper server successfuly started: http://localhost:' + config.port);
 }
