@@ -1,8 +1,11 @@
-# 0.1.1
+# 0.2.0
 
+* Check if adjusted host doesn't already exist on "edit" (resolve [#14](https://github.com/frdmn/hostkeeper/issues/14))
+* New route (GET `/api/info`) (resolve [#18](https://github.com/frdmn/hostkeeper/issues/18))
+* Improve README.md (resolve [#19](https://github.com/frdmn/hostkeeper/issues/19))
+* Improve Vagrantfile and bootstrap script (resolve [#21](https://github.com/frdmn/hostkeeper/issues/21))
 * Update API documentation
-* Improve Vagrant bootstrap script
-* New route (GET `/api/info`)
+* API code cleanup
 
 # 0.1.0
 * First working release
