@@ -4,6 +4,7 @@
 [[ $1 == "true" ]] && DEBUG=true || DEBUG=false
 
 # Redirect stderr conditionally based on DEBUG
+# (http://unix.stackexchange.com/a/208295/115788)
 run() {
     if $DEBUG; then
         v=$(exec 2>&1 && set -x && set -- "$@")
@@ -41,7 +42,7 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     run touch /vagrant/db.dnsmasq
     # Compile assets of web interface
     cd /vagrant/public
-    run npm install -g grunt-cli bower
+    run npm install -g grunt-cli bower json
     run npm install
     run bower install --allow-root
     run grunt
@@ -56,7 +57,7 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     run service hostkeeper start
     # Create initial dnsmasqs host file via API server
     run sleep 5
-    run printf "%s %s" "Updating hosts file for dnsmasq using REST API ... " $(curl -s http://localhost/api/update &>/dev/null && printf "success :)\n" || echo "failed :(\n")
+    echo "Updating hosts file for dnsmasq using REST API ... $(curl -s http://localhost/api/update &>/dev/null && printf "success :)" || echo "failed :(")"
     # Create installation lock file
     run touch /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED
 else
@@ -69,13 +70,13 @@ else
     run npm install
     echo "Install bower components ..."
     run bower install --allow-root
-    echo "Recompile assets using Grunt"
+    echo "Recompile assets using Grunt ..."
     run grunt
     echo "Restart hostkeeper ..."
     run service hostkeeper stop
     run service hostkeeper start
     sleep 5
-    printf "%s %s" "Updating hosts file for dnsmasq using REST API ... " $(curl -s http://localhost/api/update &>/dev/null && printf "success :)\n" || echo "failed :(\n")
+    echo "Updating hosts file for dnsmasq using REST API ... $(curl -s http://localhost/api/update &>/dev/null && printf "success :)" || echo "failed :(")"
 fi
 
 # Final success message
@@ -83,6 +84,6 @@ guestIP=$(ip address show eth1 | grep 'inet ' | sed -e 's/^.*inet //' -e 's/\/.*
 echo "${asciitypo}"
 echo "---"
 echo "Try to run the following command on your host to test the DNS server:"
-echo "$ dig reddit.com @${guestIP} +short"
+echo "$ dig $(curl -s http://localhost/api/show | json payload | json -a host | tail -1) @${guestIP} +short"
 echo "Access the hostkeeper web interface:"
 echo "$ open http://${guestIP}"
