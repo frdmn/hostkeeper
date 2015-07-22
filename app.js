@@ -1,12 +1,12 @@
 /* Require modules */
 
-var config = require('./config.json')
-    , http = require('http')
-    , Router = require('node-simple-router')
-    , fs = require('fs')
-    , isRoot = require('is-root')
-    , shell = require('shelljs/global')
-    , async = require('async');
+var config = require('./config.json'),
+    http = require('http'),
+    Router = require('node-simple-router'),
+    fs = require('fs'),
+    isRoot = require('is-root'),
+    shell = require('shelljs/global'),
+    async = require('async');
 
 /* Functions */
 
@@ -18,8 +18,10 @@ var config = require('./config.json')
 function updateHostsFile(callback){
   // Load current database
   var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+
   // Clear hosts file
   fs.writeFile(config.dnsmasq.hostsfile, '', function(){
+
     // For each host in database
     async.each(database.hosts, function(host, cb){
       // Append each host mapping
@@ -27,7 +29,7 @@ function updateHostsFile(callback){
       cb();
     }, function (err){
       // Restart dnsmasq
-      exec(config.commands.dnsmasq, {silent:true}, function() {
+      exec(config.commands.dnsmasq, { silent:true }, function() {
         callback(true);
       });
     });
@@ -400,7 +402,9 @@ function startServer(){
 // Check if run as root
 if (!isRoot()){
   console.log('Error: This application needs root permissions! Make sure to run as root user.');
+  // Exit with code 1
   process.exit(1);
 } else {
+  // Start server
   startServer();
 }
