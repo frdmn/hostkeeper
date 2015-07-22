@@ -76,6 +76,40 @@ $ dig google.com @[hostkeeper] +short
 
 As you can see, __hostkeeper__ returns our adjusted (example) web server IP: 192.168.1.100
 
+## Usage
+
+#### Install/setup hostkeeper
+
+```shell
+$ vagrant up
+```
+
+In case you want to see  `stdout` output of the commands running in the background: 
+
+```shell
+$ DEBUG=true vagrant up
+```
+
+#### Recompile assets/node modules/bower components
+
+In case you contribute and want to test your changes: 
+
+```shell
+$ vagrant provision
+```
+
+Again, in case you want to see `stdout` output of the commands running in the background: 
+
+```shell
+$ DEBUG=true vagrant up
+```
+
+#### Remove virtual machine
+
+```shell
+$ vagrant destroy
+```
+
 ## Architecture
 
 ![](http://i.imgur.com/NIoXALe.png)
