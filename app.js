@@ -1,12 +1,29 @@
 /* Require modules */
 
-var config = require('./config.json'),
+var configfile = require('./config.json'),
     http = require('http'),
     Router = require('node-simple-router'),
     fs = require('fs'),
     isRoot = require('is-root'),
     shell = require('shelljs/global'),
     async = require('async');
+
+// Check if environment variable "HOSTKEEPER_DATABSE" is set
+if (process.env.HOSTKEEPER_CONFIG) {
+  // Check if file exists
+  fs.exists(process.env.HOSTKEEPER_CONFIG, function(exists) {
+    if (exists) {
+      // User custom database
+      console.log('Using custom config file:' + process.env.HOSTKEEPER_CONFIG)
+      var config = process.env.HOSTKEEPER_CONFIG;
+    } else {
+      // Use default database path from config file
+      var config = configfile;
+    }
+  });
+} else {
+  var config = configfile;
+}
 
 /* Functions */
 
@@ -17,7 +34,7 @@ var config = require('./config.json'),
  */
 function updateHostsFile(callback){
   // Load current database
-  var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+  var database = JSON.parse(fs.readFileSync(config, 'utf8'));
 
   // Clear hosts file
   fs.writeFile(config.dnsmasq.hostsfile, '', function(){
@@ -119,7 +136,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config, 'utf8'));
 
     // Adjust response defaults
     json.method = 'info';
@@ -145,7 +162,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config, 'utf8'));
 
     // Adjust response defaults
     json.method = 'show';
@@ -167,7 +184,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
+    var database = JSON.parse(fs.readFileSync(config, 'utf8')),
         index;
 
     // Adjust response defaults
@@ -209,7 +226,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config, 'utf8'));
 
     // Adjust response defaults
     json.method = 'add';
@@ -227,7 +244,7 @@ function startServer(){
       database.hosts.push(newHost);
 
       // Write database
-      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+      fs.writeFile(config, JSON.stringify(database, null, 2), function(){
         // Return 201 CREATED status code
         response.writeHead(201, responseHeaders);
 
@@ -259,7 +276,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
+    var database = JSON.parse(fs.readFileSync(config, 'utf8')),
         index;
 
     // Adjust response defaults
@@ -283,7 +300,7 @@ function startServer(){
         database.hosts[index].ip = request.post.ip;
 
         // Write database
-        fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+        fs.writeFile(config, JSON.stringify(database, null, 2), function(){
           // Return response
           response.writeHead(200,responseHeaders);
 
@@ -330,7 +347,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
+    var database = JSON.parse(fs.readFileSync(config, 'utf8')),
         currentHostAmount = Object.keys(database.hosts).length;
 
     // Adjust response defaults
@@ -351,7 +368,7 @@ function startServer(){
     // Compare if amount changed
     if (newHostAmount !== currentHostAmount) {
       // Write database
-      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+      fs.writeFile(config, JSON.stringify(database, null, 2), function(){
 
         // Return 200 response
         response.writeHead(200, responseHeaders);
