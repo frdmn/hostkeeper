@@ -91,7 +91,7 @@ $(function() {
           validIP: "IP not valid"
         },
         host: {
-          required: "Enter an hostname"
+          required: "Enter a hostname"
         }
       }
     });
