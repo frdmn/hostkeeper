@@ -75,7 +75,7 @@ As you can see, __hostkeeper__ returns our adjusted (example) web server IP: 192
 
 ## Usage
 
-#### Install/setup hostkeeper
+#### Install/setup/boot hostkeeper
 
 ```shell
 $ vagrant up
@@ -100,6 +100,16 @@ Again, in case you want to see `stdout` output of the commands running in the ba
 ```shell
 $ HOSTKEEPER_DEBUG=true vagrant up
 ```
+
+#### Shutdown virtual machine
+
+```shell
+$ vagrant suspend
+```
+
+And if you want to power it up again:
+
+https://github.com/frdmn/hostkeeper#installsetupboot-hostkeeper
 
 #### Remove virtual machine
 
