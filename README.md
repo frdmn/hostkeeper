@@ -44,7 +44,7 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 1. Make sure you've installed `grunt-cli` and `bower` globally:  
   `npm install -g grunt-cli bower`  
 2. Install all Node dependencies in the `public/` directory:  
-  `cd /opt/hostkeeper/public`  
+  `cd /opt/hostkeeper`  
   `npm install`
 3. Install all libraries using Bower:  
   `bower install`  
@@ -53,16 +53,13 @@ __hostkeeper__ is a Vagrant box that comes with a DNS server (dnsmasq) and a web
 
 ##### 3. RESTful API
 
-1. Install all Node dependencies in the project root (`/opt/hostkeeper`):  
-  `cd /opt/hostkeeper`  
-  `npm install`
-2. Copy default host database into project root:  
+1. Copy default host database into project root:  
   `cp /opt/hostkeeper/vagrant-opt/db.example.json /opt/hostkeeper/db.json`
-3. Create folders for pid and log files:  
+2. Create folders for pid and log files:  
   `mkdir -p /opt/hostkeeper/pid /opt/hostkeeper/log`
-4. Run `app.js` to start web and API server (as root - if your dnsmasq runs as root):  
+3. Run `app.js` to start web and API server (as root - if your dnsmasq runs as root):  
   `sudo node app.js`
-5. Open the hostkeeper web interface and add some mappings:  
+4. Open the hostkeeper web interface and add some mappings:  
   [http://localhost]()
   
 ---

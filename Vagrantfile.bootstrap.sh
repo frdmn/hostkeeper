@@ -41,15 +41,12 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     echo "Apply base config for dnsmasq ..."
     run cp /vagrant/vagrant-opt/dnsmasq.conf /etc/dnsmasq.conf
     run touch /vagrant/db.dnsmasq
-    echo "Compile assets of hostkeeper web interface ..."
+    echo "Compile NodeJS libs and assets of hostkeeper web interface ..."
     cd /vagrant/public
     run npm install -g grunt-cli bower json
     run npm install
     run bower install --allow-root
     run grunt
-    echo "Install hostkeeper server ..."
-    cd /vagrant
-    run npm install
     run cp /vagrant/vagrant-opt/initd_hostkeeper /etc/init.d/hostkeeper
     run cp /vagrant/vagrant-opt/db.example.json /vagrant/db.json
     echo "Create folders for temporary log and pid-files ..."

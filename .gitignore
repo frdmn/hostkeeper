@@ -6,9 +6,9 @@
 .vagrant/
 
 ### hostkeeper-WebUI ###
-public/.sass-cache
-public/node_modules
-public/bower_components
+.sass-cache
+node_modules
+bower_components
 
 public/assets/css/*.css
 public/assets/css/*.css.map

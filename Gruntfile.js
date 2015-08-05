@@ -5,10 +5,10 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         dirs: {
             bower: 'bower_components',
-            css: 'assets/css',
-            js: 'assets/js',
-            images: 'assets/images',
-            icons: 'assets/icons'
+            css: 'public/assets/css',
+            js: 'public/assets/js',
+            images: 'public/assets/images',
+            icons: 'public/assets/icons'
         },
 
         // SCSS
