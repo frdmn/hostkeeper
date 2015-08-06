@@ -34,7 +34,7 @@ if (process.env.HOSTKEEPER_CONFIG) {
  */
 function updateHostsFile(callback){
   // Load current database
-  var database = JSON.parse(fs.readFileSync(config, 'utf8'));
+  var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
 
   // Clear hosts file
   fs.writeFile(config.dnsmasq.hostsfile, '', function(){
@@ -136,7 +136,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
 
     // Adjust response defaults
     json.method = 'info';
@@ -162,7 +162,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
 
     // Adjust response defaults
     json.method = 'show';
@@ -184,7 +184,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config, 'utf8')),
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
 
     // Adjust response defaults
@@ -226,7 +226,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config, 'utf8'));
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8'));
 
     // Adjust response defaults
     json.method = 'add';
@@ -276,7 +276,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config, 'utf8')),
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         index;
 
     // Adjust response defaults
@@ -347,7 +347,7 @@ function startServer(){
     var json = initiateJSONdefaults();
 
     // Load hosts database
-    var database = JSON.parse(fs.readFileSync(config, 'utf8')),
+    var database = JSON.parse(fs.readFileSync(config.database, 'utf8')),
         currentHostAmount = Object.keys(database.hosts).length;
 
     // Adjust response defaults
