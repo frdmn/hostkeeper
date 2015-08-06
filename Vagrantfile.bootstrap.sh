@@ -64,6 +64,8 @@ else
     # hostkeeper is already installed
     echo "hostkeeper already installed!"
     cd /vagrant
+    echo "Pull changes from GitHub repository ..."
+    run git pull
     echo "Install node modules ..."
     run npm install
     cd /vagrant/public
