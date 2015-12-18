@@ -42,7 +42,7 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     run cp /vagrant/vagrant-opt/dnsmasq.conf /etc/dnsmasq.conf
     run touch /vagrant/db.dnsmasq
     echo "Compile NodeJS libs and assets of hostkeeper web interface ..."
-    cd /vagrant/public
+    cd /vagrant
     run npm install -g grunt-cli bower json
     run npm install
     run bower install --allow-root
