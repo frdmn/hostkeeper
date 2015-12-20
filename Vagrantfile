@@ -26,6 +26,6 @@ Vagrant.configure("2") do |config|
     config.vm.network "public_network", bridge: $network_interface_to_use
     config.vm.provider :virtualbox do |vb|
         # 512 MB memory
-        vb.customize ["modifyvm", :id, "--memory", "512"]
+        vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
 end
