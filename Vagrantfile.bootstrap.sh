@@ -36,7 +36,6 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     run curl -o /tmp/node_installation -sL https://deb.nodesource.com/setup_5.x
     run bash /tmp/node_installation
     run apt-get install -y nodejs
-    run apt-get -y update
     echo "Install requirements ..."
     run apt-get install -y curl vim git build-essential dnsmasq nodejs fontconfig
     echo "Symlink /usr/bin/nodejs to /usr/bin/node ..."
