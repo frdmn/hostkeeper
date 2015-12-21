@@ -71,7 +71,7 @@ else
     run git pull
     echo "Install node modules ..."
     run npm install
-    cd /vagrant/public
+    cd /vagrant
     run npm install
     echo "Install bower components ..."
     run bower install --allow-root --config.analytics=false
