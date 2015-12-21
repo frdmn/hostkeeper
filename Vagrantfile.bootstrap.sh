@@ -38,7 +38,7 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     run apt-get install -y nodejs
     run apt-get -y update
     echo "Install requirements ..."
-    run apt-get install -y curl vim git build-essential dnsmasq nodejs npm fontconfig
+    run apt-get install -y curl vim git build-essential dnsmasq nodejs fontconfig
     echo "Symlink /usr/bin/nodejs to /usr/bin/node ..."
     run ln -sf /usr/bin/nodejs /usr/bin/node
     echo "Apply base config for dnsmasq ..."
