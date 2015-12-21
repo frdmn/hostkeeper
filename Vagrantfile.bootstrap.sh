@@ -68,9 +68,7 @@ else
     cd /vagrant
     echo "Pull changes from GitHub repository ..."
     run git pull
-    echo "Install node modules ..."
-    run npm install
-    cd /vagrant
+    echo "Install node modules  ..."
     run npm install
     echo "Install bower components ..."
     run bower install --allow-root --config.analytics=false
