@@ -48,7 +48,7 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     cd /vagrant
     run npm install -g grunt-cli bower json
     run npm install
-    run bower install --allow-root
+    run bower install --allow-root --config.analytics=false
     run grunt
     run cp /vagrant/vagrant-opt/initd_hostkeeper /etc/init.d/hostkeeper
     run cp /vagrant/vagrant-opt/db.example.json /vagrant/db.json
@@ -74,7 +74,7 @@ else
     cd /vagrant/public
     run npm install
     echo "Install bower components ..."
-    run bower install --allow-root
+    run bower install --allow-root --config.analytics=false
     echo "Recompile assets using Grunt ..."
     run grunt
     echo "Restart hostkeeper ..."
