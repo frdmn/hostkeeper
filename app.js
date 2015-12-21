@@ -244,7 +244,7 @@ function startServer(){
       database.hosts.push(newHost);
 
       // Write database
-      fs.writeFile(config, JSON.stringify(database, null, 2), function(){
+      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
         // Return 201 CREATED status code
         response.writeHead(201, responseHeaders);
 
@@ -300,7 +300,7 @@ function startServer(){
         database.hosts[index].ip = request.post.ip;
 
         // Write database
-        fs.writeFile(config, JSON.stringify(database, null, 2), function(){
+        fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
           // Return response
           response.writeHead(200,responseHeaders);
 
@@ -368,7 +368,7 @@ function startServer(){
     // Compare if amount changed
     if (newHostAmount !== currentHostAmount) {
       // Write database
-      fs.writeFile(config, JSON.stringify(database, null, 2), function(){
+      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
 
         // Return 200 response
         response.writeHead(200, responseHeaders);
