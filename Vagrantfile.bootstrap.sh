@@ -56,7 +56,7 @@ if [[ ! -f /opt/HOSTKEEPER_SUCCESSFULLY_INSTALLED ]]; then
     run chmod +x /etc/init.d/hostkeeper
     run update-rc.d hostkeeper defaults
     echo "Start hostkeeper ..."
-    run service hostkeeper start
+    run service hostkeeper start --force
     echo "Create initial dnsmasqs host file via API server ..."
     run sleep 5
     echo "Updating hosts file for dnsmasq using REST API ... $(curl -s http://localhost/api/update &>/dev/null && printf "success :)" || echo "failed :(")"
