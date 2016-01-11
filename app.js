@@ -292,22 +292,39 @@ function startServer(){
     // Make sure the desired host exists
     if (database.hosts[index]) {
 
-      // Update element
-      database.hosts[index].host = request.post.host;
-      database.hosts[index].ip = request.post.ip;
+      // Make sure we haven't already added the host
+      if (!find(database.hosts, 'host', request.post.host)) {
 
-      // Write database
-      fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+        // Update element
+        database.hosts[index].host = request.post.host;
+        database.hosts[index].ip = request.post.ip;
+
+        // Write database
+        fs.writeFile(config.database, JSON.stringify(database, null, 2), function(){
+          // Return response
+          response.writeHead(200,responseHeaders);
+
+          // Construct JSON response
+          json.success = true;
+          json.payload = database.hosts[index];
+
+          // Return JSON
+          response.end(JSON.stringify(json));
+        });
+      } else {
         // Return response
-        response.writeHead(200,responseHeaders);
+        response.writeHead(400, responseHeaders);
 
         // Construct JSON response
-        json.success = true;
-        json.payload = database.hosts[index];
+        json.success = false;
+        json.payload.error = 'Host already exist';
+        json.payload.input = {};
+        json.payload.input.host = request.post.host;
+        json.payload.input.ip = request.post.ip;
 
         // Return JSON
         response.end(JSON.stringify(json));
-      });
+      }
     } else {
       // Return 404 response
       response.writeHead(404, responseHeaders);
