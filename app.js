@@ -291,9 +291,8 @@ function startServer(){
 
     // Make sure the desired host exists
     if (database.hosts[index]) {
-
       // Make sure we haven't already added the host
-      if (!find(database.hosts, 'host', request.post.host)) {
+      if (!find(database.hosts, 'host', request.post.host) || find(database.hosts, 'host', request.post.host).id === database.hosts[index].id) {
 
         // Update element
         database.hosts[index].host = request.post.host;
