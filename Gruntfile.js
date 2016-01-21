@@ -79,7 +79,10 @@ module.exports = function(grunt) {
                 '<%= dirs.js %>/*.js',
                 '!<%= dirs.js %>/modernizr.js',
                 '!<%= dirs.js %>/build.js'
-            ]
+            ],
+            options: {
+                jshintrc: '.jshintrc'
+            }
         },
 
         // HTMLhint
