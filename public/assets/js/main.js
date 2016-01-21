@@ -216,6 +216,14 @@ $(function() {
           });
         }
       }
+      , error: function(request, status) {
+        console.log(status);
+        $('.modal#edit').removeClass('modal--active');
+        $('.modal#edit').removeClass('modal--saving');
+        $('.modal#edit .error-msg').text(request.responseJSON.payload.error);
+        // Show saving overlay
+        $('.modal#edit').addClass('modal--error');
+      }
     });
   });
 
