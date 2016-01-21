@@ -10,3 +10,11 @@ html {
 .text--light {
   color: rgba(white, .8);
 }
+
+.text--large {
+  font-weight: bold;
+  @include font-size($headingSize5);
+  @include media($breakLaptop) {
+    @include font-size($headingSize3);
+  }
+}
