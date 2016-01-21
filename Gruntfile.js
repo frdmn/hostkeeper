@@ -124,20 +124,20 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: '<%= dirs.icons %>',
                     src: ['*.svg', '*.png'],
-                    dest: "<%= dirs.icons %>/grunticon"
+                    dest: '<%= dirs.icons %>/grunticon'
                 }],
                 options: {
-                    cssprefix: ".icon--",
+                    cssprefix: '.icon--',
                     customselectors: {
-                      "*": [".icon--$1:before"],
-                      "dots": [".dotted-list > li"]
+                      '*': ['.icon--$1:before'],
+                      'dots': ['.dotted-list > li']
                     }
                 }
             }
         },
 
         // Browser Sync
-        browser_sync: {
+        browserSync: {
             dev: {
                 bsFiles: {
                     src : 'assets/css/style.css'
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
                 options: {
                     watchTask: true,
                     server: {
-                        baseDir: ""
+                        baseDir: ''
                     },
                     ghostMode: {
                         clicks: true,
@@ -190,5 +190,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['sass:build', 'autoprefixer', 'concat', 'uglify', 'grunticon', 'imagemin']);
     grunt.registerTask('dev', ['connect', 'watch', 'notify']);
-    grunt.registerTask('dev:sync', ['browser_sync', 'watch', 'notify']);
+    grunt.registerTask('dev:sync', ['browserSync', 'watch', 'notify']);
 };
