@@ -151,6 +151,13 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     }
   }
   &--error {
+    &:before {
+      opacity: 0;
+      transition: .8s .4s;
+    }
+    &:after {
+      opacity: 1;
+    }
     .modal__spinner {
       transform: translateY(-25%);
       opacity: 0;
