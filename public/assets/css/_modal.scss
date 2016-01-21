@@ -65,7 +65,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
       right: 0;
       top: 50%;
       height: 10px;
-      background: black;
+      background: white;
     }
     &:before {
       transform: rotate(-45deg);
@@ -172,7 +172,7 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     }
     .modal__close {
       transform: translateY(0);
-      opacity: 1;
+      opacity: .8;
       transition: .2s .8s $easeInOut;
       visibility: visible;
     }
