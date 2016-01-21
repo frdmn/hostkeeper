@@ -57,7 +57,9 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
   .modal__child--1 { transition-delay: .3s; }
   .modal__child--2 { transition-delay: .2s; }
   .modal__child--3 { transition-delay: .1s; }
-  &--active {
+
+  &--active,
+  &--saving {
     transform: translateY(0);
     visibility: visible;
     opacity: 1;
@@ -65,6 +67,9 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     .modal__child--1 { transition-delay: .1s; }
     .modal__child--2 { transition-delay: .2s; }
     .modal__child--3 { transition-delay: .3s; }
+  }
+
+  &--active {
     .modal__spinner {
       transform: translateY(50%);
     }
@@ -76,10 +81,6 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
   }
 
   &--saving {
-    transform: translateY(0);
-    visibility: visible;
-    opacity: 1;
-    transition: opacity .2s;
     &:before {
       opacity: 0;
       transition: .8s .4s;
@@ -87,9 +88,6 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     &:after {
       opacity: 1;
     }
-    .modal__child--1 { transition-delay: .1s; }
-    .modal__child--2 { transition-delay: .2s; }
-    .modal__child--3 { transition-delay: .3s; }
     .modal__spinner {
       transform: translateY(0);
       opacity: 1;
