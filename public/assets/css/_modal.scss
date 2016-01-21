@@ -40,6 +40,36 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     opacity: 0;
     transform: translateY(-25%);
     transition: .2s $easeInOut;
+    &-close {
+      position: absolute;
+      right: $baseUnit;
+      top: $baseUnit;
+      width: $baseUnit*2;
+      height: $baseUnit*2;
+      background: transparent;
+      border: none;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-25%);
+      transition: .2s $easeInOut;
+      text-indent: -99999px;
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 10px;
+        background: black;
+      }
+      &:before {
+        transform: rotate(-45deg);
+      }
+      &:after {
+        transform: rotate(45deg);
+      }
+    }
   }
 
   &:before,
@@ -88,6 +118,9 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
     .modal__error {
       transform: translateY(50%);
     }
+    .modal__error-close {
+      transform: translateY(50%);
+    }
     .modal__child {
       transform: translateY(0);
       opacity: 1;
@@ -125,6 +158,12 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
       transform: translateY(0);
       opacity: 1;
       transition: .2s .4s $easeInOut;
+      visibility: visible;
+    }
+    .modal__error-close {
+      transform: translateY(0);
+      opacity: 1;
+      transition: .2s .8s $easeInOut;
       visibility: visible;
     }
     .modal__child {
