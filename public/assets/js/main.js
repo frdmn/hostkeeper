@@ -39,6 +39,8 @@ $(function() {
     $('.modal').removeClass('modal--active');
     // Remove saving class
     $('.modal').removeClass('modal--saving');
+    // Remove error class
+    $('.modal').removeClass('modal--error');
   }
 
   /*
@@ -161,6 +163,14 @@ $(function() {
           });
         }
       }
+      , error: function(request, status) {
+        console.log(status);
+        $('.modal#add').removeClass('modal--active');
+        $('.modal#add').removeClass('modal--saving');
+        $('.modal#add .error-msg').text(request.responseJSON.payload.error);
+        // Show error overlay
+        $('.modal#add').addClass('modal--error');
+      }
     });
   });
 
@@ -213,6 +223,14 @@ $(function() {
             reloadHostList();
           });
         }
+      }
+      , error: function(request, status) {
+        console.log(status);
+        $('.modal#edit').removeClass('modal--active');
+        $('.modal#edit').removeClass('modal--saving');
+        $('.modal#edit .error-msg').text(request.responseJSON.payload.error);
+        // Show error overlay
+        $('.modal#edit').addClass('modal--error');
       }
     });
   });
