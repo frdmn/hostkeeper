@@ -1,5 +1,8 @@
 .host-input {
   margin-bottom: $baseUnit*2;
+  &__wrap {
+    position: relative;
+  }
   &__input {
     width: 100%;
     border: 0;
@@ -16,4 +19,15 @@
       color: #fff;
     }
   }
+}
+
+label.host-input-error {
+  position: absolute;
+  left:0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  opacity: .3;
+  @include font-size(10px);
+  pointer-events: none;
 }

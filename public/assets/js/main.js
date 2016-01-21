@@ -77,7 +77,7 @@ $(function() {
   // Prepare form validation
   $( 'form' ).each(function(){
     $(this).validate( {
-      errorClass: 'ui-state-error',
+      errorClass: 'host-input-error',
       rules: {
         ip: {
           required: true,
