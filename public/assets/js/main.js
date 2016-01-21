@@ -163,6 +163,14 @@ $(function() {
           });
         }
       }
+      , error: function(request, status) {
+        console.log(status);
+        $('.modal#add').removeClass('modal--active');
+        $('.modal#add').removeClass('modal--saving');
+        $('.modal#add .error-msg').text(request.responseJSON.payload.error);
+        // Show saving overlay
+        $('.modal#add').addClass('modal--error');
+      }
     });
   });
 
