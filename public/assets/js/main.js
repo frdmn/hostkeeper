@@ -26,12 +26,12 @@ $(function() {
       type: 'GET'
       , url: 'http://' + window.location.host + '/api/update'
       , cache: false
-      , success: function(data) {
+      , success: function() {
         // Clear placeholder
         callback(true);
       }
     });
-  };
+  }
 
   // Close modals
   function closeModals(){
@@ -61,21 +61,21 @@ $(function() {
   // Form validator - IP plugin
   jQuery.validator.addMethod('validIP', function(value) {
     var split = value.split('.');
-    if (split.length != 4)
+    if (split.length !== 4)
       return false;
 
     for (var i=0; i<split.length; i++) {
       var s = split[i];
-      if (s.length==0 || isNaN(s) || s<0 || s>255)
+      if (s.length===0 || isNaN(s) || s<0 || s>255)
         return false;
     }
     return true;
   }, ' Invalid IP Address');
 
   // Prepare form validation
-  $( "form" ).each(function(){
+  $( 'form' ).each(function(){
     $(this).validate( {
-      errorClass: "ui-state-error",
+      errorClass: 'ui-state-error',
       rules: {
         ip: {
           required: true,
@@ -87,11 +87,11 @@ $(function() {
       },
       messages: {
         ip: {
-          required: "Enter an IP",
-          validIP: "IP not valid"
+          required: 'Enter an IP',
+          validIP: 'IP not valid'
         },
         host: {
-          required: "Enter a hostname"
+          required: 'Enter a hostname'
         }
       }
     });
@@ -110,7 +110,7 @@ $(function() {
 
   // as well as on ESC keypress
   $(document).keyup(function(e) {
-    if (e.keyCode == 27) {
+    if (e.keyCode === 27) {
       closeModals();
     }
   });
