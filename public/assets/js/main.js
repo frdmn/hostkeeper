@@ -39,6 +39,8 @@ $(function() {
     $('.modal').removeClass('modal--active');
     // Remove saving class
     $('.modal').removeClass('modal--saving');
+    // Remove error class
+    $('.modal').removeClass('modal--error');
   }
 
   /*
