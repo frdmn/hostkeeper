@@ -17,4 +17,17 @@
     background: linear-gradient(to right, rgba($colorGreyDark, 0),  $colorGreyDark 50%,  rgba($colorGreyDark, 0));
     bottom: 0;
   }
+  &-contract {
+    margin-bottom: 0;
+    padding-bottom: $baseUnit;
+  }
+  &.headline--light {
+    &:after {
+      background: linear-gradient(to right, rgba(#fff, 0),  rgba(#fff, .4) 50%,  rgba(#fff, 0));
+    }
+  }
+}
+
+.headline--light {
+  color: rgba(#fff, .8);
 }
