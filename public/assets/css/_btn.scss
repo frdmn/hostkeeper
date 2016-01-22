@@ -24,6 +24,7 @@
 }
 
 .btn:disabled {
+  cursor: no-drop;
   color: lighten($colorTextLighter, 10%);
   &:hover {
     color: lighten($colorTextLighter, 10%);
