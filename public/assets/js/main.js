@@ -14,7 +14,7 @@ $(function() {
         $('.dotted-list').html('');
         // Populate <ul> with host <li>'s
         data.payload.forEach(function(host) {
-          $('.dotted-list').append('<li id="host" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset" id="ip">' + host.ip + '</span></span> <span class="background-offset" id="host">' + host.host + '</span></li>');
+          $('.dotted-list').append('<li class="js-host-edit" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset js-ip-val">' + host.ip + '</span></span> <span class="background-offset js-host-val">' + host.host + '</span></li>');
         });
       }
     });
@@ -51,7 +51,7 @@ $(function() {
   reloadHostList();
 
   // Close modals on click on close button
-  $('.modal button.modal-close').on('click', function() {
+  $('.modal .js-modal-close').on('click', function() {
     closeModals();
   });
 
@@ -103,8 +103,8 @@ $(function() {
   $('form').on('keyup', function () {
     if ($(this).valid()) {
       $('.btn--submit', this).attr('disabled', false);
-      console.log($('#ip-input', this).val());
-      console.log($('#host-input', this).val());
+      console.log($('.js-ip-input', this).val());
+      console.log($('.js-host-input', this).val());
     } else {
       $('.btn--submit', this).attr('disabled', true);
     }
@@ -122,16 +122,16 @@ $(function() {
    **/
 
   // Open "add" modal
-  $('.modal-open#add-button').on('click', function() {
+  $('.js-modal-open').on('click', function() {
     // Reset modal inputs
-    $('.modal#add #host-input').val('');
-    $('.modal#add #ip-input').val('');
+    $('.modal#add .js-host-input').val('');
+    $('.modal#add .js-ip-input').val('');
     // Show modal
     $('.modal#add').addClass('modal--active');
   });
 
   // Save host
-  $('.modal#add .modal-save').on('click', function() {
+  $('.modal#add .js-form-submit').on('click', function() {
     // Close modal
     $('.modal#add').removeClass('modal--active');
     // Show saving overlay
@@ -139,8 +139,8 @@ $(function() {
 
     // Create POST object
     var postObject = {
-      'host': $('.modal#add #host-input').val()
-      , 'ip': $('.modal#add #ip-input').val()
+      'host': $('.modal#add .js-host-input').val()
+      , 'ip': $('.modal#add .js-ip-input').val()
     };
 
     // Send POST request to API
@@ -179,36 +179,36 @@ $(function() {
    **/
 
   // @TODO - is this below performant?
-  $(document).on('click', 'li#host', function() {
+  $(document).on('click', '.js-host-edit', function() {
     // Show modal
     $('.modal#edit').addClass('modal--active');
 
     // Get current host details
     var hostId = $(this).data('host')
-        , hostName = $('span#host', this).html()
-        , hostIp = $('span#ip', this).html();
+        , hostName = $('.js-host-val', this).html()
+        , hostIp = $('.js-ip-val', this).html();
 
     // Fill host and ip inputs
-    $('.modal#edit #id-input').val(hostId);
-    $('.modal#edit #host-input').val(hostName);
-    $('.modal#edit #ip-input').val(hostIp);
+    $('.modal#edit .js-id-input').val(hostId);
+    $('.modal#edit .js-host-input').val(hostName);
+    $('.modal#edit .js-ip-input').val(hostIp);
   });
 
   // Save edited host
-  $('.modal#edit .modal-save').on('click', function() {
+  $('.modal#edit .js-form-submit').on('click', function() {
     // Close modal
     $('.modal#edit').removeClass('modal--active');
     // Show saving overlay
     $('.modal#edit').addClass('modal--saving');
     // Create POST object
     var postObject = {
-      'host': $('.modal#edit #host-input').val()
-      , 'ip': $('.modal#edit #ip-input').val()
+      'host': $('.modal#edit .js-host-input').val()
+      , 'ip': $('.modal#edit .js-ip-input').val()
     };
     // Send PUT request to API
     $.ajax({
       type: 'PUT'
-      , url: 'http://' + window.location.host + '/api/edit/' + $('.modal#edit #id-input').val()
+      , url: 'http://' + window.location.host + '/api/edit/' + $('.modal#edit .js-id-input').val()
       , data: postObject
       , success: function(data) {
         if (!data.success) {
@@ -239,9 +239,9 @@ $(function() {
    * "delete host" related
    **/
 
-  $('.modal-delete').on('click', function() {
+  $('.js-modal-delete').on('click', function() {
     // Get current host details
-    var hostId = $('.modal#edit #id-input').val();
+    var hostId = $('.modal#edit .js-id-input').val();
     console.log(hostId);
     // Close modal
     $('.modal#edit').removeClass('modal--active');
