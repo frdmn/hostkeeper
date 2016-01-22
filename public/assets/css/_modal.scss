@@ -10,7 +10,15 @@ $easeInOut: cubic-bezier(.8,.26,.3,.84);
   visibility: hidden;
   opacity: 0;
   transition: 0s .5s, opacity .3s .2s;
-  overflow: auto;
+  overflow: hidden;
+  &__inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+  }
   &__child {
     transform: translateY(100%);
     visibility: hidden;
