@@ -68,7 +68,7 @@ $(function() {
   }
 
   function validateHost(host) {
-    if (/^[a-z][a-z\.?]*[a-z]$/.test(host)) {
+    if (host !== '') {
       return (true)
     }
     return (false)
@@ -98,7 +98,7 @@ $(function() {
     }
 
     if (!validHost) {
-      hostError.text('Enter a valid hostname');
+      hostError.text('Enter a hostname');
       hostError.addClass('host-input__error--visible');
     } else {
       hostError.removeClass('host-input__error--visible');
