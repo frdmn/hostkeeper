@@ -60,6 +60,51 @@ $(function() {
     event.preventDefault();
   });
 
+  function validateIp(ip) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip)) {
+      return (true)
+    }
+    return (false)
+  }
+
+  function validateHost(host) {
+    if (/^[a-z][a-z\.?]*[a-z]$/.test(host)) {
+      return (true)
+    }
+    return (false)
+  }
+
+  $('form').on('keyup', function() {
+    var ipInput = $(this).find('.js-ip-input').val(),
+        hostInput = $(this).find('.js-host-input').val(),
+        formSubmit = $(this).find('.js-form-submit'),
+        ipError = $(this).find('.js-ip-error'),
+        hostError = $(this).find('.js-host-error');
+
+    var validIp = validateIp(ipInput);
+    var validHost = validateHost(hostInput);
+
+    if (validIp && validHost) {
+      formSubmit.attr('disabled', false);
+    } else {
+      formSubmit.attr('disabled', true);
+    }
+
+    if (!validIp) {
+      ipError.text('Enter a valid IP');
+      ipError.addClass('host-input__error--visible');
+    } else {
+      ipError.removeClass('host-input__error--visible');
+    }
+
+    if (!validHost) {
+      hostError.text('Enter a valid hostname');
+      hostError.addClass('host-input__error--visible');
+    } else {
+      hostError.removeClass('host-input__error--visible');
+    }
+  });
+
   // as well as on ESC keypress
   $(document).keyup(function(e) {
     if (e.keyCode === 27) {
