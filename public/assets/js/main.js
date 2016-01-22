@@ -14,7 +14,7 @@ $(function() {
         $('.dotted-list').html('');
         // Populate <ul> with host <li>'s
         data.payload.forEach(function(host) {
-          $('.dotted-list').append('<li id="host" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset" id="ip">' + host.ip + '</span></span> <span class="background-offset" id="host">' + host.host + '</span></li>');
+          $('.dotted-list').append('<li class="js-host-edit" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset js-ip-val">' + host.ip + '</span></span> <span class="background-offset js-host-val">' + host.host + '</span></li>');
         });
       }
     });
@@ -51,7 +51,7 @@ $(function() {
   reloadHostList();
 
   // Close modals on click on close button
-  $('.modal button.modal-close').on('click', function() {
+  $('.modal .js-modal-close').on('click', function() {
     closeModals();
   });
 
@@ -60,53 +60,48 @@ $(function() {
     event.preventDefault();
   });
 
-  // Form validator - IP plugin
-  jQuery.validator.addMethod('validIP', function(value) {
-    var split = value.split('.');
-    if (split.length !== 4)
-      return false;
-
-    for (var i=0; i<split.length; i++) {
-      var s = split[i];
-      if (s.length===0 || isNaN(s) || s<0 || s>255)
-        return false;
+  function validateIp(ip) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip)) {
+      return (true)
     }
-    return true;
-  }, ' Invalid IP Address');
+    return (false)
+  }
 
-  // Prepare form validation
-  $( 'form' ).each(function(){
-    $(this).validate( {
-      errorClass: 'host-input-error',
-      rules: {
-        ip: {
-          required: true,
-          validIP: true
-        },
-        host: {
-          required: true
-        }
-      },
-      messages: {
-        ip: {
-          required: 'Enter an IP',
-          validIP: 'IP not valid'
-        },
-        host: {
-          required: 'Enter a hostname'
-        }
-      }
-    });
-  });
+  function validateHost(host) {
+    if (host !== '') {
+      return (true)
+    }
+    return (false)
+  }
 
-  // Validate form on keyup
-  $('form').on('keyup', function () {
-    if ($(this).valid()) {
-      $('.btn--submit', this).attr('disabled', false);
-      console.log($('#ip-input', this).val());
-      console.log($('#host-input', this).val());
+  $('form').on('keyup', function() {
+    var ipInput = $(this).find('.js-ip-input').val(),
+        hostInput = $(this).find('.js-host-input').val(),
+        formSubmit = $(this).find('.js-form-submit'),
+        ipError = $(this).find('.js-ip-error'),
+        hostError = $(this).find('.js-host-error');
+
+    var validIp = validateIp(ipInput);
+    var validHost = validateHost(hostInput);
+
+    if (validIp && validHost) {
+      formSubmit.attr('disabled', false);
     } else {
-      $('.btn--submit', this).attr('disabled', true);
+      formSubmit.attr('disabled', true);
+    }
+
+    if (!validIp) {
+      ipError.text('Enter a valid IP');
+      ipError.addClass('host-input__error--visible');
+    } else {
+      ipError.removeClass('host-input__error--visible');
+    }
+
+    if (!validHost) {
+      hostError.text('Enter a hostname');
+      hostError.addClass('host-input__error--visible');
+    } else {
+      hostError.removeClass('host-input__error--visible');
     }
   });
 
@@ -122,16 +117,16 @@ $(function() {
    **/
 
   // Open "add" modal
-  $('.modal-open#add-button').on('click', function() {
+  $('.js-modal-open').on('click', function() {
     // Reset modal inputs
-    $('.modal#add #host-input').val('');
-    $('.modal#add #ip-input').val('');
+    $('.modal#add .js-host-input').val('');
+    $('.modal#add .js-ip-input').val('');
     // Show modal
     $('.modal#add').addClass('modal--active');
   });
 
   // Save host
-  $('.modal#add .modal-save').on('click', function() {
+  $('.modal#add .js-form-submit').on('click', function() {
     // Close modal
     $('.modal#add').removeClass('modal--active');
     // Show saving overlay
@@ -139,8 +134,8 @@ $(function() {
 
     // Create POST object
     var postObject = {
-      'host': $('.modal#add #host-input').val()
-      , 'ip': $('.modal#add #ip-input').val()
+      'host': $('.modal#add .js-host-input').val()
+      , 'ip': $('.modal#add .js-ip-input').val()
     };
 
     // Send POST request to API
@@ -179,36 +174,36 @@ $(function() {
    **/
 
   // @TODO - is this below performant?
-  $(document).on('click', 'li#host', function() {
+  $(document).on('click', '.js-host-edit', function() {
     // Show modal
     $('.modal#edit').addClass('modal--active');
 
     // Get current host details
     var hostId = $(this).data('host')
-        , hostName = $('span#host', this).html()
-        , hostIp = $('span#ip', this).html();
+        , hostName = $('.js-host-val', this).html()
+        , hostIp = $('.js-ip-val', this).html();
 
     // Fill host and ip inputs
-    $('.modal#edit #id-input').val(hostId);
-    $('.modal#edit #host-input').val(hostName);
-    $('.modal#edit #ip-input').val(hostIp);
+    $('.modal#edit .js-id-input').val(hostId);
+    $('.modal#edit .js-host-input').val(hostName);
+    $('.modal#edit .js-ip-input').val(hostIp);
   });
 
   // Save edited host
-  $('.modal#edit .modal-save').on('click', function() {
+  $('.modal#edit .js-form-submit').on('click', function() {
     // Close modal
     $('.modal#edit').removeClass('modal--active');
     // Show saving overlay
     $('.modal#edit').addClass('modal--saving');
     // Create POST object
     var postObject = {
-      'host': $('.modal#edit #host-input').val()
-      , 'ip': $('.modal#edit #ip-input').val()
+      'host': $('.modal#edit .js-host-input').val()
+      , 'ip': $('.modal#edit .js-ip-input').val()
     };
     // Send PUT request to API
     $.ajax({
       type: 'PUT'
-      , url: 'http://' + window.location.host + '/api/edit/' + $('.modal#edit #id-input').val()
+      , url: 'http://' + window.location.host + '/api/edit/' + $('.modal#edit .js-id-input').val()
       , data: postObject
       , success: function(data) {
         if (!data.success) {
@@ -239,9 +234,9 @@ $(function() {
    * "delete host" related
    **/
 
-  $('.modal-delete').on('click', function() {
+  $('.js-modal-delete').on('click', function() {
     // Get current host details
-    var hostId = $('.modal#edit #id-input').val();
+    var hostId = $('.modal#edit .js-id-input').val();
     console.log(hostId);
     // Close modal
     $('.modal#edit').removeClass('modal--active');
