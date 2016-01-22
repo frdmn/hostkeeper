@@ -316,7 +316,7 @@ function startServer(){
 
         // Construct JSON response
         json.success = false;
-        json.payload.error = 'Host already exist';
+        json.payload.error = 'Host already exists';
         json.payload.input = {};
         json.payload.input.host = request.post.host;
         json.payload.input.ip = request.post.ip;
