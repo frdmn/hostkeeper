@@ -19,15 +19,21 @@
       color: #fff;
     }
   }
-}
-
-label.host-input-error {
-  position: absolute;
-  left:0;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-  opacity: .3;
-  @include font-size(10px);
-  pointer-events: none;
+  &__error {
+    position: absolute;
+    left:0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    @include font-size(10px);
+    pointer-events: none;
+    transform: translateY(50%) rotateX(90deg);
+    perspective: 1000;
+    opacity: 0;
+    transition: .3s;
+    &--visible {
+      transform: translateY(0) rotateX(0);
+      opacity: .3;
+    }
+  }
 }

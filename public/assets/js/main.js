@@ -60,56 +60,6 @@ $(function() {
     event.preventDefault();
   });
 
-  // Form validator - IP plugin
-  jQuery.validator.addMethod('validIP', function(value) {
-    var split = value.split('.');
-    if (split.length !== 4)
-      return false;
-
-    for (var i=0; i<split.length; i++) {
-      var s = split[i];
-      if (s.length===0 || isNaN(s) || s<0 || s>255)
-        return false;
-    }
-    return true;
-  }, ' Invalid IP Address');
-
-  // Prepare form validation
-  $( 'form' ).each(function(){
-    $(this).validate( {
-      errorClass: 'host-input-error',
-      rules: {
-        ip: {
-          required: true,
-          validIP: true
-        },
-        host: {
-          required: true
-        }
-      },
-      messages: {
-        ip: {
-          required: 'Enter an IP',
-          validIP: 'IP not valid'
-        },
-        host: {
-          required: 'Enter a hostname'
-        }
-      }
-    });
-  });
-
-  // Validate form on keyup
-  $('form').on('keyup', function () {
-    if ($(this).valid()) {
-      $('.btn--submit', this).attr('disabled', false);
-      console.log($('.js-ip-input', this).val());
-      console.log($('.js-host-input', this).val());
-    } else {
-      $('.btn--submit', this).attr('disabled', true);
-    }
-  });
-
   // as well as on ESC keypress
   $(document).keyup(function(e) {
     if (e.keyCode === 27) {
