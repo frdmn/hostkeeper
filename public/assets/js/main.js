@@ -14,7 +14,7 @@ $(function() {
         $('.dotted-list').html('');
         // Populate <ul> with host <li>'s
         data.payload.forEach(function(host) {
-          $('.dotted-list').append('<li class="js-host-edit" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset js-ip-val">' + host.ip + '</span></span> <span class="background-offset js-host-val">' + host.host + '</span></li>');
+          $('.dotted-list').append('<li class="js-host-edit" data-host="' + host.id + '"><span class="dotted-list__title"><span class="background-offset background-offset--left js-ip-val">' + host.ip + '</span></span> <span class="background-offset background-offset--right js-host-val">' + host.host + '</span></li>');
         });
       }
     });

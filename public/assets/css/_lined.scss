@@ -24,12 +24,22 @@
   }
   &:before {
     background: linear-gradient(to left, $colorGreyLight, rgba($colorGreyLight,0));
-    left: -$baseUnit;
-    width: $baseUnit;
+    left: -$baseUnit*2;
+    width: $baseUnit*2;
   }
   &:after {
     background: linear-gradient(to right, $colorGreyLight, rgba($colorGreyLight,0));
-    right: -$baseUnit;
-    width: $baseUnit;
+    right: -$baseUnit*2;
+    width: $baseUnit*2;
+  }
+  &--left {
+    &:before {
+      display: none;
+    }
+  }
+  &--right {
+    &:after {
+      display: none;
+    }
   }
 }
