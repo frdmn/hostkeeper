@@ -70,105 +70,109 @@
   </div>
 
   <div class="modal" id="add">
-    <div class="center">
-      <div class="center__inner">
-        <div class="base">
-          <form>
-            <div class="constrain constrain--max">
-              <h3 class="modal__child modal__child--1 headline headline--seperated heading-4">Add new mapping</h3>
-              <div class="modal__child modal__child--2 host-input">
-                <div class="grid grid--flush">
-                  <div class="grid__item width--1of2">
-                    <div class="host-input__wrap">
-                      <input type="text" class="host-input__input host-input__input--ip" name="ip" id="ip-input" placeholder="IP">
-                    </div>
-                  </div><!--
-               --><div class="grid__item width--1of2">
-                    <div class="host-input__wrap">
-                      <input type="text" class="host-input__input" name="host" id="host-input" placeholder="Hostname">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal__child modal__child--3 text--center">
-                <ul class="nav nav--slash">
-                  <li><button class="btn btn--fake btn--hidden modal-close">Cancel</button></li><!--
-               --><li><button class="btn btn--fake btn--submit modal-save" disabled="true">Submit</button></li>
-                </ul>
-              </div>
-              <div class="modal__spinner">
-                <i class="modal-close icon icon--spinner"></i>
-              </div>
-              <div class="modal__error">
-                <div class="center">
-                  <div class="center__inner">
-                    <div class="base text--center">
-                      <div class="constrain constrain--max text--light text--large">
-                        <h1>Error</h1>
-                        <p class="error-msg">
-                          <!-- ERROR MESSAGE -->
-                        </p>
+    <div class="modal__inner">
+      <div class="center">
+        <div class="center__inner">
+          <div class="base">
+            <form>
+              <div class="constrain constrain--max">
+                <h3 class="modal__child modal__child--1 headline headline--seperated heading-4">Add new mapping</h3>
+                <div class="modal__child modal__child--2 host-input">
+                  <div class="grid grid--flush">
+                    <div class="grid__item width--1of2">
+                      <div class="host-input__wrap">
+                        <input type="text" class="host-input__input host-input__input--ip" name="ip" id="ip-input" placeholder="IP">
+                      </div>
+                    </div><!--
+                 --><div class="grid__item width--1of2">
+                      <div class="host-input__wrap">
+                        <input type="text" class="host-input__input" name="host" id="host-input" placeholder="Hostname">
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="modal__child modal__child--3 text--center">
+                  <ul class="nav nav--slash">
+                    <li><button class="btn btn--fake btn--hidden modal-close">Cancel</button></li><!--
+                 --><li><button class="btn btn--fake btn--submit modal-save" disabled="true">Submit</button></li>
+                  </ul>
+                </div>
+                <div class="modal__spinner">
+                  <i class="modal-close icon icon--spinner"></i>
+                </div>
+                <div class="modal__error">
+                  <div class="center">
+                    <div class="center__inner">
+                      <div class="base text--center">
+                        <div class="constrain constrain--max text--light text--large">
+                          <h6 class="headline headline--light headline--seperated headline--seperated-contract heading-4">Error</h6>
+                          <p class="space--bottom-none error-msg">
+                            <!-- ERROR MESSAGE -->
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="modal__close modal-close">close</button>
               </div>
-              <button class="modal__close modal-close">close</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="modal" id="edit">
-    <div class="center">
-      <div class="center__inner">
-        <div class="base">
-          <form>
-            <div class="constrain constrain--max">
-              <h3 class="modal__child modal__child--1 headline headline--seperated heading-4">Edit mapping</h3>
-              <div class="modal__child modal__child--2 host-input">
-                <div class="grid grid--flush">
-                  <div class="grid__item width--1of2">
-                    <div class="host-input__wrap">
-                      <input type="text" class="host-input__input host-input__input--ip" name="ip" id="ip-input" placeholder="IP">
+    <div class="modal__inner">
+      <div class="center">
+        <div class="center__inner">
+          <div class="base">
+            <form>
+              <div class="constrain constrain--max">
+                <h3 class="modal__child modal__child--1 headline headline--seperated heading-4">Edit mapping</h3>
+                <div class="modal__child modal__child--2 host-input">
+                  <div class="grid grid--flush">
+                    <div class="grid__item width--1of2">
+                      <div class="host-input__wrap">
+                        <input type="text" class="host-input__input host-input__input--ip" name="ip" id="ip-input" placeholder="IP">
+                      </div>
+                    </div><!--
+                 --><div class="grid__item width--1of2">
+                      <div class="host-input__wrap">
+                        <input type="text" class="host-input__input" name="host" id="host-input" placeholder="Hostname">
+                      </div>
                     </div>
-                  </div><!--
-               --><div class="grid__item width--1of2">
-                    <div class="host-input__wrap">
-                      <input type="text" class="host-input__input" name="host" id="host-input" placeholder="Hostname">
-                    </div>
+                    <input type="hidden" value="" id="id-input">
                   </div>
-                  <input type="hidden" value="" id="id-input">
                 </div>
-              </div>
-              <div class="modal__child modal__child--3 text--center">
-                <ul class="nav nav--slash">
-                  <li><button class="btn btn--fake btn--hidden modal-close">Cancel</button></li><!--
-               --><li><button class="btn btn--fake btn--hidden btn--delete modal-delete">Delete</button></li><!--
-               --><li><button class="btn btn--fake btn--submit modal-save" disabled="true">Submit</button></li>
-                </ul>
-              </div>
-              <div class="modal__spinner">
-                <i class="modal-close icon icon--spinner"></i>
-              </div>
-              <div class="modal__error">
-                <div class="center">
-                  <div class="center__inner">
-                    <div class="base text--center">
-                      <div class="constrain constrain--max text--light text--large">
-                        <h1>Error</h1>
-                        <p class="error-msg">
-                          <!-- ERROR MESSAGE -->
-                        </p>
+                <div class="modal__child modal__child--3 text--center">
+                  <ul class="nav nav--slash">
+                    <li><button class="btn btn--fake btn--hidden modal-close">Cancel</button></li><!--
+                 --><li><button class="btn btn--fake btn--hidden btn--delete modal-delete">Delete</button></li><!--
+                 --><li><button class="btn btn--fake btn--submit modal-save" disabled="true">Submit</button></li>
+                  </ul>
+                </div>
+                <div class="modal__spinner">
+                  <i class="modal-close icon icon--spinner"></i>
+                </div>
+                <div class="modal__error">
+                  <div class="center">
+                    <div class="center__inner">
+                      <div class="base text--center">
+                        <div class="constrain constrain--max text--light text--large">
+                          <h6 class="headline headline--light headline--seperated headline--seperated-contract heading-4">Error</h6>
+                          <p class="space--bottom-none error-msg">
+                            <!-- ERROR MESSAGE -->
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <button class="modal__close modal-close">close</button>
               </div>
-              <button class="modal__close modal-close">close</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
