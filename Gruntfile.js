@@ -129,7 +129,7 @@ module.exports = function(grunt) {
                     cssprefix: '.icon--',
                     customselectors: {
                       '*': ['.icon--$1:before'],
-                      'dots': ['.dotted-list > li']
+                      'dots': ['.dotted-list > li:before']
                     }
                 }
             }

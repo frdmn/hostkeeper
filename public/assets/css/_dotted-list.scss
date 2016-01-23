@@ -6,9 +6,27 @@
   margin-left: 0;
   margin: $baseUnit/2 0;
   > li {
-    background-repeat: repeat-x !important;
-    background-position: center center;
     cursor: pointer;
+    position: relative;
+    transition: .2s;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-repeat: repeat-x !important;
+      background-position: center center;
+      opacity: .3;
+      transition: .2s;
+    }
+    &:hover {
+      color: darken($colorTextLight, 20%);
+      &:before {
+        opacity: 1;
+      }
+    }
   }
   &__offset {
     background: $colorGreyLight;

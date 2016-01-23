@@ -1,3 +1,11 @@
+.btn {
+  transition: color .2s;
+  &:focus,
+  &:active {
+    outline-color: $colorLink;
+  }
+}
+
 .btn--fake {
   padding: 0;
   background: transparent;
@@ -19,11 +27,12 @@
 
 .btn--delete {
   &:hover {
-    color: red;
+    color: tomato;
   }
 }
 
 .btn:disabled {
+  cursor: no-drop;
   color: lighten($colorTextLighter, 10%);
   &:hover {
     color: lighten($colorTextLighter, 10%);
